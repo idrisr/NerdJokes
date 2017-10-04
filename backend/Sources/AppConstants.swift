@@ -17,7 +17,7 @@ struct AppConstants {
     }
     
     struct ServerConfig {
-        static let kPort = 8080
+        static let kPort: UInt16 = 8080
     }
     
     struct DatabaseConfig {
