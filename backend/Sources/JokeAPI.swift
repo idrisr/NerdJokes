@@ -25,6 +25,10 @@ struct AppConstants {
         static let kDatabase = "nerdnote"
         static let kPort = 5432
     }
+    
+    struct DatabaseTables {
+        static let kJoke = "joke"
+    }
 }
 
 class JokeAPI {
@@ -94,13 +98,12 @@ class JokeAPI {
     func new(json: String?) throws -> String {
         guard
             let json = json,
-            let dictionary = try json.jsonDecode() as? [String: String],
-            let setup = dictionary[AppConstants.JokeKeys.kSetup],
-            let punchline = dictionary[AppConstants.JokeKeys.kPunchline],
-            let strVotes = dictionary[AppConstants.JokeKeys.kVotes] else {
+            let dictionary = try json.jsonDecode() as? [String: Any],
+            let setup = dictionary[AppConstants.JokeKeys.kSetup] as? String,
+            let punchline = dictionary[AppConstants.JokeKeys.kPunchline] as? String,
+            let votes = dictionary[AppConstants.JokeKeys.kVotes] as? Int else {
                 return "Invalid parameters"
         }
-        let votes = Int(strVotes) ?? 0
         
         return try new(setup: setup, punchline: punchline, votes: votes).jsonEncodedString()
     }
@@ -116,6 +119,11 @@ class JokeAPI {
         }
         
         let joke = try Joke.get(id: id)
+        
+        guard !joke.isEmpty else {
+            return try new(setup: setup, punchline: punchline, votes: votes).jsonEncodedString()
+        }
+        
         joke.setup = setup
         joke.punchline = punchline
         joke.votes = votes

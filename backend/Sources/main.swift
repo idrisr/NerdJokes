@@ -5,8 +5,8 @@ import PerfectHTTPServer
 let server = HTTPServer()
 server.serverPort = 8080
 
-let noteController = NoteController()
-server.addRoutes(Routes(noteController.routes))
+let jokeController = JokeController()
+server.addRoutes(Routes(jokeController.routes))
 
 JokeAPI.sharedInstance.setupDatabase()
 

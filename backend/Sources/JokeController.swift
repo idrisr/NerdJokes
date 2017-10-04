@@ -12,15 +12,15 @@ import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
 
-class NoteController {
+class JokeController {
     var routes: [Route] {
         return [
-            Route(method: .get, uri: "/jokes/test", handler: test),
+            Route(method: .get, uri: "/jokes/test/now", handler: test),
             Route(method: .get, uri: "/jokes", handler: getAll),
             Route(method: .post, uri: "/jokes", handler: addNote),
             Route(method: .get, uri: "/jokes/{id}", handler: getByID),
-            Route(method: .put, uri: "/notes/{id}", handler: update),
-            Route(method: .delete, uri: "/notes/{id}", handler: delete),
+            Route(method: .put, uri: "/jokes/{id}", handler: update),
+            Route(method: .delete, uri: "/jokes/{id}", handler: delete),
         ]
     }
     

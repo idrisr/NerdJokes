@@ -17,7 +17,7 @@ class Joke: PostgresStORM {
     var votes: Int = 0
     
     override func table() -> String {
-        return "notes"
+        return "joke"
     }
     
     override func to(_ this: StORMRow) {
@@ -25,6 +25,10 @@ class Joke: PostgresStORM {
         setup = this.data["setup"] as? String ?? ""
         punchline = this.data["punchline"] as? String ?? ""
         votes = this.data["votes"] as? Int ?? 0
+    }
+    
+    var isEmpty: Bool {
+        return id == 0 && setup == "" && punchline == ""
     }
 }
 
