@@ -15,7 +15,7 @@ import PerfectHTTPServer
 class JokeController {
     var routes: [Route] {
         return [
-            Route(method: .get, uri: "/jokes/test/now", handler: test),
+            Route(method: .get, uri: "/jokes/test/now", handler: test), // this route is for testing only
             Route(method: .get, uri: "/jokes", handler: getAll),
             Route(method: .post, uri: "/jokes", handler: addNote),
             Route(method: .get, uri: "/jokes/{id}", handler: getByID),
@@ -31,8 +31,7 @@ class JokeController {
                 .setHeader(.contentType, value: "application/json")
                 .completed()
         } catch {
-            response.setBody(string: "Error handling request: \(error)")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Error handling request: \(error)")
         }
     }
     
@@ -43,16 +42,14 @@ class JokeController {
                 .setHeader(.contentType, value: "application/json")
                 .completed()
         } catch {
-            response.setBody(string: "Error handling request: \(error)")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Error handling request: \(error)")
         }
 
     }
 
     func getByID(request: HTTPRequest, response: HTTPResponse) {
         guard let id = getID(request: request) else {
-            response.setBody(string: "Invalid ID")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Invalid ID", status: .badRequest)
             return
         }
         
@@ -60,8 +57,7 @@ class JokeController {
             let joke = try Joke.get(id: id)
             
             guard !joke.isEmpty else {
-                response.setBody(string: "ID \(id) does not exist")
-                    .completed(status: .internalServerError)
+                showError(response: response, message: "ID \(id) does not exist", status: .badRequest)
                 return
             }
             
@@ -71,15 +67,13 @@ class JokeController {
                 .setHeader(.contentType, value: "application/json")
                 .completed()
         } catch {
-            response.setBody(string: "Error handling request: \(error)")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Error handling request: \(error)")
         }
     }
     
     func update(request: HTTPRequest, response: HTTPResponse) {
         guard let id = getID(request: request) else {
-            response.setBody(string: "Invalid ID")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Invalid ID")
             return
         }
         
@@ -90,16 +84,14 @@ class JokeController {
                 .setHeader(.contentType, value: "application/json")
                 .completed()
         } catch {
-            response.setBody(string: "Error handling request: \(error)")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Error handling request: \(error)")
         }
 
     }
     
     func delete(request: HTTPRequest, response: HTTPResponse) {
         guard let id = getID(request: request) else {
-            response.setBody(string: "Invalid ID")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Invalid ID", status: .badRequest)
             return
         }
         
@@ -110,8 +102,7 @@ class JokeController {
                 .setHeader(.contentType, value: "application/json")
                 .completed()
         } catch {
-            response.setBody(string: "Error handling request: \(error)")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Error handling request: \(error)")
         }
     }
     
@@ -122,8 +113,7 @@ class JokeController {
                 .setHeader(.contentType, value: "application/json")
                 .completed()
         } catch {
-            response.setBody(string: "Error handling request: \(error)")
-                .completed(status: .internalServerError)
+            showError(response: response, message: "Error handling request: \(error)")
         }
     }
     
@@ -134,5 +124,15 @@ class JokeController {
                 return nil
         }
         return id
+    }
+    
+    func showError(response: HTTPResponse, message: String, status: HTTPResponseStatus = .internalServerError) {
+        do {
+            try response.setBody(json: ["error": message])
+                .setHeader(.contentType, value: "application/json")
+                .completed(status: status)
+        } catch {
+            print("Can't show error message \(error)")
+        }
     }
 }
