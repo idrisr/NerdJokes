@@ -21,7 +21,7 @@ struct AppConstants {
     }
     
     struct DatabaseConfig {
-        static let kPath = "/Users/nlash/Code/NerdJokes/backend/db/nerdjokes.db"
+        static let kPath = "/Users/nlash/Code/NerdJokes/backend/nerdjokes.db"
     }
     
     struct DatabaseTables {

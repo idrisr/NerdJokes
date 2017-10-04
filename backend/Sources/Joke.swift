@@ -21,10 +21,10 @@ class Joke: SQLiteStORM {
     }
     
     override func to(_ this: StORMRow) {
-        id = this.data["id"] as? Int ?? 0
-        setup = this.data["setup"] as? String ?? ""
-        punchline = this.data["punchline"] as? String ?? ""
-        votes = this.data["votes"] as? Int ?? 0
+        id = this.data[AppConstants.JokeKeys.kID] as? Int ?? 0
+        setup = this.data[AppConstants.JokeKeys.kSetup] as? String ?? ""
+        punchline = this.data[AppConstants.JokeKeys.kPunchline] as? String ?? ""
+        votes = this.data[AppConstants.JokeKeys.kVotes] as? Int ?? 0
     }
     
     var isEmpty: Bool {
@@ -36,10 +36,10 @@ class Joke: SQLiteStORM {
 extension Joke {
     func asDictionary()  -> [String: Any] {
         return [
-            "id": id,
-            "setup": setup,
-            "punchline": punchline,
-            "votes": votes
+            AppConstants.JokeKeys.kID: id,
+            AppConstants.JokeKeys.kSetup: setup,
+            AppConstants.JokeKeys.kPunchline: punchline,
+            AppConstants.JokeKeys.kVotes: votes
         ]
     }
     
@@ -62,7 +62,7 @@ extension Joke {
     static func get(id: Int) throws -> Joke {
         let getObj = Joke()
         var findObj = [String: Any]()
-        findObj["id"] = "\(id)"
+        findObj[AppConstants.JokeKeys.kID] = "\(id)"
         try getObj.find(findObj)
         return getObj
     }
