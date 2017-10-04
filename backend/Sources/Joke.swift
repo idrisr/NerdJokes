@@ -8,9 +8,9 @@
 
 import Foundation
 import StORM
-import PostgresStORM
+import SQLiteStORM
 
-class Joke: PostgresStORM {
+class Joke: SQLiteStORM {
     var id: Int = 0
     var setup: String = ""
     var punchline: String = ""
