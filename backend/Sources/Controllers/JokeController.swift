@@ -57,7 +57,15 @@ class JokeController {
         }
         
         do {
-            let json = try Joke.get(id: id).asDictionary().jsonEncodedString()
+            let joke = try Joke.get(id: id)
+            
+            guard !joke.isEmpty else {
+                response.setBody(string: "ID \(id) does not exist")
+                    .completed(status: .internalServerError)
+                return
+            }
+            
+            let json = try joke.asDictionary().jsonEncodedString()
             
             response.setBody(string: json)
                 .setHeader(.contentType, value: "application/json")
