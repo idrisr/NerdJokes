@@ -8,23 +8,23 @@
 
 import Foundation
 import StORM
-import PostgresStORM
+import SQLiteStORM
 
-class Joke: PostgresStORM {
+class Joke: SQLiteStORM {
     var id: Int = 0
     var setup: String = ""
     var punchline: String = ""
     var votes: Int = 0
     
     override func table() -> String {
-        return "joke"
+        return AppConstants.DatabaseTables.kJoke
     }
     
     override func to(_ this: StORMRow) {
-        id = this.data["id"] as? Int ?? 0
-        setup = this.data["setup"] as? String ?? ""
-        punchline = this.data["punchline"] as? String ?? ""
-        votes = this.data["votes"] as? Int ?? 0
+        id = this.data[AppConstants.JokeKeys.kID] as? Int ?? 0
+        setup = this.data[AppConstants.JokeKeys.kSetup] as? String ?? ""
+        punchline = this.data[AppConstants.JokeKeys.kPunchline] as? String ?? ""
+        votes = this.data[AppConstants.JokeKeys.kVotes] as? Int ?? 0
     }
     
     var isEmpty: Bool {
@@ -36,10 +36,10 @@ class Joke: PostgresStORM {
 extension Joke {
     func asDictionary()  -> [String: Any] {
         return [
-            "id": id,
-            "setup": setup,
-            "punchline": punchline,
-            "votes": votes
+            AppConstants.JokeKeys.kID: id,
+            AppConstants.JokeKeys.kSetup: setup,
+            AppConstants.JokeKeys.kPunchline: punchline,
+            AppConstants.JokeKeys.kVotes: votes
         ]
     }
     
@@ -62,7 +62,7 @@ extension Joke {
     static func get(id: Int) throws -> Joke {
         let getObj = Joke()
         var findObj = [String: Any]()
-        findObj["id"] = "\(id)"
+        findObj[AppConstants.JokeKeys.kID] = "\(id)"
         try getObj.find(findObj)
         return getObj
     }

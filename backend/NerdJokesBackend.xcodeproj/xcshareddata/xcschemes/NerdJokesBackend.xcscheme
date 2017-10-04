@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_859"
+               BlueprintIdentifier = "OBJ_853"
                BuildableName = "PerfectLib.framework"
                BlueprintName = "PerfectLib"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_875"
+               BlueprintIdentifier = "OBJ_869"
                BuildableName = "PerfectThread.framework"
                BlueprintName = "PerfectThread"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_884"
+               BlueprintIdentifier = "OBJ_878"
                BuildableName = "COpenSSL.framework"
                BlueprintName = "COpenSSL"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -56,7 +56,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1572"
+               BlueprintIdentifier = "OBJ_1566"
                BuildableName = "PerfectCrypto.framework"
                BlueprintName = "PerfectCrypto"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -70,7 +70,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1591"
+               BlueprintIdentifier = "OBJ_1585"
                BuildableName = "PerfectNet.framework"
                BlueprintName = "PerfectNet"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -84,7 +84,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1612"
+               BlueprintIdentifier = "OBJ_1606"
                BuildableName = "PerfectHTTP.framework"
                BlueprintName = "PerfectHTTP"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -98,7 +98,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1637"
+               BlueprintIdentifier = "OBJ_1631"
                BuildableName = "PerfectCZlib.framework"
                BlueprintName = "PerfectCZlib"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -112,7 +112,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1671"
+               BlueprintIdentifier = "OBJ_1665"
                BuildableName = "PerfectHTTPServer.framework"
                BlueprintName = "PerfectHTTPServer"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -126,7 +126,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1710"
+               BlueprintIdentifier = "OBJ_1704"
                BuildableName = "PerfectCHTTPParser.framework"
                BlueprintName = "PerfectCHTTPParser"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -140,9 +140,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1731"
-               BuildableName = "PerfectPostgreSQL.framework"
-               BlueprintName = "PerfectPostgreSQL"
+               BlueprintIdentifier = "OBJ_1725"
+               BuildableName = "PerfectSQLite.framework"
+               BlueprintName = "PerfectSQLite"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -154,7 +154,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1738"
+               BlueprintIdentifier = "OBJ_1732"
                BuildableName = "StORM.framework"
                BlueprintName = "StORM"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -168,21 +168,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1757"
-               BuildableName = "PerfectXML.framework"
-               BlueprintName = "PerfectXML"
-               ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1765"
+               BlueprintIdentifier = "OBJ_1751"
                BuildableName = "SwiftMoment.framework"
                BlueprintName = "SwiftMoment"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -196,7 +182,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1777"
+               BlueprintIdentifier = "OBJ_1763"
                BuildableName = "PerfectCURL.framework"
                BlueprintName = "PerfectCURL"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -210,7 +196,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1800"
+               BlueprintIdentifier = "OBJ_1786"
                BuildableName = "PerfectLogger.framework"
                BlueprintName = "PerfectLogger"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -224,9 +210,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1824"
-               BuildableName = "PostgresStORM.framework"
-               BlueprintName = "PostgresStORM"
+               BlueprintIdentifier = "OBJ_1810"
+               BuildableName = "SQLiteStORM.framework"
+               BlueprintName = "SQLiteStORM"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -238,7 +224,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1866"
+               BlueprintIdentifier = "OBJ_1847"
                BuildableName = "NerdJokesBackend"
                BlueprintName = "NerdJokesBackend"
                ReferencedContainer = "container:NerdJokesBackend.xcodeproj">
@@ -271,7 +257,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_859"
+            BlueprintIdentifier = "OBJ_853"
             BuildableName = "PerfectLib.framework"
             BlueprintName = "PerfectLib"
             ReferencedContainer = "container:NerdJokesBackend.xcodeproj">

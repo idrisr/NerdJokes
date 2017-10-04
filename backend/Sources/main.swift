@@ -3,7 +3,7 @@ import PerfectHTTP
 import PerfectHTTPServer
 
 let server = HTTPServer()
-server.serverPort = 8080
+server.serverPort = AppConstants.ServerConfig.kPort
 
 let jokeController = JokeController()
 server.addRoutes(Routes(jokeController.routes))

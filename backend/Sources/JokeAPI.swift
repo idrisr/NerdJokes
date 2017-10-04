@@ -8,7 +8,7 @@
 
 import Foundation
 import StORM
-import PostgresStORM
+import SQLiteStORM
 
 
 class JokeAPI {
@@ -16,11 +16,7 @@ class JokeAPI {
     static let sharedInstance = JokeAPI()
     
     func setupDatabase() {
-        PostgresConnector.host = AppConstants.DatabaseConfig.kHost
-        PostgresConnector.username = AppConstants.DatabaseConfig.kUsername
-        PostgresConnector.password = AppConstants.DatabaseConfig.kPassword
-        PostgresConnector.database = AppConstants.DatabaseConfig.kDatabase
-        PostgresConnector.port = AppConstants.DatabaseConfig.kPort
+        SQLiteConnector.db = AppConstants.DatabaseConfig.kPath
         
         let setupObj = Joke()
         try? setupObj.setup()
