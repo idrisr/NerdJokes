@@ -69,7 +69,11 @@ class JokeAPI {
         joke.votes = votes
         
         try joke.save { id in
-            joke.id = id as! Int
+            guard let id = id as? Int else {
+                fatalError("Unexpected state. Server returned a bad ID.")
+            }
+            
+            joke.id = id
         }
         
         return joke.asDictionary()
