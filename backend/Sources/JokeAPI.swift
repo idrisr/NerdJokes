@@ -111,7 +111,7 @@ class JokeAPI {
             let dictionary = try json.jsonDecode() as? [String: Any],
             let setup = dictionary[AppConstants.JokeKeys.kSetup] as? String,
             let punchline = dictionary[AppConstants.JokeKeys.kPunchline] as? String,
-            let votes = dictionary[AppConstants.JokeKeys.kVotes] else {
+            let votes = dictionary[AppConstants.JokeKeys.kVotes] as? Int else {
                 return "Invalid parameters"
         }
         

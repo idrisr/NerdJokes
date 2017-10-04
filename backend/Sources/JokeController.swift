@@ -26,7 +26,7 @@ class NoteController {
     
     func getAll(request: HTTPRequest, response: HTTPResponse) {
         do {
-            let json = try NoteAPI.sharedInstance.all()
+            let json = try JokeAPI.sharedInstance.all()
             response.setBody(string: json)
                 .setHeader(.contentType, value: "application/json")
                 .completed()
@@ -38,7 +38,7 @@ class NoteController {
     
     func addNote(request: HTTPRequest, response: HTTPResponse) {
         do {
-            let json = try NoteAPI.sharedInstance.new(json: request.postBodyString)
+            let json = try JokeAPI.sharedInstance.new(json: request.postBodyString)
             response.setBody(string: json)
                 .setHeader(.contentType, value: "application/json")
                 .completed()
@@ -57,7 +57,7 @@ class NoteController {
         }
         
         do {
-            let json = try Note.get(id: id).asDictionary().jsonEncodedString()
+            let json = try Joke.get(id: id).asDictionary().jsonEncodedString()
             
             response.setBody(string: json)
                 .setHeader(.contentType, value: "application/json")
@@ -76,7 +76,7 @@ class NoteController {
         }
         
         do {
-            let json = try NoteAPI.sharedInstance.update(id: id, json: request.postBodyString)
+            let json = try JokeAPI.sharedInstance.update(id: id, json: request.postBodyString)
             
             response.setBody(string: json)
                 .setHeader(.contentType, value: "application/json")
@@ -96,7 +96,7 @@ class NoteController {
         }
         
         do {
-            let json = try NoteAPI.sharedInstance.delete(id: id)
+            let json = try JokeAPI.sharedInstance.delete(id: id)
             
             response.setBody(string: json)
                 .setHeader(.contentType, value: "application/json")
@@ -109,7 +109,7 @@ class NoteController {
     
     func test(request: HTTPRequest, response: HTTPResponse) {
         do {
-            let json = try NoteAPI.sharedInstance.test()
+            let json = try JokeAPI.sharedInstance.test()
             response.setBody(string: json)
                 .setHeader(.contentType, value: "application/json")
                 .completed()
