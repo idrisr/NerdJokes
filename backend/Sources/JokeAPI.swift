@@ -22,7 +22,7 @@ struct AppConstants {
         static let kHost = "localhost"
         static let kUsername = "perfect"
         static let kPassword = "password"
-        static let kDatabase = "nerdnote"
+        static let kDatabase = "nerdjokes"
         static let kPort = 5432
     }
     
