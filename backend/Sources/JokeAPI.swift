@@ -16,7 +16,7 @@ class JokeAPI {
     static let sharedInstance = JokeAPI()
     
     func setupDatabase() {
-        SQLiteConnector.db = "/Users/nlash/Code/NerdJokes/backend/db/nerdjokes.db"
+        SQLiteConnector.db = AppConstants.DatabaseConfig.kPath
         
         let setupObj = Joke()
         try? setupObj.setup()

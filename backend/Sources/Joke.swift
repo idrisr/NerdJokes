@@ -17,7 +17,7 @@ class Joke: SQLiteStORM {
     var votes: Int = 0
     
     override func table() -> String {
-        return "joke"
+        return AppConstants.DatabaseTables.kJoke
     }
     
     override func to(_ this: StORMRow) {

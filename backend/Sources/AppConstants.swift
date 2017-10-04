@@ -16,12 +16,12 @@ struct AppConstants {
         static let kID = "id"
     }
     
+    struct ServerConfig {
+        static let kPort = 8080
+    }
+    
     struct DatabaseConfig {
-        static let kHost = "localhost"
-        static let kUsername = "perfect"
-        static let kPassword = "password"
-        static let kDatabase = "nerdjokes"
-        static let kPort = 5432
+        static let kPath = "/Users/nlash/Code/NerdJokes/backend/db/nerdjokes.db"
     }
     
     struct DatabaseTables {
