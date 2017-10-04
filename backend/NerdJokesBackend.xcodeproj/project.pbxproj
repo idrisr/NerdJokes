@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1526B7301F85690C002BAE96 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526B72E1F8568F4002BAE96 /* AppConstants.swift */; };
+		1526B73A1F856A1B002BAE96 /* JokeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526B7381F856A02002BAE96 /* JokeController.swift */; };
+		1526B73B1F856A20002BAE96 /* JokeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526B7361F8569F7002BAE96 /* JokeAPI.swift */; };
+		1526B73C1F856A25002BAE96 /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526B7341F8569F0002BAE96 /* Joke.swift */; };
 		OBJ_1000 /* asn1_gen.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_251 /* asn1_gen.c */; };
 		OBJ_1001 /* m_md4.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_252 /* m_md4.c */; };
 		OBJ_1002 /* e_atalla.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_253 /* e_atalla.c */; };
@@ -733,9 +737,6 @@
 		OBJ_1851 /* PerfectHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_847 /* PerfectHTTP.framework */; };
 		OBJ_1852 /* PerfectCURL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_855 /* PerfectCURL.framework */; };
 		OBJ_1853 /* PerfectLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_856 /* PerfectLogger.framework */; };
-		OBJ_1871 /* JokeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* JokeAPI.swift */; };
-		OBJ_1872 /* JokeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* JokeController.swift */; };
-		OBJ_1873 /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Joke.swift */; };
 		OBJ_1874 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* main.swift */; };
 		OBJ_1876 /* PerfectLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_842 /* PerfectLib.framework */; };
 		OBJ_1877 /* PerfectThread.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_843 /* PerfectThread.framework */; };
@@ -1407,7 +1408,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		OBJ_10 /* Joke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
+		1526B72E1F8568F4002BAE96 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		1526B7341F8569F0002BAE96 /* Joke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
+		1526B7361F8569F7002BAE96 /* JokeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokeAPI.swift; sourceTree = "<group>"; };
+		1526B7381F856A02002BAE96 /* JokeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokeController.swift; sourceTree = "<group>"; };
 		OBJ_100 /* HTTP2FrameWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP2FrameWriter.swift; sourceTree = "<group>"; };
 		OBJ_101 /* HTTP2PrefaceValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP2PrefaceValidator.swift; sourceTree = "<group>"; };
 		OBJ_102 /* HTTP2Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP2Response.swift; sourceTree = "<group>"; };
@@ -2155,7 +2159,6 @@
 		OBJ_797 /* conf_sap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = conf_sap.c; sourceTree = "<group>"; };
 		OBJ_798 /* cfb_enc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cfb_enc.c; sourceTree = "<group>"; };
 		OBJ_799 /* a_utctm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = a_utctm.c; sourceTree = "<group>"; };
-		OBJ_8 /* JokeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeAPI.swift; sourceTree = "<group>"; };
 		OBJ_80 /* inffast.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = inffast.c; sourceTree = "<group>"; };
 		OBJ_800 /* ocsp_cl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ocsp_cl.c; sourceTree = "<group>"; };
 		OBJ_801 /* mem_clr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mem_clr.c; sourceTree = "<group>"; };
@@ -2218,7 +2221,6 @@
 		OBJ_86 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "/Users/nlash/Code/NerdJokesBackend/.build/checkouts/Perfect-HTTPServer.git--6671958091389663080/Sources/PerfectCZlib/include/module.modulemap"; sourceTree = "<group>"; };
 		OBJ_88 /* HTTPContentCompression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPContentCompression.swift; sourceTree = "<group>"; };
 		OBJ_89 /* HTTPServerExConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPServerExConfig.swift; sourceTree = "<group>"; };
-		OBJ_9 /* JokeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeController.swift; sourceTree = "<group>"; };
 		OBJ_90 /* HTTPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPServer.swift; sourceTree = "<group>"; };
 		OBJ_91 /* HTTPMultiplexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMultiplexer.swift; sourceTree = "<group>"; };
 		OBJ_92 /* HTTPServerEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPServerEx.swift; sourceTree = "<group>"; };
@@ -2427,6 +2429,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1526B7311F856935002BAE96 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1526B7381F856A02002BAE96 /* JokeController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		1526B7321F85695A002BAE96 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1526B7361F8569F7002BAE96 /* JokeAPI.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1526B7331F8569A6002BAE96 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1526B7341F8569F0002BAE96 /* Joke.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		OBJ_108 /* PerfectCHTTPParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -3321,7 +3347,7 @@
 			name = "StORM 3.0.0";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -3330,7 +3356,6 @@
 				OBJ_13 /* Dependencies */,
 				OBJ_841 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_50 /* StORM */ = {
@@ -3406,10 +3431,11 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_8 /* JokeAPI.swift */,
-				OBJ_9 /* JokeController.swift */,
-				OBJ_10 /* Joke.swift */,
+				1526B7331F8569A6002BAE96 /* Models */,
+				1526B7321F85695A002BAE96 /* Services */,
+				1526B7311F856935002BAE96 /* Controllers */,
 				OBJ_11 /* main.swift */,
+				1526B72E1F8568F4002BAE96 /* AppConstants.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -3905,7 +3931,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_841 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -4153,10 +4179,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_1871 /* JokeAPI.swift in Sources */,
-				OBJ_1872 /* JokeController.swift in Sources */,
-				OBJ_1873 /* Joke.swift in Sources */,
 				OBJ_1874 /* main.swift in Sources */,
+				1526B73C1F856A25002BAE96 /* Joke.swift in Sources */,
+				1526B73A1F856A1B002BAE96 /* JokeController.swift in Sources */,
+				1526B7301F85690C002BAE96 /* AppConstants.swift in Sources */,
+				1526B73B1F856A20002BAE96 /* JokeAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
