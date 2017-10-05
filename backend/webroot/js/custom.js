@@ -13,15 +13,12 @@ function vote(id, change) {
 }
 
 function makeRequest (id) {
-    var xhr = new XMLHTTPRequest();
+    var xhr = new XMLHttpRequest();
     var url = "/jokes/" + id;
-    xhr.open("POST", url, true);
+    xhr.open("PUT", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        location.reload();
-    };
-    xhr.data = getJSONData(id);
-    xhr.send(data)
+    xhr.addEventListener("load", transferComplete)
+    xhr.send(getJSONData(id));
 }
 
 function getJSONData (id) {
@@ -30,5 +27,9 @@ function getJSONData (id) {
     var punchlineField = document.getElementById('punchline_' + id);
     var votesField = document.getElementById('votes_' + id);
     
-    return JSON.stringify({ 'id': id, 'setup': setupField.value, 'punchline': punchlineField.value, 'votes': votesField.value});
+    return JSON.stringify({ 'id': id, 'setup': setupField.value, 'punchline': punchlineField.value, 'votes': parseInt(votesField.value)});
+}
+
+function transferComplete(evt) {
+    location.reload();
 }
