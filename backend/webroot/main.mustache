@@ -12,20 +12,31 @@
     </head>
     <body>
         <div class="container">
-            
             <div class="row">
                 <div class="u-full-width">
-                    <h1 class="hero-heading" >Nerd Jokes <small>Admin panel</small></h1>
+                    <h1 class="hero_heading" >Nerd Jokes <small>Admin panel</small></h1>
                 </div>
                 
             </div>
             <div class="row">
                 <div class="ten columns"><p>The greatest jokes ever told.</p></div>
                 <div class="two columns">
-                    <a class="button button-icon"><i class="fa fa-plus"></i></a>
+                     <a id="cancel_button" class="button button-icon create_button" onclick="cancel()"><i class="fa fa-times"></i></a>
+                    <a id="add_button" class="button button-icon" onclick="create()"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <hr />
+            <div class="row">
+                <div class="two columns">&nbsp;</div>
+                <div class="eight columns">
+                    <input type="text" id="setup_create" class="create_field" name="setup" placeholder="The joke's setup" value="{{setup}}" />
+                    <textarea id="punchline_create" class="create_field" name="punchline" placeholder="The joke's punchline">{{punchline}}</textarea>
+                </div>
+                <div class="two columns">
+                    <a id="save_button_create" class="button button-icon create_button" onclick="post()"><i class="fa fa-floppy-o"></i></a>
+                </div>
+            </div>
+            <hr id="create_divider" class="create_field" />
             {{#jokes}}
             <div class="row">
                 <div class="two columns">

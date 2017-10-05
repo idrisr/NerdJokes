@@ -76,3 +76,41 @@
 [INFO] [f4965be9-3e03-476f-b03a-fc266717fe98] [2017-10-05 14:55:55 GMT-05:00] Running setup: joke
 [INFO] [2c295ef4-1901-4496-8fab-544f50241e02] [2017-10-05 14:56:54 GMT-05:00] Running setup: joke
 [INFO] [2ccd4637-5f2a-43d7-82d2-0c7a4982bbb3] [2017-10-05 15:05:46 GMT-05:00] Running setup: joke
+[INFO] [65d92b4a-3492-448d-9906-fd10bab3b2a9] [2017-10-05 15:48:07 GMT-05:00] Running setup: joke
+[ERROR] [abcd2950-f5db-4de3-910f-0853b0c943dc] [2017-10-05 15:48:07 GMT-05:00] Error msg: Error(code: 14, msg: "Unable to open database /home/id/nerdjokes/backend/nerdjokes.db")
+[ERROR] [27709a7b-ba14-4415-ac45-43b8818fb8ae] [2017-10-05 15:48:07 GMT-05:00] Error msg: error("error(\"Error(code: 14, msg: \\\"Unable to open database /home/id/nerdjokes/backend/nerdjokes.db\\\")\")")
+[ERROR] [1552ad5c-3ef1-460b-a028-4d2da66050d7] [2017-10-05 15:48:07 GMT-05:00] Error msg: error("error(\"Error(code: 14, msg: \\\"Unable to open database /home/id/nerdjokes/backend/nerdjokes.db\\\")\")")
+[ERROR] [86a3bc17-0fee-4a83-82f9-29ab7c0436b6] [2017-10-05 15:48:08 GMT-05:00] Error msg: Error(code: 14, msg: "Unable to open database /home/id/nerdjokes/backend/nerdjokes.db")
+[ERROR] [3419f032-4425-4a40-9ffc-e107a568a9d6] [2017-10-05 15:48:08 GMT-05:00] Error msg: error("")
+[ERROR] [bfed5879-8aa4-4106-8b97-b904ec0123e9] [2017-10-05 15:48:11 GMT-05:00] Error msg: Error(code: 14, msg: "Unable to open database /home/id/nerdjokes/backend/nerdjokes.db")
+[ERROR] [77362375-19ae-4c26-8036-57f30971d992] [2017-10-05 15:48:11 GMT-05:00] Error msg: error("")
+[ERROR] [58c3542e-c7ca-4786-841d-3b04736dc9e4] [2017-10-05 15:48:12 GMT-05:00] Error msg: Error(code: 14, msg: "Unable to open database /home/id/nerdjokes/backend/nerdjokes.db")
+[ERROR] [f7065bc3-106d-428a-9f92-9d3ced98e609] [2017-10-05 15:48:12 GMT-05:00] Error msg: error("")
+[INFO] [743c4637-903a-44c6-84df-d06fa2b66d34] [2017-10-05 15:48:49 GMT-05:00] Running setup: joke
+[INFO] [1983262a-1f41-4044-bd09-8a7e15cc0fb7] [2017-10-05 15:57:08 GMT-05:00] Running setup: joke
+[INFO] [54226ede-79c8-49cd-8a5c-eb12d61a023b] [2017-10-05 15:57:55 GMT-05:00] Running setup: joke
+[INFO] [714a6186-118a-4688-9c8e-88fa8df27d92] [2017-10-05 15:58:56 GMT-05:00] Running setup: joke
+[INFO] [66334cf5-1fe6-479d-86f0-e8442a5b8743] [2017-10-05 16:23:45 GMT-05:00] Running setup: joke
+[INFO] [a3510038-8211-41ec-8315-3caa0dae2631] [2017-10-05 16:34:59 GMT-05:00] Running setup: joke
+[INFO] [0f1abd6e-a7f7-40b4-85ba-13cca4b63795] [2017-10-05 16:36:48 GMT-05:00] Running setup: joke
+[INFO] [cc6fc2bc-5082-4b10-afa1-2bea86643706] [2017-10-05 16:36:57 GMT-05:00] Running setup: joke
+[INFO] [a670823e-be72-482c-be41-5abbb93c5891] [2017-10-05 16:37:26 GMT-05:00] Running setup: joke
+[INFO] [76ef1242-7774-4e4d-bf45-d04149329e4d] [2017-10-05 16:38:12 GMT-05:00] Running setup: joke
+[INFO] [c96cb1b5-5042-49c3-92b2-c20c08833c75] [2017-10-05 16:47:29 GMT-05:00] Running setup: joke
+[INFO] [2a369ae3-bb48-4c43-9e03-3bf03d555f1e] [2017-10-05 16:50:15 GMT-05:00] Running setup: joke
+[INFO] [b9ae812a-55b2-4995-9b28-974677e4266f] [2017-10-05 16:52:27 GMT-05:00] Running setup: joke
+[INFO] [453a74c8-bef1-4652-b0bd-119bfdd3c5bf] [2017-10-05 16:57:07 GMT-05:00] Running setup: joke
+[INFO] [58a213b0-147e-420b-a035-0ac8fb0e3e4f] [2017-10-05 17:26:45 GMT-05:00] Running setup: joke
+[INFO] [10eae9d2-0285-4b26-894a-cce819393b56] [2017-10-05 17:27:36 GMT-05:00] Running setup: joke
+[INFO] [f5f0e5af-4927-48de-b363-f85ad1e05b9c] [2017-10-05 17:27:59 GMT-05:00] Running setup: joke
+[INFO] [3eae704d-7749-4e4f-9743-45e2a7b7f94b] [2017-10-05 17:29:01 GMT-05:00] Running setup: joke
+[INFO] [600967a1-a93d-457e-a45a-6a2eb9b7ef8e] [2017-10-05 17:29:51 GMT-05:00] Running setup: joke
+[INFO] [5db02f06-1ec3-4085-81a5-ee9bfa8b2c2d] [2017-10-05 17:32:51 GMT-05:00] Running setup: joke
+[INFO] [fce55855-befb-4684-a7b8-7a935c9847ba] [2017-10-05 17:33:49 GMT-05:00] Running setup: joke
+[INFO] [82bc33ff-e94b-4bef-8982-c6647c7205cc] [2017-10-05 17:35:09 GMT-05:00] Running setup: joke
+[INFO] [d1aa8857-5358-45bf-9b4a-3a87b80843b8] [2017-10-05 17:36:02 GMT-05:00] Running setup: joke
+[INFO] [1a895133-967b-4649-83a1-0286315eef34] [2017-10-05 17:37:36 GMT-05:00] Running setup: joke
+[INFO] [6ebf590d-f33b-4a27-9de7-172902e39ec1] [2017-10-05 17:40:11 GMT-05:00] Running setup: joke
+[INFO] [2bdcf650-688a-44f4-9b06-e5796089e498] [2017-10-05 17:40:21 GMT-05:00] Running setup: joke
+[INFO] [a3e4469b-6378-47cc-8a36-ae3a1b71ed4f] [2017-10-05 17:41:44 GMT-05:00] Running setup: joke
+[INFO] [3a376910-a84a-481f-8cb2-1dc86fb97c24] [2017-10-05 17:46:31 GMT-05:00] Running setup: joke
