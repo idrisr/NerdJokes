@@ -25,3 +25,12 @@ DerivedData/
 ## nerdjokes
 .build/
 *db
+
+# Perfect ignore stuff
+.DS_Store
+/.bui*
+/Packages
+/*.xcodeproj
+*.pins
+*.resolved
+*txt
