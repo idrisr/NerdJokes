@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Nerd Jokes</title>
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/skeleton.css">
+        <link rel="stylesheet" href="/css/custom.css">
+        <link rel="stylesheet" href="/css/font-awesome.css">
+        <link rel="stylesheet" href="/css/skeleton-fontawesome-buttons.css">
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+        <script src="/js/custom.js"></script>
+
+    </head>
+    <body>
+        <div class="container">
+            
+            <div class="row">
+                <div class="u-full-width">
+                    <h1 class="hero-heading" >Nerd Jokes <small>Admin panel</small></h1>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="ten columns"><p>The greatest jokes ever told.</p></div>
+                <div class="two columns">
+                    <a class="button button-icon"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <hr />
+            {{#jokes}}
+            <div class="row">
+                <div class="two columns">
+                    <h3 class="votes">{{votes}}</h3>
+                    <form id="form_modify_{{id}}">
+                        <input type="text" name="id" value="{{id}}" hidden />
+                        <input type="text" id="votes_{{id}}" name="votes" value="{{votes}}" hidden />
+                        <input type="text" id="setup_{{id}}" name="setup" value="{{setup}}" hidden />
+                        <input type="text" id="punchline_{{id}}" name="punchline" value="{{punchline}}" hidden />
+                        <a class="button button-icon" onclick="voteUp({{id}})"><i class="fa fa-thumbs-up"></i></a>
+                        <a class="button button-icon" onclick="voteDown({{id}})"><i class="fa fa-thumbs-down"></i></a>
+                    </form>
+                </div>
+                <div class="eight columns">
+                    <h2>{{setup}}</h2>
+                    <h3>{{punchline}}</h3>
+                </div>
+                <div class="two columns">
+                    <form>
+                        <a class="button button-icon"><i class="fa fa-pencil"></i></a>
+                    </form>
+                    <form>
+                        <a class="button button-icon"><i class="fa fa-trash"></i></a>
+                    </form>
+                </div>
+            </div>
+            <hr />
+            {{/jokes}}
+        </div>
+    </body>
+</html>
