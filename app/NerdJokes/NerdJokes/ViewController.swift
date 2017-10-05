@@ -24,12 +24,33 @@ class ViewController: UIViewController {
         let session = URLSession.shared
 
         let task = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) in
-            if let response = response {
-                print(response)
+            guard error == nil else {
+                print("error calling GET on /todos/1")
+                print(error!)
+                return
             }
 
-            if let error = error {
-                print(error)
+            guard let responseData = data else {
+                print("error did not receive data")
+                return
+            }
+
+            do {
+                guard let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+
+                print ("The todo is: " + todo.description)
+
+                guard let todoTitle = todo["title"] as? String else {
+                    print("Could not get todo title from JSON")
+                    return
+                }
+
+                print ("The title is: " + todoTitle)
+            } catch let e as NSError {
+                print(e.localizedDescription)
             }
         }
         
