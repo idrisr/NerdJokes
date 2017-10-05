@@ -11,6 +11,7 @@ import Foundation
 import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
+import PerfectMustache
 
 class JokeController {
     var routes: [Route] {
@@ -21,6 +22,8 @@ class JokeController {
             Route(method: .get, uri: "/jokes/{id}", handler: getByID),
             Route(method: .put, uri: "/jokes/{id}", handler: update),
             Route(method: .delete, uri: "/jokes/{id}", handler: delete),
+            
+            Route(method: .get, uri: "/html/jokes", handler: getAllHtml)
         ]
     }
     
@@ -30,6 +33,19 @@ class JokeController {
             response.setBody(string: json)
                 .setHeader(.contentType, value: "application/json")
                 .completed()
+            
+        } catch {
+            showError(response: response, message: "Error handling request: \(error)")
+        }
+    }
+    
+    func getAllHtml(request: HTTPRequest, response: HTTPResponse) {
+        do {
+            let jsonObj = try JokeAPI.sharedInstance.all().jsonDecode()
+            
+            var values = MustacheEvaluationContext.MapType()
+            values["jokes"] = jsonObj
+            mustacheRequest(request: request, response: response, handler: JokeTemplateHandler(values: values), templatePath: "webroot/main.mustache")
         } catch {
             showError(response: response, message: "Error handling request: \(error)")
         }

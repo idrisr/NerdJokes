@@ -4,6 +4,7 @@ import PerfectHTTPServer
 
 let server = HTTPServer()
 server.serverPort = AppConstants.ServerConfig.kPort
+server.documentRoot = "webroot"
 
 let jokeController = JokeController()
 server.addRoutes(Routes(jokeController.routes))
