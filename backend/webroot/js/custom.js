@@ -61,11 +61,13 @@ function toggleAddingControls(show) {
     var editButton = document.getElementById('add_button');
     var saveButton = document.getElementById('save_button_create');
     var createDivider = document.getElementById('create_divider');
+    var cancelButton = document.getElementById('cancel_button')
 
     
     setupField.style.display = show ? "block" : "none"
     punchlineField.style.display = show ? "block" : "none"
     createDivider.style.display = show ? "block" : "none"
+    cancelButton.style.display = show ? "block" : "none"
 
     saveButton.style.display = show ? "block" : "none"
     editButton.style.display = show ? "none" : "block"
