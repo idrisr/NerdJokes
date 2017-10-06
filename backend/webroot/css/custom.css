@@ -1,7 +1,15 @@
-.hero-heading {
+.hero_heading {
     margin-top: 30px;
 }
 
 .votes {
     margin-left: 30px;
+}
+
+.edit_field, .create_field, .edit_button, .create_button {
+    display: none;
+}
+
+.edit_field, .create_field {
+    width: 100%;
 }
