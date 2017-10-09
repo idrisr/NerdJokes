@@ -1,3 +1,8 @@
+# used to bootstrap from the perfect assistant
+# then manually altered to add the ssh credentials 
+# for getting the stuff from git and turning off strict 
+# host checking. 
+
 FROM perfectlysoft/perfectassistant:3.1.1
 RUN apt-get -y upgrade
 RUN apt-get -y update && apt-get install -y sqlite3 
@@ -19,4 +24,3 @@ RUN apt-get -y update && apt-get install -y libmysqlclient-dev
 RUN sed -i -e 's/-fabi-version=2 -fno-omit-frame-pointer//g' /usr/lib/x86_64-linux-gnu/pkgconfig/mysqlclient.pc
 RUN rm -rf /var/lib/apt/lists/*
 
-EXPOSE 80
