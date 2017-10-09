@@ -8,7 +8,7 @@ WORKDIR /app
 
 ADD . /app
 
-CMD ["git", "clone", "git@github.com:idrisr/nerdjokes.git"]
-CMD ["cd", "nerdjokes/backend || exit"]
-CMD ["swift", "build"]
-CMD ["./.build/debug/NerdJokesBackend"]
+RUN ["git", "clone", "git@github.com:idrisr/nerdjokes.git"]
+RUN cd nerdjokes/backend
+RUN ["swift", "build"]
+RUN ["./.build/debug/NerdJokesBackend"]
