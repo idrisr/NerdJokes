@@ -10,4 +10,6 @@ import UIKit
 
 class JokesMasterViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    
+    var jokeService: JokeService!
 }

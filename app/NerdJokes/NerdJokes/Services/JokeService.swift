@@ -34,7 +34,6 @@ class JokeService {
             
             do {
                 try this.persistence.coreDataStack.syncContext.save()
-                UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: AppConstants.Keys.kLastSyncSecondsSince1970)
             } catch {
                 print("\(error)")
             }
