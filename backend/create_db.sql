@@ -11,5 +11,10 @@ IF NOT EXISTS jokes (
 
 INSERT INTO jokes (setup, punchline, votes, created_time, updated_time, deleted_time)
 VALUES
-("why did the chicken cross the road", "because he wanted to die", 0,  strftime('%s', 'now'), strftime('%s', 'now'), strftime('%s', 'now')) 
+("why did the chicken cross the road", "because he wanted to die", 0,  strftime('%s', 'now'), strftime('%s', 'now'), strftime('%s', 'now')), 
+("why did the chicken cross the road", "because he wanted to live", 0,  strftime('%s', 'now'), strftime('%s', 'now'), strftime('%s', 'now')),
+("why did the chicken cross the road", "because his uber was on the wrong side", 0,  strftime('%s', 'now'), strftime('%s', 'now'), strftime('%s', 'now')),
+("why did the turkey cross the road",  "because god told him to", 0,  strftime('%s', 'now'), strftime('%s', 'now'), strftime('%s', 'now')), 
+("why did the chicken cross the road", "the world has no answers", 0,  strftime('%s', 'now'), strftime('%s', 'now'), strftime('%s', 'now')),
+("why did the chicken cross the road", "there are no answers here. move on.", 0,  strftime('%s', 'now'), strftime('%s', 'now'), strftime('%s', 'now')) 
 ;
