@@ -40,7 +40,7 @@
 		152BD1011F8D40F500B734ED /* NerdJokes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NerdJokes.xcdatamodel; sourceTree = "<group>"; };
 		152BD1031F8D41AD00B734ED /* Joke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
 		152BD1051F8D42C300B734ED /* Trackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackable.swift; sourceTree = "<group>"; };
-		152BD1071F8D439F00B734ED /* JokesMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JokesMasterViewController.swift; path = ../JokesMasterViewController.swift; sourceTree = "<group>"; };
+		152BD1071F8D439F00B734ED /* JokesMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokesMasterViewController.swift; sourceTree = "<group>"; };
 		152BD1091F8D448900B734ED /* JokeAPIItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeAPIItem.swift; sourceTree = "<group>"; };
 		1591CD801F8D587B00A92251 /* JokeNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeNetworkService.swift; sourceTree = "<group>"; };
 		1591CD821F8D592400A92251 /* JokeNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeNetworkRequest.swift; sourceTree = "<group>"; };

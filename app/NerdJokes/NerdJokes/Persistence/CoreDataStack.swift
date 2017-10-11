@@ -15,19 +15,20 @@ class CoreDataStack {
     var clientContext: NSManagedObjectContext
     var syncContext: NSManagedObjectContext
     
-    init(completion: (()->())? = nil) {
+    init() {
         persistentContainer = NSPersistentContainer(name: "NerdJokes")
+        persistentContainer.loadPersistentStores() { description, error in
+            if let error = error {
+                fatalError("Cannot load persistent store \(error)")
+            }
+            print("loaded persistent stores!")
+        }
+        
         self.parentContext = persistentContainer.viewContext
         clientContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         clientContext.parent = parentContext
         syncContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         syncContext.parent = parentContext
-        
-        persistentContainer.loadPersistentStores() { description, error in
-            if let error = error {
-                fatalError("Cannot load persistent store \(error)")
-            }
-        }
     }
     
     func save(childContext: NSManagedObjectContext) throws {

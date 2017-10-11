@@ -10,10 +10,11 @@ import Foundation
 import CoreData
 
 class JokePersistenceService {
-    var coreDataStack = CoreDataStack()
+    var coreDataStack: CoreDataStack!
     var modificationState: ModificationState = .clean
     
-    init() {
+    init(coreDataStack: CoreDataStack) {
+        self.coreDataStack = coreDataStack
         NotificationCenter.default.addObserver(self, selector: #selector(localContextDidSave), name: Notification.Name.NSManagedObjectContextDidSave, object: coreDataStack.clientContext)
         NotificationCenter.default.addObserver(self, selector: #selector(syncContextDidSave), name: Notification.Name.NSManagedObjectContextDidSave, object: coreDataStack.syncContext)
     }
