@@ -7,17 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1511DE9E1F8D64D40079DDF0 /* JokePersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511DE9D1F8D64D40079DDF0 /* JokePersistenceService.swift */; };
+		1511DEA11F8E72710079DDF0 /* StatusAPIItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511DEA01F8E72710079DDF0 /* StatusAPIItem.swift */; };
+		1512243D1F8D535B00734FB1 /* ApiResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1512243C1F8D535B00734FB1 /* ApiResource.swift */; };
+		1512243F1F8D53C500734FB1 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1512243E1F8D53C500734FB1 /* AppConstants.swift */; };
+		151224411F8D544800734FB1 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151224401F8D544800734FB1 /* NetworkRequest.swift */; };
+		151224451F8D55DA00734FB1 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151224441F8D55DA00734FB1 /* Resources.swift */; };
+		152BD0FF1F8D387900B734ED /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152BD0FE1F8D387900B734ED /* CoreDataStack.swift */; };
+		152BD1021F8D40F500B734ED /* NerdJokes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 152BD1001F8D40F500B734ED /* NerdJokes.xcdatamodeld */; };
+		152BD1041F8D41AD00B734ED /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152BD1031F8D41AD00B734ED /* Joke.swift */; };
+		152BD1061F8D42C300B734ED /* Trackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152BD1051F8D42C300B734ED /* Trackable.swift */; };
+		152BD1081F8D439F00B734ED /* JokesMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152BD1071F8D439F00B734ED /* JokesMasterViewController.swift */; };
+		152BD10A1F8D448900B734ED /* JokeAPIItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152BD1091F8D448900B734ED /* JokeAPIItem.swift */; };
+		1591CD811F8D587B00A92251 /* JokeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1591CD801F8D587B00A92251 /* JokeNetworkService.swift */; };
+		1591CD831F8D592400A92251 /* JokeNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1591CD821F8D592400A92251 /* JokeNetworkRequest.swift */; };
+		15BA30DE1F8E744700C4E74F /* JokeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA30DD1F8E744700C4E74F /* JokeService.swift */; };
+		15BA30E11F8E7BB900C4E74F /* Sequence+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA30E01F8E7BB900C4E74F /* Sequence+Find.swift */; };
 		AE32108C1F8532E800893D28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE32108B1F8532E800893D28 /* AppDelegate.swift */; };
-		AE32108E1F8532E800893D28 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE32108D1F8532E800893D28 /* ViewController.swift */; };
 		AE3210911F8532E800893D28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE32108F1F8532E800893D28 /* Main.storyboard */; };
 		AE3210931F8532E800893D28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE3210921F8532E800893D28 /* Assets.xcassets */; };
 		AE3210961F8532E800893D28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3210941F8532E800893D28 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1511DE9D1F8D64D40079DDF0 /* JokePersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokePersistenceService.swift; sourceTree = "<group>"; };
+		1511DEA01F8E72710079DDF0 /* StatusAPIItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAPIItem.swift; sourceTree = "<group>"; };
+		1512243C1F8D535B00734FB1 /* ApiResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResource.swift; sourceTree = "<group>"; };
+		1512243E1F8D53C500734FB1 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		151224401F8D544800734FB1 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		151224441F8D55DA00734FB1 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		152BD0FE1F8D387900B734ED /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		152BD1011F8D40F500B734ED /* NerdJokes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NerdJokes.xcdatamodel; sourceTree = "<group>"; };
+		152BD1031F8D41AD00B734ED /* Joke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
+		152BD1051F8D42C300B734ED /* Trackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackable.swift; sourceTree = "<group>"; };
+		152BD1071F8D439F00B734ED /* JokesMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JokesMasterViewController.swift; path = ../JokesMasterViewController.swift; sourceTree = "<group>"; };
+		152BD1091F8D448900B734ED /* JokeAPIItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeAPIItem.swift; sourceTree = "<group>"; };
+		1591CD801F8D587B00A92251 /* JokeNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeNetworkService.swift; sourceTree = "<group>"; };
+		1591CD821F8D592400A92251 /* JokeNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeNetworkRequest.swift; sourceTree = "<group>"; };
+		15BA30DD1F8E744700C4E74F /* JokeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeService.swift; sourceTree = "<group>"; };
+		15BA30E01F8E7BB900C4E74F /* Sequence+Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Find.swift"; sourceTree = "<group>"; };
 		AE3210881F8532E800893D28 /* NerdJokes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NerdJokes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE32108B1F8532E800893D28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AE32108D1F8532E800893D28 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AE3210901F8532E800893D28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AE3210921F8532E800893D28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE3210951F8532E800893D28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,6 +65,93 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1511DE9F1F8E72620079DDF0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				152BD1091F8D448900B734ED /* JokeAPIItem.swift */,
+				1511DEA01F8E72710079DDF0 /* StatusAPIItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1511DEA21F8E73180079DDF0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				152BD1051F8D42C300B734ED /* Trackable.swift */,
+				152BD1031F8D41AD00B734ED /* Joke.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1511DEA31F8E732D0079DDF0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1511DEA41F8E733A0079DDF0 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				152BD1071F8D439F00B734ED /* JokesMasterViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		1512243B1F8D535100734FB1 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1512243C1F8D535B00734FB1 /* ApiResource.swift */,
+				151224401F8D544800734FB1 /* NetworkRequest.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		151224421F8D55BD00734FB1 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				151224441F8D55DA00734FB1 /* Resources.swift */,
+				1591CD801F8D587B00A92251 /* JokeNetworkService.swift */,
+				1591CD821F8D592400A92251 /* JokeNetworkRequest.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		151224431F8D55C700734FB1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1511DE9F1F8E72620079DDF0 /* Models */,
+				151224421F8D55BD00734FB1 /* Implementation */,
+				1512243B1F8D535100734FB1 /* Protocols */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		1591CD841F8D5E4500A92251 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				152BD0FE1F8D387900B734ED /* CoreDataStack.swift */,
+				1511DE9D1F8D64D40079DDF0 /* JokePersistenceService.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		15BA30DC1F8E742A00C4E74F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				15BA30DD1F8E744700C4E74F /* JokeService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		15BA30DF1F8E7BAF00C4E74F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				15BA30E01F8E7BB900C4E74F /* Sequence+Find.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		AE32107F1F8532E800893D28 = {
 			isa = PBXGroup;
 			children = (
@@ -54,12 +171,20 @@
 		AE32108A1F8532E800893D28 /* NerdJokes */ = {
 			isa = PBXGroup;
 			children = (
+				15BA30DF1F8E7BAF00C4E74F /* Extensions */,
+				15BA30DC1F8E742A00C4E74F /* Services */,
+				1511DEA41F8E733A0079DDF0 /* View Controllers */,
+				1511DEA31F8E732D0079DDF0 /* Views */,
+				1511DEA21F8E73180079DDF0 /* Models */,
+				1591CD841F8D5E4500A92251 /* Persistence */,
+				151224431F8D55C700734FB1 /* Network */,
 				AE32108B1F8532E800893D28 /* AppDelegate.swift */,
-				AE32108D1F8532E800893D28 /* ViewController.swift */,
 				AE32108F1F8532E800893D28 /* Main.storyboard */,
 				AE3210921F8532E800893D28 /* Assets.xcassets */,
 				AE3210941F8532E800893D28 /* LaunchScreen.storyboard */,
 				AE3210971F8532E800893D28 /* Info.plist */,
+				152BD1001F8D40F500B734ED /* NerdJokes.xcdatamodeld */,
+				1512243E1F8D53C500734FB1 /* AppConstants.swift */,
 			);
 			path = NerdJokes;
 			sourceTree = "<group>";
@@ -91,7 +216,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Id Raja";
 				TargetAttributes = {
 					AE3210871F8532E800893D28 = {
@@ -137,8 +262,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE32108E1F8532E800893D28 /* ViewController.swift in Sources */,
+				152BD0FF1F8D387900B734ED /* CoreDataStack.swift in Sources */,
+				1591CD831F8D592400A92251 /* JokeNetworkRequest.swift in Sources */,
+				152BD1041F8D41AD00B734ED /* Joke.swift in Sources */,
+				1512243D1F8D535B00734FB1 /* ApiResource.swift in Sources */,
 				AE32108C1F8532E800893D28 /* AppDelegate.swift in Sources */,
+				1511DE9E1F8D64D40079DDF0 /* JokePersistenceService.swift in Sources */,
+				15BA30DE1F8E744700C4E74F /* JokeService.swift in Sources */,
+				152BD1081F8D439F00B734ED /* JokesMasterViewController.swift in Sources */,
+				152BD10A1F8D448900B734ED /* JokeAPIItem.swift in Sources */,
+				15BA30E11F8E7BB900C4E74F /* Sequence+Find.swift in Sources */,
+				152BD1021F8D40F500B734ED /* NerdJokes.xcdatamodeld in Sources */,
+				151224411F8D544800734FB1 /* NetworkRequest.swift in Sources */,
+				1511DEA11F8E72710079DDF0 /* StatusAPIItem.swift in Sources */,
+				1591CD811F8D587B00A92251 /* JokeNetworkService.swift in Sources */,
+				151224451F8D55DA00734FB1 /* Resources.swift in Sources */,
+				152BD1061F8D42C300B734ED /* Trackable.swift in Sources */,
+				1512243F1F8D53C500734FB1 /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +314,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -182,7 +324,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -225,7 +371,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -233,7 +381,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -304,8 +456,22 @@
 				AE32109C1F8532E800893D28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		152BD1001F8D40F500B734ED /* NerdJokes.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				152BD1011F8D40F500B734ED /* NerdJokes.xcdatamodel */,
+			);
+			currentVersion = 152BD1011F8D40F500B734ED /* NerdJokes.xcdatamodel */;
+			path = NerdJokes.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AE3210801F8532E800893D28 /* Project object */;
 }
