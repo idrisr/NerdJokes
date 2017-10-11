@@ -43,24 +43,24 @@
                     <h3 class="votes">{{votes}}</h3>
                     
                         
-                        <a class="button button-icon" onclick="voteUp({{id}})"><i class="fa fa-thumbs-up"></i></a>
-                        <a class="button button-icon" onclick="voteDown({{id}})"><i class="fa fa-thumbs-down"></i></a>
+                        <a class="button button-icon" onclick="voteUp({{uuid}})"><i class="fa fa-thumbs-up"></i></a>
+                        <a class="button button-icon" onclick="voteDown({{uuid}})"><i class="fa fa-thumbs-down"></i></a>
                 </div>
                 <div class="eight columns">
-                    <h2 id="setup_text_{{id}}">{{setup}}</h2>
-                    <h3 id="punchline_text_{{id}}">{{punchline}}</h3>
-                    <input type="text" name="id" value="{{id}}" hidden />
-                    <input type="text" id="votes_{{id}}" name="votes" value="{{votes}}" hidden />
-                    <input type="text" id="setup_{{id}}" name="setup" value="{{setup}}" class="edit_field" />
-                    <textarea id="punchline_{{id}}" name="punchline" class="edit_field">{{punchline}}</textarea>
+                    <h2 id="setup_text_{{uuid}}">{{setup}}</h2>
+                    <h3 id="punchline_text_{{uuid}}">{{punchline}}</h3>
+                    <input type="text" name="id" value="{{uuid}}" hidden />
+                    <input type="text" id="votes_{{uuid}}" name="votes" value="{{votes}}" hidden />
+                    <input type="text" id="setup_{{uuid}}" name="setup" value="{{setup}}" class="edit_field" />
+                    <textarea id="punchline_{{uuid}}" name="punchline" class="edit_field">{{punchline}}</textarea>
                 </div>
                 <div class="two columns">
                     <form>
-                        <a id="save_button_{{id}}" class="button button-icon edit_button" onclick="put({{id}})"><i class="fa fa-floppy-o"></i></a>
-                        <a id="edit_button_{{id}}" class="button button-icon" onclick="edit({{id}})"><i class="fa fa-pencil"></i></a>
+                        <a id="save_button_{{uuid}}" class="button button-icon edit_button" onclick="put({{uuid}})"><i class="fa fa-floppy-o"></i></a>
+                        <a id="edit_button_{{uuid}}" class="button button-icon" onclick="edit({{uuid}})"><i class="fa fa-pencil"></i></a>
                     </form>
                     <form>
-                        <a class="button button-icon" onclick="deleteJoke({{id}})"><i class="fa fa-trash"></i></a>
+                        <a class="button button-icon" onclick="deleteJoke({{uuid}})"><i class="fa fa-trash"></i></a>
                     </form>
                 </div>
             </div>
