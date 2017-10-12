@@ -35,13 +35,16 @@ def root():
     c = conn.cursor()
     jokes = {'jokes': []}
 
-    template = open('main.mustache', 'r')
+    with open('main.mustache', 'r') as template_file:
+        template = template_file.read()
 
     for r in c.execute('select * from jokes;'):
         joke = Joke(r)
         jokes['jokes'].append(joke.toJson())
 
-    return render(template.read(), json.dumps(jokes))
+    jokes_json = json.dumps(jokes)
+
+    return render(template, jokes_json)
 
 
 #  GET /jokes // Get all jokes
@@ -68,8 +71,7 @@ class Joke(object):
         self.uuid = result[7]
 
     def toJson(self):
-        return 'uuid: {uuid}, setup: {setup}, punchline: {punchline}, votes: {votes}'.format(**vars(self))
-
+        return vars(self) 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
