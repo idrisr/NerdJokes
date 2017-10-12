@@ -1,8 +1,7 @@
 from flask import Flask
 from flask import request
-from flask import url_for
 from flask import send_from_directory
-from pystache import render
+from flask import render_template
 import sqlite3 as sqlite
 import json
 import sys
@@ -33,18 +32,13 @@ def root():
 
     conn = sqlite.connect('jokes.db')
     c = conn.cursor()
-    jokes = {'jokes': []}
-
-    with open('main.mustache', 'r') as template_file:
-        template = template_file.read()
+    jokes = []
 
     for r in c.execute('select * from jokes;'):
-        joke = Joke(r)
-        jokes['jokes'].append(joke.toJson())
+        jokes.append(Joke(r))
 
-    jokes_json = json.dumps(jokes)
+    return render_template('index.html', jokes=jokes)
 
-    return render(template, jokes_json)
 
 
 #  GET /jokes // Get all jokes
