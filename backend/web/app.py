@@ -14,7 +14,7 @@ def root():
     c = conn.cursor()
     jokes = {'jokes': []}
 
-    template = open('webroot/main.mustache', 'r')
+    template = open('web/main.mustache', 'r')
 
     for r in c.execute('select * from jokes;'):
         joke = Joke(r)
