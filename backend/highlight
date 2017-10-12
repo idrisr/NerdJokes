@@ -1,0 +1,73 @@
+SpecialKey     xxx ctermfg=4 guifg=Blue
+EndOfBuffer    xxx links to NonText
+TermCursor     xxx cterm=reverse gui=reverse
+TermCursorNC   xxx cleared
+NonText        xxx ctermfg=12 gui=bold guifg=Blue
+Directory      xxx ctermfg=4 guifg=Blue
+ErrorMsg       xxx ctermfg=15 ctermbg=1 guifg=White guibg=Red
+IncSearch      xxx cterm=reverse gui=reverse
+Search         xxx ctermbg=11 guibg=Yellow
+MoreMsg        xxx ctermfg=2 gui=bold guifg=SeaGreen
+ModeMsg        xxx cterm=bold gui=bold
+LineNr         xxx ctermfg=130 guifg=Brown
+CursorLineNr   xxx ctermfg=130 gui=bold guifg=Brown
+Question       xxx ctermfg=2 gui=bold guifg=SeaGreen
+StatusLine     xxx cterm=bold,reverse gui=bold,reverse
+StatusLineNC   xxx cterm=reverse gui=reverse
+VertSplit      xxx cterm=reverse gui=reverse
+Title          xxx ctermfg=5 gui=bold guifg=Magenta
+Visual         xxx ctermbg=7 guibg=LightGrey
+WarningMsg     xxx ctermfg=1 guifg=Red
+WildMenu       xxx ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
+Folded         xxx ctermfg=4 ctermbg=248 guifg=DarkBlue guibg=LightGrey
+FoldColumn     xxx ctermfg=4 ctermbg=248 guifg=DarkBlue guibg=Grey
+DiffAdd        xxx ctermbg=81 guibg=LightBlue
+DiffChange     xxx ctermbg=225 guibg=LightMagenta
+DiffDelete     xxx ctermfg=12 ctermbg=159 gui=bold guifg=Blue guibg=LightCyan
+DiffText       xxx cterm=bold ctermbg=9 gui=bold guibg=Red
+SignColumn     xxx links to LineNr
+Conceal        xxx ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
+SpellBad       xxx ctermbg=224 gui=undercurl guisp=Red
+SpellCap       xxx ctermbg=81 gui=undercurl guisp=Blue
+SpellRare      xxx ctermbg=225 gui=undercurl guisp=Magenta
+SpellLocal     xxx ctermbg=14 gui=undercurl guisp=DarkCyan
+Pmenu          xxx ctermfg=0 ctermbg=225 guibg=LightMagenta
+PmenuSel       xxx ctermfg=0 ctermbg=7 guibg=Grey
+PmenuSbar      xxx ctermbg=248 guibg=Grey
+PmenuThumb     xxx ctermbg=0 guibg=Black
+TabLine        xxx cterm=underline ctermfg=0 ctermbg=7 gui=underline guibg=LightGrey
+TabLineSel     xxx cterm=bold gui=bold
+TabLineFill    xxx cterm=reverse gui=reverse
+CursorColumn   xxx ctermbg=7 guibg=Grey90
+CursorLine     xxx cterm=underline guibg=Grey90
+ColorColumn    xxx ctermbg=4 guibg=LightRed
+QuickFixLine   xxx links to Search
+Whitespace     xxx links to NonText
+Cursor         xxx guifg=bg guibg=fg
+lCursor        xxx guifg=bg guibg=fg
+Substitute     xxx links to Search
+MatchParen     xxx ctermbg=14 guibg=Cyan
+Error          xxx ctermfg=15 ctermbg=9 guifg=White guibg=Red
+Comment        xxx ctermfg=4 guifg=Blue
+Constant       xxx ctermfg=1 guifg=Magenta
+Special        xxx ctermfg=5 guifg=SlateBlue
+Identifier     xxx ctermfg=6 guifg=DarkCyan
+Statement      xxx ctermfg=130 gui=bold guifg=Brown
+PreProc        xxx ctermfg=5 guifg=Purple
+Type           xxx ctermfg=2 gui=bold guifg=SeaGreen
+Underlined     xxx cterm=underline ctermfg=5 gui=underline guifg=SlateBlue
+Ignore         xxx ctermfg=15 guifg=bg
+Todo           xxx ctermfg=0 ctermbg=11 guifg=Blue guibg=Yellow
+String         xxx links to Constant
+Character      xxx links to Constant
+Number         xxx links to Constant
+Boolean        xxx links to Constant
+Float          xxx links to Number
+Function       xxx links to Identifier
+Conditional    xxx links to Statement
+Repeat         xxx links to Statement
+Label          xxx links to Statement
+Operator       xxx links to Statement
+Keyword        xxx links to Statement
+Exception      xxx links to Statement
+links to PreProc

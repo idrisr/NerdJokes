@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Nerd Jokes</title>
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/skeleton.css">
+        <link rel="stylesheet" href="/css/custom.css">
+        <link rel="stylesheet" href="/css/font-awesome.css">
+        <link rel="stylesheet" href="/css/skeleton-fontawesome-buttons.css">
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+        <script src="/js/custom.js"></script>
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="u-full-width">
+                    <h1 class="hero_heading" >Nerd Jokes <small>Admin panel</small></h1>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="ten columns"><p>The greatest jokes ever told.</p></div>
+                <div class="two columns">
+                    <a id="add_button" class="button button-icon" onclick="create()"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="two columns">&nbsp;</div>
+                <div class="eight columns">
+                    <input type="text" id="setup_create" class="create_field" name="setup" placeholder="The joke's setup" value="" />
+                    <textarea id="punchline_create" class="create_field" name="punchline" placeholder="The joke's punchline"></textarea>
+                </div>
+                <div class="two columns">
+                    <a id="save_button_create" class="button button-icon create_button" onclick="post()"><i class="fa fa-floppy-o"></i></a>
+                    <a id="cancel_button" class="button button-icon create_button" onclick="cancel()"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <hr id="create_divider" class="create_field" />
+            <div class="row">
+                <div class="two columns">
+                    <h3 class="votes">10</h3>
+                    
+                        
+                        <a class="button button-icon" onclick="voteUp(1)"><i class="fa fa-thumbs-up"></i></a>
+                        <a class="button button-icon" onclick="voteDown(1)"><i class="fa fa-thumbs-down"></i></a>
+                </div>
+                <div class="eight columns">
+                    <h2 id="setup_text_1">YO</h2>
+                    <h3 id="punchline_text_1">WOT</h3>
+                    <input type="text" name="id" value="1" hidden />
+                    <input type="text" id="votes_1" name="votes" value="10" hidden />
+                    <input type="text" id="setup_1" name="setup" value="YO" class="edit_field" />
+                    <textarea id="punchline_1" name="punchline" class="edit_field">WOT</textarea>
+                </div>
+                <div class="two columns">
+                    <form>
+                        <a id="save_button_1" class="button button-icon edit_button" onclick="put(1)"><i class="fa fa-floppy-o"></i></a>
+                        <a id="edit_button_1" class="button button-icon" onclick="edit(1)"><i class="fa fa-pencil"></i></a>
+                    </form>
+                    <form>
+                        <a class="button button-icon" onclick="deleteJoke(1)"><i class="fa fa-trash"></i></a>
+                    </form>
+                </div>
+            </div>
+            <hr />
+        </div>
+    </body>
+</html>
