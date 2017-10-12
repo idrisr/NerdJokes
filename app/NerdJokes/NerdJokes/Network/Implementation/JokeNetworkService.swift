@@ -8,7 +8,26 @@
 
 import Foundation
 
-class JokeNetworkService {
+protocol URLRequestComposable {
+}
+
+extension URLRequestComposable {
+    func makeURLRequest(resource: ApiRoute, joke: JokeAPIItem? = nil) -> URLRequest {
+        var urlRequest = URLRequest(url: resource.url)
+        urlRequest.httpMethod = resource.httpMethod.rawValue
+        
+        guard let joke = joke else {
+            return urlRequest
+        }
+        
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = try! JSONEncoder().encode(joke)
+        
+        return urlRequest
+    }
+}
+
+class JokeNetworkService: URLRequestComposable {
     func get(completion: @escaping ([JokeAPIItem])->()) {
         let resource = GetAllJokesResource()
         let urlRequest = makeURLRequest(resource: resource)
@@ -52,7 +71,11 @@ class JokeNetworkService {
     }
     
     func update(joke: JokeAPIItem, completion: ((Bool)->())? = nil) {
-        let resource = UpdateJokeResource(id: joke.id)
+        guard let clientID = joke.clientID else {
+            completion?(false)
+            return
+        }
+        let resource = UpdateJokeResource(id: clientID)
         let urlRequest = makeURLRequest(resource: resource, joke: joke)
         
         JokeNetworkRequest(resource: resource).makeRequest(urlRequest: urlRequest, completion: { results, error in
@@ -83,17 +106,5 @@ class JokeNetworkService {
         })
     }
     
-    private func makeURLRequest(resource: ApiRoute, joke: JokeAPIItem? = nil) -> URLRequest {
-        var urlRequest = URLRequest(url: resource.url)
-        urlRequest.httpMethod = resource.httpMethod.rawValue
-        
-        guard let joke = joke else {
-            return urlRequest
-        }
-        
-        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = try! JSONEncoder().encode(joke)
-        
-        return urlRequest
-    }
+    
 }

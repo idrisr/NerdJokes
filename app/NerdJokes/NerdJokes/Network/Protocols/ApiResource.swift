@@ -8,12 +8,10 @@
 
 import Foundation
 
-
-
 protocol ApiResource: ApiRoute {
     associatedtype Model
-    
     func makeModel(data: Data) -> Model
+    var resourceType: ResourceType { get set }
 }
 
 protocol ApiRoute {

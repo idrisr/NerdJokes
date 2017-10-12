@@ -6,7 +6,7 @@
 //  Copyright © 2017 Id Raja. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum ModificationType {
     case created
@@ -18,6 +18,8 @@ enum ModificationState {
     case dirty
     case clean
 }
+
+
 
 enum NJHTTPMethod: String {
     case get = "GET"
@@ -32,5 +34,9 @@ struct AppConstants {
     
     struct Keys {
         static let kLastSyncSecondsSince1970 = "lastSyncSecondsSince1970"
+    }
+    
+    static var uuidString: String {
+        return UIDevice.current.identifierForVendor!.uuidString + NSUUID().uuidString
     }
 }

@@ -18,3 +18,15 @@ public extension Sequence {
         return nil
     }
 }
+
+public extension String {
+    public func removingCharacters(in set: CharacterSet) -> String {
+        var chars = characters
+        for idx in chars.indices.reversed() {
+            if set.contains(String(chars[idx]).unicodeScalars.first!) {
+                chars.remove(at: idx)
+            }
+        }
+        return String(chars)
+    }
+}

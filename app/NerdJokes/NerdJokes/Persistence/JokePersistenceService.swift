@@ -29,13 +29,24 @@ class JokePersistenceService {
         }
     }
     
+    func getAll(context: NSManagedObjectContext) -> [Joke] {
+        let fetchRequest: NSFetchRequest<Joke> = Joke.fetchRequest()
+        do {
+            let jokes = try context.fetch(fetchRequest)
+            return jokes
+        } catch {
+            print("error: \(error)")
+            return []
+        }
+    }
+    
     func get(id: String, context: NSManagedObjectContext) -> Joke? {
         guard let jokes = context.registeredObjects as? Set<Joke> else {
             return nil
         }
         
         guard let joke = jokes.find(predicate: { joke in
-            !joke.isFault && joke.remoteID == id
+            !joke.isFault
         }) else {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Joke")
             let predicate = NSPredicate(format: "remoteID = %@", id)

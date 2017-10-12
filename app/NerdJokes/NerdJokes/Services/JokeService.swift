@@ -40,18 +40,16 @@ class JokeService {
         }
     }
     
-    func insertFromLocal(joke: JokeAPIItem) {
-        Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.clientContext)
-        
-    }
-    
     func processChange(joke: JokeAPIItem) {
         switch getMostRecentModificationType(joke: joke) {
         case .created:
             Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.syncContext)
             break
         case .updated:
-            guard let jokeToUpdate = persistence.get(id: joke.id.value, context: persistence.coreDataStack.syncContext) else {
+            guard let clientID = joke.clientID else {
+                return
+            }
+            guard let jokeToUpdate = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
                 return
             }
             jokeToUpdate.setup = joke.setup
@@ -60,7 +58,10 @@ class JokeService {
             jokeToUpdate.updatedTime = Date()
             break
         case .deleted:
-            guard let jokeToDelete = persistence.get(id: joke.id.value, context: persistence.coreDataStack.syncContext) else {
+            guard let clientID = joke.clientID else {
+                return
+            }
+            guard let jokeToDelete = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
                 return
             }
             persistence.delete(joke: jokeToDelete, context: persistence.coreDataStack.syncContext)
@@ -89,5 +90,9 @@ class JokeService {
             })
             completion(jokesToChange)
         }
+    }
+    
+    func insertFromLocal(joke: JokeAPIItem) {
+        Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.clientContext)
     }
 }

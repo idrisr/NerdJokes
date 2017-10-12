@@ -17,8 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        guard let jokesMasterViewController = window?.rootViewController as? JokesMasterViewController else {
-            return true
+        guard
+            let navigationViewController = window?.rootViewController as? UINavigationController,
+            let jokesMasterViewController = navigationViewController.topViewController as? JokesMasterViewController else {
+                return true
         }
         
         jokesMasterViewController.jokeService = JokeService(persistence: JokePersistenceService(coreDataStack: CoreDataStack()), network: JokeNetworkService())
