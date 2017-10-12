@@ -5,6 +5,8 @@ from flask import send_from_directory
 from pystache import render
 import sqlite3 as sqlite
 import json
+import sys
+import os.path
 
 app = Flask(__name__)
 
@@ -26,7 +28,10 @@ def send_css(path):
 
 @app.route("/", methods=['GET'])
 def root():
-    conn = sqlite.connect('db/jokes.db')
+    if not os.path.isfile('jokes.db'):
+        sys.exit()
+
+    conn = sqlite.connect('jokes.db')
     c = conn.cursor()
     jokes = {'jokes': []}
 
