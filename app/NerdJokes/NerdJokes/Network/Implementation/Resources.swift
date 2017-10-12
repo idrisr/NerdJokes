@@ -8,8 +8,17 @@
 
 import Foundation
 
+enum ResourceType {
+    case getAll
+    case getOne
+    case delete
+    case add
+    case update
+}
+
 struct GetAllJokesResource: ApiResource {
     var methodPath: String = "/"
+    var resourceType: ResourceType = .getAll
     var httpMethod: NJHTTPMethod = .get
     func makeModel(data: Data) -> [JokeAPIItem] {
         guard let model = try? JSONDecoder().decode(Array<JokeAPIItem>.self, from: data) else {
@@ -21,6 +30,7 @@ struct GetAllJokesResource: ApiResource {
 
 struct GetSingleJokeResource: ApiResourceWithID {
     var id: ID
+    var resourceType: ResourceType = .getOne
     var httpMethod: NJHTTPMethod = .get
     var methodPath: String {
         return methodPath()
@@ -40,6 +50,7 @@ struct GetSingleJokeResource: ApiResourceWithID {
 
 struct DeleteSingleJokeResource: ApiResourceWithID {
     var id: ID
+    var resourceType: ResourceType = .delete
     var httpMethod: NJHTTPMethod = .delete
 
     var methodPath: String {
@@ -59,6 +70,7 @@ struct DeleteSingleJokeResource: ApiResourceWithID {
 
 struct AddJokeResource: ApiResource {
     var methodPath: String = "/"
+    var resourceType: ResourceType = .add
     var httpMethod: NJHTTPMethod = .post
     
     func makeModel(data: Data) -> JokeAPIItem? {
@@ -71,6 +83,7 @@ struct AddJokeResource: ApiResource {
 
 struct UpdateJokeResource: ApiResourceWithID {
     var id: ID
+    var resourceType: ResourceType = .update
     var httpMethod: NJHTTPMethod = .put
     
     var methodPath: String {

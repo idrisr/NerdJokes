@@ -20,3 +20,4 @@ extension JokeNetworkRequest: NetworkRequest {
         return resource.makeModel(data: data)
     }
 }
+

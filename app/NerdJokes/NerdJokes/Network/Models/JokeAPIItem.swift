@@ -17,8 +17,16 @@ struct ID: Codable {
     }
 }
 
+extension ID {
+    init(from decoder: Decoder) throws {
+        let value = try decoder.singleValueContainer().decode(String.self)
+        self.init(value: value)
+    }
+}
+
+
 struct JokeAPIItem: Codable {
-    var id: ID
+    var clientID: ID?
     var setup: String
     var punchline: String
     var votes: Int

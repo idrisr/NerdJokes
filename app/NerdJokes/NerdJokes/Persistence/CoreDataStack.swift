@@ -10,29 +10,34 @@ import UIKit
 import CoreData
 
 class CoreDataStack {
-    var persistentContainer: NSPersistentContainer
-    var parentContext: NSManagedObjectContext
-    var clientContext: NSManagedObjectContext
-    var syncContext: NSManagedObjectContext
+    lazy var parentContext: NSManagedObjectContext = {
+       return persistentContainer.viewContext
+    }()
     
-    init() {
-        persistentContainer = NSPersistentContainer(name: "NerdJokes")
-        persistentContainer.loadPersistentStores() { description, error in
+    lazy var clientContext: NSManagedObjectContext = {
+        let clientContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        clientContext.parent = parentContext
+        return clientContext
+    }()
+    
+    lazy var syncContext: NSManagedObjectContext = {
+        let syncContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        syncContext.parent = parentContext
+        return syncContext
+    }()
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "NerdJokes")
+        container.loadPersistentStores() { description, error in
             if let error = error {
                 fatalError("Cannot load persistent store \(error)")
             }
             print("loaded persistent stores!")
         }
-        
-        self.parentContext = persistentContainer.viewContext
-        clientContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        clientContext.parent = parentContext
-        syncContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        syncContext.parent = parentContext
-    }
+        return container
+    }()
     
     func save(childContext: NSManagedObjectContext) throws {
         try childContext.save()
-        try parentContext.save()
     }
 }

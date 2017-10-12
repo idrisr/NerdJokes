@@ -11,12 +11,10 @@ import Foundation
 class JokeService {
     var persistence: JokePersistenceService!
     var network: JokeNetworkService!
-    var lastSyncSecondsSince1970: Double
     
     required init(persistence: JokePersistenceService, network: JokeNetworkService) {
         self.persistence = persistence
         self.network = network
-        lastSyncSecondsSince1970 = UserDefaults.standard.double(forKey: AppConstants.Keys.kLastSyncSecondsSince1970)
     }
     
     func serverSync() {
@@ -40,18 +38,16 @@ class JokeService {
         }
     }
     
-    func insertFromLocal(joke: JokeAPIItem) {
-        Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.clientContext)
-        
-    }
-    
     func processChange(joke: JokeAPIItem) {
         switch getMostRecentModificationType(joke: joke) {
         case .created:
             Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.syncContext)
             break
         case .updated:
-            guard let jokeToUpdate = persistence.get(id: joke.id.value, context: persistence.coreDataStack.syncContext) else {
+            guard let clientID = joke.clientID else {
+                return
+            }
+            guard let jokeToUpdate = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
                 return
             }
             jokeToUpdate.setup = joke.setup
@@ -60,7 +56,10 @@ class JokeService {
             jokeToUpdate.updatedTime = Date()
             break
         case .deleted:
-            guard let jokeToDelete = persistence.get(id: joke.id.value, context: persistence.coreDataStack.syncContext) else {
+            guard let clientID = joke.clientID else {
+                return
+            }
+            guard let jokeToDelete = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
                 return
             }
             persistence.delete(joke: jokeToDelete, context: persistence.coreDataStack.syncContext)
@@ -79,7 +78,7 @@ class JokeService {
     }
     
     func getChangesFromNetwork(completion: @escaping ([JokeAPIItem])->()) {
-        let lastSyncDate = Int(lastSyncSecondsSince1970)
+        let lastSyncDate = Int(LastSyncedSetting.value)
         network.get { jokes in
         let jokesToChange = jokes.filter({ joke in
             return
@@ -89,5 +88,9 @@ class JokeService {
             })
             completion(jokesToChange)
         }
+    }
+    
+    func insertFromLocal(joke: JokeAPIItem) {
+        Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.clientContext)
     }
 }
