@@ -1,20 +1,36 @@
 from flask import Flask
 from flask import request
+from flask import url_for
+from flask import send_from_directory
 from pystache import render
 import sqlite3 as sqlite
 import json
 
-
 app = Flask(__name__)
+
+
+@app.route('/fonts/<path:path>')
+def send_fonts(path):
+    return send_from_directory('fonts', path)
+
+
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('js', path)
+
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('css', path)
 
 
 @app.route("/", methods=['GET'])
 def root():
-    conn = sqlite.connect('jokes.db')
+    conn = sqlite.connect('db/jokes.db')
     c = conn.cursor()
     jokes = {'jokes': []}
 
-    template = open('web/main.mustache', 'r')
+    template = open('main.mustache', 'r')
 
     for r in c.execute('select * from jokes;'):
         joke = Joke(r)
