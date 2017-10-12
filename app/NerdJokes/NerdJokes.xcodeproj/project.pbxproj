@@ -36,6 +36,7 @@
 		1568D4AC1F8FEB6400E7177C /* single_joke.json in Resources */ = {isa = PBXBuildFile; fileRef = 1568D4961F8FE0DA00E7177C /* single_joke.json */; };
 		1568D4AD1F8FEB6400E7177C /* all_jokes.json in Resources */ = {isa = PBXBuildFile; fileRef = 1568D4981F8FE0EB00E7177C /* all_jokes.json */; };
 		1568D4AE1F8FEB6400E7177C /* status.json in Resources */ = {isa = PBXBuildFile; fileRef = 1568D49A1F8FE0F600E7177C /* status.json */; };
+		15790A651F9014620096ECAE /* JokeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15790A641F9014620096ECAE /* JokeServiceTests.swift */; };
 		1591CD811F8D587B00A92251 /* JokeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1591CD801F8D587B00A92251 /* JokeNetworkService.swift */; };
 		1591CD831F8D592400A92251 /* JokeNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1591CD821F8D592400A92251 /* JokeNetworkRequest.swift */; };
 		15A4F3BA1F8FC02C000CF0B9 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A4F3B91F8FC02C000CF0B9 /* TestCoreDataStack.swift */; };
@@ -78,6 +79,7 @@
 		1568D4981F8FE0EB00E7177C /* all_jokes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = all_jokes.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
 		1568D49A1F8FE0F600E7177C /* status.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = status.json; sourceTree = "<group>"; };
 		1568D4A11F8FE15F00E7177C /* TestJokeNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJokeNetworkRequest.swift; sourceTree = "<group>"; };
+		15790A641F9014620096ECAE /* JokeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeServiceTests.swift; sourceTree = "<group>"; };
 		1591CD801F8D587B00A92251 /* JokeNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeNetworkService.swift; sourceTree = "<group>"; };
 		1591CD821F8D592400A92251 /* JokeNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeNetworkRequest.swift; sourceTree = "<group>"; };
 		15A4F3B91F8FC02C000CF0B9 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				155FAF7A1F8EB672000542F2 /* Info.plist */,
 				155FAF801F8EB69A000542F2 /* PersistenceTests.swift */,
 				1568D4941F8FDB3900E7177C /* NetworkTests.swift */,
+				15790A641F9014620096ECAE /* JokeServiceTests.swift */,
 			);
 			path = NerdJokesTests;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				1568D4A81F8FE86400E7177C /* StatusAPIItem.swift in Sources */,
 				1568D4A61F8FE82500E7177C /* AppConstants.swift in Sources */,
 				1568D4A41F8FE80600E7177C /* ApiResource.swift in Sources */,
+				15790A651F9014620096ECAE /* JokeServiceTests.swift in Sources */,
 				1568D4A71F8FE86100E7177C /* JokeAPIItem.swift in Sources */,
 				1568D4AB1F8FE93E00E7177C /* JokeNetworkRequest.swift in Sources */,
 				1568D4A31F8FE64800E7177C /* JokeNetworkService.swift in Sources */,

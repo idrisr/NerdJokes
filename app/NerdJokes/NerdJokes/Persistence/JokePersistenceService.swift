@@ -81,6 +81,6 @@ class JokePersistenceService {
     }
     
     @objc func syncContextDidSave(notification: Notification) {
-        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: AppConstants.Keys.kLastSyncSecondsSince1970)
+        LastSyncedSetting.value = Date().timeIntervalSince1970
     }
 }

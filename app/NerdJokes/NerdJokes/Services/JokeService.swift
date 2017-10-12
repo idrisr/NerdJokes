@@ -11,12 +11,10 @@ import Foundation
 class JokeService {
     var persistence: JokePersistenceService!
     var network: JokeNetworkService!
-    var lastSyncSecondsSince1970: Double
     
     required init(persistence: JokePersistenceService, network: JokeNetworkService) {
         self.persistence = persistence
         self.network = network
-        lastSyncSecondsSince1970 = UserDefaults.standard.double(forKey: AppConstants.Keys.kLastSyncSecondsSince1970)
     }
     
     func serverSync() {
@@ -80,7 +78,7 @@ class JokeService {
     }
     
     func getChangesFromNetwork(completion: @escaping ([JokeAPIItem])->()) {
-        let lastSyncDate = Int(lastSyncSecondsSince1970)
+        let lastSyncDate = Int(LastSyncedSetting.value)
         network.get { jokes in
         let jokesToChange = jokes.filter({ joke in
             return

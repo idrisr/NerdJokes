@@ -40,3 +40,14 @@ struct AppConstants {
         return UIDevice.current.identifierForVendor!.uuidString + NSUUID().uuidString
     }
 }
+
+struct LastSyncedSetting {
+    static var value: Double {
+        get {
+            return UserDefaults.standard.double(forKey: AppConstants.Keys.kLastSyncSecondsSince1970)
+        }
+        set(newValue) {
+            UserDefaults.standard.set(Date(), forKey: AppConstants.Keys.kLastSyncSecondsSince1970)
+        }
+    }
+}
