@@ -10,9 +10,63 @@
         <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
         <script src="js/custom.js"></script>
     </head>
+
     <body>
+        <div class="container">
+            <div class="row">
+                <div class="u-full-width">
+                    <h1 class="hero_heading" >Nerd Jokes <small>Admin panel</small></h1>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="ten columns"><p>The greatest jokes ever told.</p></div>
+                <div class="two columns">
+                    <a id="add_button" class="button button-icon" onclick="create()"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <hr />
         {% for joke in jokes %}
-            <h1>{{joke.uuid}}</h1>
-        {% endfor %}
+            <div class="row">
+                <div class="two columns">&nbsp;</div>
+                <div class="eight columns">
+                    <input type="text" id="setup_create" class="create_field" name="setup" placeholder="The joke's setup" value="{{joke.setup}}" />
+                    <textarea id="punchline_create" class="create_field" name="punchline" placeholder="The joke's punchline">{{joke.punchline}}</textarea>
+                </div>
+                <div class="two columns">
+                    <a id="save_button_create" class="button button-icon create_button" onclick="post()"><i class="fa fa-floppy-o"></i></a>
+                    <a id="cancel_button" class="button button-icon create_button" onclick="cancel()"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <hr id="create_divider" class="create_field" />
+
+            <div class="row">
+                <div class="two columns">
+                    <h3 class="votes">{{joke.votes}}</h3>
+                        <a class="button button-icon" onclick="voteUp({{joke.id}})"><i class="fa fa-thumbs-up"></i></a>
+                        <a class="button button-icon" onclick="voteDown({{joke.id}})"><i class="fa fa-thumbs-down"></i></a>
+                </div>
+                <div class="eight columns">
+                    <h2 id="setup_text_{{id}}">{{joke.setup}}</h2>
+                    <h3 id="punchline_text_{{joke.id}}">{{joke.punchline}}</h3>
+                    <input type="text" name="id" value="{{id}}" hidden />
+                    <input type="text" id="votes_{{joke.id}}" name="votes" value="{{joke.votes}}" hidden />
+                    <input type="text" id="setup_{{joke.id}}" name="setup" value="{{joke.setup}}" class="edit_field" />
+                    <textarea id="punchline_{{joke.id}}" name="punchline" class="edit_field">{{joke.punchline}}</textarea>
+                </div>
+                <div class="two columns">
+                    <form>
+                        <a id="save_button_{{joke.id}}" class="button button-icon edit_button" onclick="put({{joke.id}})"><i class="fa fa-floppy-o"></i></a>
+                        <a id="edit_button_{{joke.id}}" class="button button-icon" onclick="edit({{joke.id}})"><i class="fa fa-pencil"></i></a>
+                    </form>
+                    <form>
+                        <a class="button button-icon" onclick="deleteJoke({{joke.id}})"><i class="fa fa-trash"></i></a>
+                    </form>
+                </div>
+            </div>
+            <hr />
+            {% endfor %}
+        </div>
     </body>
+
 </html>
