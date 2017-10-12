@@ -1,4 +1,4 @@
 {
-    success: true,
-    message: "Succesfully deleted item."
+    "success": true,
+    "message": "Succesfully deleted item."
 }
