@@ -1,20 +1,26 @@
 from flask import Flask
 from flask import request
-# from pystache import render
+from pystache import render
 import sqlite3 as sqlite
+import json
 
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def root():
     conn = sqlite.connect('jokes.db')
     c = conn.cursor()
+    jokes = {'jokes': []}
+
+    template = open('webroot/main.mustache', 'r')
+
     for r in c.execute('select * from jokes;'):
         joke = Joke(r)
-        print joke.toJson()
-    return "YO"
+        jokes['jokes'].append(joke.toJson())
+
+    return render(template.read(), json.dumps(jokes))
 
 
 #  GET /jokes // Get all jokes
