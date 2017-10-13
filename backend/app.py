@@ -49,6 +49,18 @@ def jokes():
 
 @app.route("/jokes/<int:id>", methods=['GET', 'PUT', 'DELETE'])
 def jokes_id(id):
+    #  todo: reuse the connection
+    conn = sqlite.connect('jokes.db')
+    c = conn.cursor()
+
+    if request.method == "PUT":
+        # todo: whats the right response to send?
+        # todo: update the update time
+        query = "UPDATE jokes SET votes = votes + 1 WHERE id = {}".format(id)
+        c.execute(query)
+
+    conn.commit()
+    conn.close()
     return 'joke %s %s' % (id, request.method,)
 
 
