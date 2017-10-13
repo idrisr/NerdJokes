@@ -2,6 +2,8 @@ from flask import Flask
 from flask import request
 from flask import send_from_directory
 from flask import render_template
+from flask import jsonify
+import httplib
 import sqlite3 as sqlite
 import json
 import sys
@@ -57,16 +59,25 @@ def jokes_id(id):
     request_json = request.get_json()
 
     if request.method == "PUT":
-        #  get the request body
-        # todo: whats the right response to send?
-        # todo: update the update time
         vote_change = request_json["votes"]
-        query = "UPDATE jokes SET votes = {} WHERE id = {}".format(vote_change, id)
-        c.execute(query)
+        # todo: update the update time
+        update_query = "UPDATE jokes SET votes = {} WHERE id = {}".format(vote_change, id)
+        c.execute(update_query)
+        conn.commit()
 
-    conn.commit()
-    conn.close()
-    return 'joke %s %s' % (id, request.method,)
+    elif request.method == "DELETE":
+        # todo: set the delete flag, dont actually delete
+        delete_query = "DELETE FROM jokes WHERE id = {}".format(id)
+        c.execute(delete_query)
+        conn.commit()
+        conn.close()
+        return ('', httplib.NO_CONTENT)
+
+    if request.method == "PUT" or request.method == "GET":
+        select_query = "SELECT * FROM jokes WHERE id = {}".format(id)
+        joke = Joke(c.execute(select_query)[0])
+        conn.close()
+        return joke
 
 
 class Joke(object):
