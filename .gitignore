@@ -25,6 +25,7 @@ DerivedData/
 ## nerdjokes
 .build/
 *db
+*db-journal
 
 # Perfect ignore stuff
 .DS_Store
