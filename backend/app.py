@@ -54,10 +54,14 @@ def jokes_id(id):
     conn = sqlite.connect('jokes.db')
     c = conn.cursor()
 
+    request_json = request.get_json()
+
     if request.method == "PUT":
+        #  get the request body
         # todo: whats the right response to send?
         # todo: update the update time
-        query = "UPDATE jokes SET votes = votes + 1 WHERE id = {}".format(id)
+        vote_change = request_json["votes"]
+        query = "UPDATE jokes SET votes = {} WHERE id = {}".format(vote_change, id)
         c.execute(query)
 
     conn.commit()
