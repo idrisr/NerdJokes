@@ -18,7 +18,7 @@
   PUT /jokes/{id} // Update a joke with id {id}
   DELETE /jokes/{id} // Delete a joke with id {id}
   GET /jokes/test/now // Add a test entry and return a list of entries
-  
+
   // JSON body request for PUT/POST:
   {
     id: number, // only for PUT
@@ -27,3 +27,11 @@
     votes: number // default value 0
   }
 ```
+
+# Start web server
+
+1. download and install docker if you don't have it from [here](https://docs.docker.com/engine/installation/)
+
+1. run script `./docker_restart`
+
+1. go to `localhost`

@@ -9,7 +9,6 @@ import os.path
 
 app = Flask(__name__)
 
-
 @app.route('/fonts/<path:path>')
 def send_fonts(path):
     return send_from_directory('fonts', path)
