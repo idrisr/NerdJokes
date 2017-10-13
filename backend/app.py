@@ -7,7 +7,9 @@ import json
 import sys
 import os.path
 
+
 app = Flask(__name__)
+
 
 @app.route('/fonts/<path:path>')
 def send_fonts(path):
@@ -37,7 +39,6 @@ def root():
         jokes.append(Joke(r))
 
     return render_template('index.html', jokes=jokes)
-
 
 
 #  GET /jokes // Get all jokes
@@ -75,8 +76,6 @@ class Joke(object):
         self.deleted_time = result[6]
         self.uuid = result[7]
 
-    def toJson(self):
-        return vars(self) 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
