@@ -34,3 +34,4 @@ DerivedData/
 *.pins
 *.resolved
 *txt
+!requirements.txt
