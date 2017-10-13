@@ -36,3 +36,4 @@ DerivedData/
 *txt
 *db-journal
 __pycache__/
+!requirements.txt
