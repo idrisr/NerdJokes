@@ -31,6 +31,7 @@
 # Start web server
 
 1. download and install docker if you don't have it from [here](https://docs.docker.com/engine/installation/)
+or on mac do a `brew install docker`
 
 1. run script `./docker_restart`
 
