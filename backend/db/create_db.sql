@@ -8,6 +8,7 @@ IF NOT EXISTS jokes (
     updated_time integer,
     deleted_time integer,
     uuid string NOT NULL -- this scripts doesnt really  make uuids, but close enough
+    --  todo: add deleted_flag column
 );
 
 INSERT INTO jokes (setup, punchline, votes, created_time, updated_time, deleted_time, uuid)
