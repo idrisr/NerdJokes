@@ -2,11 +2,13 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import send_from_directory
+
+from joke import Joke
+
 import httplib
 import os.path
 import sqlite3 as sqlite
 import sys
-
 
 app = Flask(__name__)
 
@@ -77,18 +79,6 @@ def jokes_id(id):
         joke = Joke(c.execute(select_query)[0])
         conn.close()
         return joke
-
-
-class Joke(object):
-    def __init__(self, result):
-        self.id = result[0]
-        self.setup = result[1]
-        self.punchline = result[2]
-        self.votes = result[3]
-        self.created_time = result[4]
-        self.updated_time = result[5]
-        self.deleted_time = result[6]
-        self.uuid = result[7]
 
 
 if __name__ == '__main__':
