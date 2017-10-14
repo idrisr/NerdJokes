@@ -37,3 +37,4 @@ DerivedData/
 !requirements.txt
 
 *db-journal
+*pyc
