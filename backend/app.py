@@ -1,13 +1,11 @@
 from flask import Flask
+from flask import render_template
 from flask import request
 from flask import send_from_directory
-from flask import render_template
-from flask import jsonify
 import httplib
-import sqlite3 as sqlite
-import json
-import sys
 import os.path
+import sqlite3 as sqlite
+import sys
 
 
 app = Flask(__name__)
@@ -31,7 +29,7 @@ def send_css(path):
 @app.route("/", methods=['GET'])
 def root():
     if not os.path.isfile('jokes.db'):
-        sys.exit()
+        sys.exit("unable to find database")
 
     conn = sqlite.connect('jokes.db')
     c = conn.cursor()
@@ -61,7 +59,8 @@ def jokes_id(id):
     if request.method == "PUT":
         vote_change = request_json["votes"]
         # todo: update the update time
-        update_query = "UPDATE jokes SET votes = {} WHERE id = {}".format(vote_change, id)
+        update_query = "UPDATE jokes SET votes = {} WHERE id = {}"\
+            .format(vote_change, id)
         c.execute(update_query)
         conn.commit()
 
