@@ -33,9 +33,18 @@ def get_joke(id):
 
 
 @app.route("/jokes/<int:id>", methods=['PUT'])
-def update_joke(id):
+def put_joke(id):
     """update joke by id """
-    pass
+    data = request.data
+    #  convert into joke object
+    #  update the appropriate fields
+    #  send it back
+
+
+
+
+
+    return ""
 
 
 @app.route("/jokes/", methods=['POST'])
@@ -105,6 +114,32 @@ class Joke(object):
         query = query.format(cls.table, id)
         return QueryHelper.select(query)
 
+    @classmethod
+    def put(cls, data):
+        id = data["id"]
+        query = "SELECT * FROM {} where ID = {}"
+        query = query.format(cls.table, id)
+        joke = QueryHelper.select(query)
+        update = vars(joke).update ( (k, v, ) for k, v in e.items() if v is not None)
+        joke = Joke(update)
+
+        query = '''update jokes set 
+                    setup = {setup},
+                    punchline = {punchline},
+                    votes = {votes} 
+                    '''
+
+
+            }o}
+        {"id":1,"setup":"why did the chicken cross the road","punchline":"because he wanted to die","votes":1}
+        
+        kkk"
+
+        
+
+
+
+
 
 
 class QueryHelper(object):
@@ -140,11 +175,6 @@ class QueryHelper(object):
 
     @classmethod
     def insert(cls, query):
-        pass
-
-
-    @classmethod
-    def _execute_query(query):
         pass
 
 
