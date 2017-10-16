@@ -9,9 +9,14 @@
 import Foundation
 import CoreData
 
+protocol JokePersistenceServiceDelegate {
+    func clientContextDidMerge()
+}
+
 class JokePersistenceService {
     var coreDataStack: CoreDataStack!
     var modificationState: ModificationState = .clean
+    var delegate: JokePersistenceServiceDelegate?
     
     init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
@@ -78,6 +83,7 @@ class JokePersistenceService {
     
     @objc func localContextDidSave(notification: Notification) {
         coreDataStack.syncContext.mergeChanges(fromContextDidSave: notification)
+        delegate?.clientContextDidMerge()
     }
     
     @objc func syncContextDidSave(notification: Notification) {

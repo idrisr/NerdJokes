@@ -22,10 +22,10 @@ class JokesMasterViewController: UIViewController {
         return jokes
     }
     
-    
     // MARK: - outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     // MARK: - actions
     @IBAction func didTapAddButton(_ sender: Any) {
@@ -44,8 +44,13 @@ class JokesMasterViewController: UIViewController {
     
     // MARK: - lifecycle
     override func viewDidLoad() {
-        setupFetchResults()
-        setupTableView()
+        tableView.separatorStyle = .none
+        loadingIndicator.isHidden = false
+        jokeService.sync { [weak self] in
+            self?.setupFetchResults()
+            self?.setupTableView()
+            self?.loadingIndicator.isHidden = true
+        }
     }
     
     private func registerCell(name: String) {
@@ -58,12 +63,10 @@ class JokesMasterViewController: UIViewController {
         let fetchRequest: NSFetchRequest<Joke> = Joke.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "deletedFlag == NO")
         let sortByDate = NSSortDescriptor(key: "createdTime", ascending: false)
-        
         fetchRequest.sortDescriptors = [sortByDate]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: "joke")
         fetchedResultsController.delegate = self
-
 
         do {
             try fetchedResultsController.performFetch()
@@ -78,6 +81,7 @@ class JokesMasterViewController: UIViewController {
         }
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.reloadData()
     }
 }
 
@@ -163,7 +167,9 @@ extension JokesMasterViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
+        jokeService.serverSync { [weak self] in
+            self?.tableView.endUpdates()
+        }
     }
     
     fileprivate func configure(cell: UITableViewCell, for indexPath: IndexPath?) {

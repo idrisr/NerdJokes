@@ -29,6 +29,7 @@ extension URLRequestComposable {
 
 class JokeNetworkService: URLRequestComposable {
     func get(completion: @escaping ([JokeAPIItem])->()) {
+        print("get request made")
         let resource = GetAllJokesResource()
         let urlRequest = makeURLRequest(resource: resource)
         
@@ -42,6 +43,7 @@ class JokeNetworkService: URLRequestComposable {
     }
     
     func get(id: ID, completion: ((JokeAPIItem?)->())? = nil) {
+        print("getbyid request made")
         let resource = GetSingleJokeResource(id: id)
         let urlRequest = makeURLRequest(resource: resource)
         
@@ -55,6 +57,7 @@ class JokeNetworkService: URLRequestComposable {
     }
     
     func add(joke: JokeAPIItem, completion: ((Bool)->())? = nil) {
+        print("Add request made")
         let resource = AddJokeResource()
         let urlRequest = makeURLRequest(resource: resource, joke: joke)
         
@@ -71,6 +74,7 @@ class JokeNetworkService: URLRequestComposable {
     }
     
     func update(joke: JokeAPIItem, completion: ((Bool)->())? = nil) {
+        print("update request made")
         guard let clientID = joke.clientID else {
             completion?(false)
             return
@@ -91,6 +95,7 @@ class JokeNetworkService: URLRequestComposable {
     }
     
     func delete(id: ID, completion: ((Bool)->())? = nil) {
+        print("delete request made")
         let resource = DeleteSingleJokeResource(id: id)
         let urlRequest = makeURLRequest(resource: resource)
         
