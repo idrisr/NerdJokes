@@ -12,54 +12,127 @@ import CoreData
 class JokesMasterViewController: UIViewController {
     // MARK: - instance vars
     var jokeService: JokeService!
+    var context: NSManagedObjectContext!
     @objc var fetchedResultsController: NSFetchedResultsController<Joke>!
+    
+    var allJokes: [Joke] {
+        guard let jokes = fetchedResultsController.fetchedObjects else {
+            return []
+        }
+        return jokes
+    }
+    
     
     // MARK: - outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    
+    // MARK: - actions
+    @IBAction func didTapAddButton(_ sender: Any) {
+        addOrEditJoke(action: .add)
+    }
+    
+    @IBAction func didTapEditButton(_ sender: Any) {
+        tableView.isEditing = !tableView.isEditing
+        
+        if tableView.isEditing {
+            editButton.title = NSLocalizedString("Done", comment: "")
+        } else {
+            editButton.title = NSLocalizedString("Edit", comment: "")
+        }
+    }
     
     // MARK: - lifecycle
     override func viewDidLoad() {
+        setupFetchResults()
+        setupTableView()
+    }
+    
+    private func registerCell(name: String) {
+        let cellNib = UINib(nibName: name, bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: name)
+    }
+    
+    private func setupFetchResults() {
+        context = jokeService.persistence.coreDataStack.clientContext
         let fetchRequest: NSFetchRequest<Joke> = Joke.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "deletedFlag == NO")
         let sortByDate = NSSortDescriptor(key: "createdTime", ascending: false)
         
         fetchRequest.sortDescriptors = [sortByDate]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: jokeService.persistence.coreDataStack.clientContext, sectionNameKeyPath: nil, cacheName: "joke")
-        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: "joke")
+        fetchedResultsController.delegate = self
+
+
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print("cannot fetch objects")
         }
-        
+    }
+    
+    private func setupTableView() {
+        JokesMasterTableViewEnum.registrationCells.forEach { section in
+            registerCell(name: section.cellIdentifier)
+        }
         tableView.dataSource = self
-        fetchedResultsController.delegate = self
+        tableView.delegate = self
     }
 }
 
 // MARK: UITableViewDataSource
 extension JokesMasterViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let sectionInfo = fetchedResultsController.sections else {
-            return 0
-        }
-        
-        return sectionInfo.count
+        return JokesMasterTableViewEnum.registrationCells.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sectionInfo = fetchedResultsController.sections?[section] else {
-            return 0
+        if allJokes.count == 0 {
+            tableView.separatorStyle = .none
+        } else {
+            tableView.separatorStyle = .singleLine
         }
-        
-        return sectionInfo.numberOfObjects
+        return allJokes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //MARK: -  change this later
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = fetchedResultsController.object(at: indexPath).setup
-        return cell
+        guard let section = JokesMasterTableViewEnum(rawValue: indexPath.section) else {
+            fatalError("incorrect section")
+        }
+        
+        switch section {
+        case .joke:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: section.cellIdentifier) as? JokeTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(joke: joke(at: indexPath))
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            let isIndexWithinBounds = indexPath.row < allJokes.count
+            guard isIndexWithinBounds else {
+                return
+            }
+            
+            jokeService.deleteFromLocal(joke: joke(at: indexPath))
+            break
+        default:
+            break
+        }
+    }
+    
+    private func joke(at indexPath: IndexPath) -> Joke {
+        return fetchedResultsController.object(at: indexPath)
     }
 }
 
@@ -76,10 +149,99 @@ extension JokesMasterViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .automatic)
         case .update:
-            print("update to TBD")
+            guard
+                let indexPath = indexPath,
+                let cell = tableView.cellForRow(at: indexPath) else {
+                    return
+            }
+            configure(cell: cell, for: indexPath)
         case .move:
             tableView.deleteRows(at: [indexPath!], with: .automatic)
             tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
+    fileprivate func configure(cell: UITableViewCell, for indexPath: IndexPath?) {
+        guard
+            let indexPath = indexPath,
+            let cell = cell as? JokeTableViewCell else {
+                return
+        }
+        
+        let joke = fetchedResultsController.object(at: indexPath)
+        cell.configure(joke: joke)
+    }
+}
+
+extension JokesMasterViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        addOrEditJoke(action: .edit, joke: fetchedResultsController.object(at: indexPath))
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+}
+
+// MARK: - helper methods
+fileprivate extension JokesMasterViewController {
+    func addOrEditJoke(action: ModifyAction, joke: Joke? = nil) {
+        let alertController = UIAlertController(title: action == .add ? "Add a joke" : "Edit todo", message: "", preferredStyle: .alert)
+        
+        makeTextFields(alertController: alertController, joke: joke)
+        alertController.addAction(makeAddAction(alertController: alertController, action: action, joke: joke))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func makeTextFields(alertController: UIAlertController, joke: Joke?) {
+        alertController.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Setup"
+            if let joke = joke {
+                textField.text = joke.setup
+            }
+        })
+        alertController.addTextField(configurationHandler:{ textField in
+            textField.placeholder = "Punchline"
+            if let joke = joke {
+                textField.text = joke.punchline
+            }
+        })
+    }
+    
+    private func makeAddAction(alertController: UIAlertController, action: ModifyAction, joke: Joke?) -> UIAlertAction {
+        return UIAlertAction(title: action == .add ? "Add" : "Save", style: .default) { [weak self] _ in
+            guard
+                let this = self,
+                let fields = alertController.textFields,
+                let setupField = fields.first,
+                let punchlineField = fields.last,
+                let setup = setupField.text,
+                let punchline = punchlineField.text else {
+                    return
+            }
+            
+            switch action {
+            case .add:
+                this.jokeService.insertIntoLocal(setup: setup, punchline: punchline)
+                break
+            case .edit:
+                guard let joke = joke else {
+                    return
+                }
+                this.jokeService.updateIntoLocal(jokeToUpdate: joke, setup: setup, punchline: punchline)
+                break
+            }
+            do {
+                try this.fetchedResultsController.performFetch()
+            } catch {
+                print("Can't add or modify record \(error.localizedDescription)")
+            }
         }
     }
 }

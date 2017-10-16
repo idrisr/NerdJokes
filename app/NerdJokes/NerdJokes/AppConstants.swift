@@ -19,7 +19,10 @@ enum ModificationState {
     case clean
 }
 
-
+enum ModifyAction {
+    case add
+    case edit
+}
 
 enum NJHTTPMethod: String {
     case get = "GET"

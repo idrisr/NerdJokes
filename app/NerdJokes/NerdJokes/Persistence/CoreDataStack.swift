@@ -39,5 +39,6 @@ class CoreDataStack {
     
     func save(childContext: NSManagedObjectContext) throws {
         try childContext.save()
+        try parentContext.save()
     }
 }

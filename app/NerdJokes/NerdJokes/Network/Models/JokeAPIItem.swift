@@ -31,12 +31,12 @@ struct JokeAPIItem: Codable {
     var punchline: String
     var votes: Int
     
-    var createdTime: Int
-    var createdUser: String
-    var updatedTime: Int
-    var updatedUser: String
-    var deletedTime: Int
-    var deletedUser: String
+    var createdTime: Double
+    var createdUser: String?
+    var updatedTime: Double?
+    var updatedUser: String?
+    var deletedTime: Double?
+    var deletedUser: String?
     
     var deletedFlag: Bool
 }
