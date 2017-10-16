@@ -33,7 +33,7 @@ class JokesMasterViewController: UIViewController {
     }
     
     @IBAction func didTapEditButton(_ sender: Any) {
-        tableView.isEditing = !tableView.isEditing
+        tableView.setEditing(!tableView.isEditing, animated: true)
         
         if tableView.isEditing {
             editButton.title = NSLocalizedString("Done", comment: "")
@@ -108,6 +108,7 @@ extension JokesMasterViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(joke: joke(at: indexPath))
+            cell.delegate = self
             return cell
         }
     }
@@ -242,6 +243,18 @@ fileprivate extension JokesMasterViewController {
             } catch {
                 print("Can't add or modify record \(error.localizedDescription)")
             }
+        }
+    }
+}
+
+extension JokesMasterViewController: JokeTableViewCellDelegate {
+    func vote(joke: Joke, delta: Int) {
+        let votes = joke.votes.intValue + delta
+        jokeService.updateIntoLocal(jokeToUpdate: joke, setup: joke.setup, punchline: joke.punchline, votes: votes)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Can't add or modify record \(error.localizedDescription)")
         }
     }
 }
