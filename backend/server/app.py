@@ -132,7 +132,7 @@ class QueryHelper(object):
     def __init__(self, database):
         self.datebase = database
         self.connection = sqlite.connect(database)
-        self.cursor = connection.cursor()
+        self.cursor = self.connection.cursor()
 
     @classmethod
     def update(query):
@@ -150,7 +150,8 @@ class QueryHelper(object):
     def insert(cls, query):
         pass
 
-    @classmethod _execute_query(query):
+    @classmethod
+    def _execute_query(query):
         pass
 
 if __name__ == '__main__':
