@@ -7,6 +7,7 @@ Description: flask rest api endpoint for admin page and mobile clients
 '''
 
 from flask import Flask
+from flask import jsonify
 from flask import render_template
 from flask import request
 from flask import send_from_directory
@@ -21,8 +22,12 @@ app = Flask(__name__)
 @app.route("/jokes/<int:id>", methods=['GET'])
 def get_joke(id):
     """get joke by id """
-    #  Joke.get(id)
-    pass
+    joke = Joke.get(id)
+
+    if joke is None:
+        return "error"
+    else:
+        return jsonify(vars(joke))
 
 
 @app.route("/jokes/<int:id>", methods=['PUT'])
@@ -83,13 +88,21 @@ class Joke(object):
         self.updated_time = result[5]
         self.deleted_time = result[6]
         self.uuid = result[7]
+        self.table = Joke.table
 
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM {}".format(cls.table)
+        query = "SELECT * FROM {}"
         query = query.format(cls.table)
         return QueryHelper.select(query)
+
+    @classmethod
+    def get(cls, id):
+        query = "SELECT * FROM {} where ID = {}"
+        query = query.format(cls.table, id)
+        return QueryHelper.select(query)
+
 
 
 class QueryHelper(object):
@@ -97,13 +110,16 @@ class QueryHelper(object):
     connection = sqlite.connect(database, check_same_thread = False)
     cursor = connection.cursor()
 
+
     @classmethod
     def update(query):
         pass
 
+
     @classmethod
     def delete(cls, query):
         pass
+
 
     @classmethod
     def select(cls, query):
@@ -111,16 +127,24 @@ class QueryHelper(object):
         for r in cls.cursor.execute(query):
             jokes.append(Joke(r))
 
-        return jokes
+
+        if len(jokes) == 1:
+            return jokes[0]
+        elif len(jokes) == 0:
+            return None
+        else:
+            return jokes
 
 
     @classmethod
     def insert(cls, query):
         pass
 
+
     @classmethod
     def _execute_query(query):
         pass
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
