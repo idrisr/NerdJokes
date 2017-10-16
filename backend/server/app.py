@@ -7,6 +7,7 @@ Description: flask rest api endpoint for admin page and mobile clients
 '''
 
 from flask import Flask
+from flask import abort
 from flask import jsonify
 from flask import render_template
 from flask import request
@@ -25,7 +26,8 @@ def get_joke(id):
     joke = Joke.get(id)
 
     if joke is None:
-        return "error"
+        content = {'please move along': 'nothing to see here'}
+        return abort(404)
     else:
         return jsonify(vars(joke))
 
