@@ -67,16 +67,7 @@ def get_jokes():
 
 @app.route("/", methods=['GET'])
 def root():
-    if not os.path.isfile('jokes.db'):
-        sys.exit("unable to find database")
-
-    conn = sqlite.connect('jokes.db')
-    c = conn.cursor()
-    jokes = []
-
-    #  for r in c.execute('select * from jokes;'):
-    #  jokes.append(Joke(r))
-
+    jokes = Joke.get_all()
     return render_template('index.html', jokes=jokes)
 
 
@@ -93,46 +84,18 @@ class Joke(object):
         self.deleted_time = result[6]
         self.uuid = result[7]
 
+
     @classmethod
-    def get(cls, id):
-        query = "SELECT * FROM {} WHERE id = {}"
-        query.format(cls.table, id)
-        print(query)
-
-    #  #  todo: reuse the connection
-    #  conn = sqlite.connect('jokes.db')
-    #  c = conn.cursor()
-
-    #  request_json = request.get_json()
-
-    #  if request.method == "PUT":
-        #  vote_change = request_json["votes"]
-        #  # todo: update the update time
-        #  update_query = "UPDATE jokes SET votes = {} WHERE id = {}"\
-        #  .format(vote_change, id)
-        #  c.execute(update_query) conn.commit()
-
-    #  elif request.method == "DELETE":
-        #  # todo: set the delete flag, dont actually delete
-        #  delete_query = "DELETE FROM jokes WHERE id = {}".format(id)
-        #  c.execute(delete_query)
-        #  conn.commit()
-        #  conn.close()
-        #  return ('', httplib.NO_CONTENT)
-
-    #  if request.method == "PUT" or request.method == "GET":
-        #  select_query = "SELECT * FROM jokes WHERE id = {}".format(id)
-        #  joke = Joke(c.execute(select_query)[0])
-        #  conn.close()
-        #  return joke
-
+    def get_all(cls):
+        query = "SELECT * FROM {}".format(cls.table)
+        query = query.format(cls.table)
+        return QueryHelper.select(query)
 
 
 class QueryHelper(object):
-    def __init__(self, database):
-        self.datebase = database
-        self.connection = sqlite.connect(database)
-        self.cursor = self.connection.cursor()
+    database = "jokes.db"
+    connection = sqlite.connect(database, check_same_thread = False)
+    cursor = connection.cursor()
 
     @classmethod
     def update(query):
@@ -144,7 +107,12 @@ class QueryHelper(object):
 
     @classmethod
     def select(cls, query):
-        pass
+        jokes = []
+        for r in cls.cursor.execute(query):
+            jokes.append(Joke(r))
+
+        return jokes
+
 
     @classmethod
     def insert(cls, query):
