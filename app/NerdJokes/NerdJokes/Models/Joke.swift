@@ -30,11 +30,20 @@ extension Joke {
         joke.punchline = item.punchline
         joke.votes = NSNumber(value: item.votes)
         
-        joke.createdTime = Date(timeIntervalSince1970: Double(item.createdTime))
-        joke.createdUser = item.createdUser
-        joke.updatedTime = Date(timeIntervalSince1970: Double(item.updatedTime))
+        joke.createdTime = Date(timeIntervalSince1970: item.createdTime)
+        joke.createdUser = item.createdUser ?? ""
+        
+
+        if let updatedTime = item.updatedTime {
+            joke.updatedTime = Date(timeIntervalSince1970: updatedTime)
+        }
+        
         joke.updatedUser = item.updatedUser
-        joke.deletedTime = Date(timeIntervalSince1970: Double(item.deletedTime))
+        
+        if let deletedSeconds = item.deletedTime {
+            joke.deletedTime = Date(timeIntervalSince1970: deletedSeconds)
+        }
+        
         joke.deletedUser = item.deletedUser
         joke.deletedFlag = item.deletedFlag
         joke.clientID = retrieveOrCreateClientID(jokeAPIItem: item)
@@ -56,12 +65,28 @@ extension Joke {
         joke.setup = setup
         joke.punchline = punchline
         joke.votes = NSNumber(value: votes)
-        joke.deletedFlag = false
         joke.createdTime = Date()
-        joke.updatedTime = Date()
-        joke.deletedTime = Date()
+        joke.createdUser = "phone"
         joke.clientID = AppConstants.uuidString
         
         return joke
+    }
+    
+    static func apiItem(joke: Joke) -> JokeAPIItem? {
+        guard let clientID = joke.clientID else {
+            print("Cannot convert Joke to api object.")
+            return nil
+        }
+        return JokeAPIItem(clientID: ID(value: clientID),
+                            setup: joke.setup,
+                            punchline: joke.punchline,
+                            votes: joke.votes.intValue,
+                            createdTime: joke.createdTime.timeIntervalSince1970,
+                            createdUser: joke.createdUser,
+                            updatedTime: joke.updatedTime?.timeIntervalSince1970,
+                            updatedUser: joke.updatedUser,
+                            deletedTime: joke.deletedTime?.timeIntervalSince1970,
+                            deletedUser: joke.deletedUser,
+                            deletedFlag: joke.deletedFlag)
     }
 }
