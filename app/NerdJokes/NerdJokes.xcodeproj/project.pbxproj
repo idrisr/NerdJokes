@@ -23,6 +23,7 @@
 		153947511F950AE400FBDDD2 /* TableViewEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153947501F950AE400FBDDD2 /* TableViewEnum.swift */; };
 		153947541F950B9200FBDDD2 /* JokesMasterTableViewEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153947531F950B9200FBDDD2 /* JokesMasterTableViewEnum.swift */; };
 		153947561F95198B00FBDDD2 /* JokeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153947551F95198B00FBDDD2 /* JokeTableViewCell.xib */; };
+		153947581F96636500FBDDD2 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153947571F96636500FBDDD2 /* AppearanceManager.swift */; };
 		155FAF811F8EB69A000542F2 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155FAF801F8EB69A000542F2 /* PersistenceTests.swift */; };
 		1568D4951F8FDB3900E7177C /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568D4941F8FDB3900E7177C /* NetworkTests.swift */; };
 		1568D49C1F8FE10000E7177C /* single_joke.json in Resources */ = {isa = PBXBuildFile; fileRef = 1568D4961F8FE0DA00E7177C /* single_joke.json */; };
@@ -79,6 +80,7 @@
 		153947501F950AE400FBDDD2 /* TableViewEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewEnum.swift; sourceTree = "<group>"; };
 		153947531F950B9200FBDDD2 /* JokesMasterTableViewEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokesMasterTableViewEnum.swift; sourceTree = "<group>"; };
 		153947551F95198B00FBDDD2 /* JokeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JokeTableViewCell.xib; sourceTree = "<group>"; };
+		153947571F96636500FBDDD2 /* AppearanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
 		155FAF761F8EB672000542F2 /* NerdJokesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NerdJokesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		155FAF7A1F8EB672000542F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		155FAF801F8EB69A000542F2 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				AE3210971F8532E800893D28 /* Info.plist */,
 				152BD1001F8D40F500B734ED /* NerdJokes.xcdatamodeld */,
 				1512243E1F8D53C500734FB1 /* AppConstants.swift */,
+				153947571F96636500FBDDD2 /* AppearanceManager.swift */,
 			);
 			path = NerdJokes;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				AE32108C1F8532E800893D28 /* AppDelegate.swift in Sources */,
 				1511DE9E1F8D64D40079DDF0 /* JokePersistenceService.swift in Sources */,
 				15BA30DE1F8E744700C4E74F /* JokeService.swift in Sources */,
+				153947581F96636500FBDDD2 /* AppearanceManager.swift in Sources */,
 				152BD1081F8D439F00B734ED /* JokesMasterViewController.swift in Sources */,
 				15010C071F91588E00644F76 /* JokeTableViewCell.swift in Sources */,
 				152BD10A1F8D448900B734ED /* JokeAPIItem.swift in Sources */,

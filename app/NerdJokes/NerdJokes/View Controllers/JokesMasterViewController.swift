@@ -27,6 +27,8 @@ class JokesMasterViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var emptyLabel: UILabel!
+    
     
     // MARK: - actions
     @IBAction func didTapAddButton(_ sender: Any) {
@@ -47,6 +49,7 @@ class JokesMasterViewController: UIViewController {
     override func viewDidLoad() {
         tableView.separatorStyle = .none
         loadingIndicator.isHidden = false
+        emptyLabel.isHidden = true
         setupPullToRefresh()
         jokeService.sync { [weak self] in
             self?.setupFetchResults()
@@ -111,6 +114,15 @@ class JokesMasterViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.reloadData()
+        showOrHideEmptyLabel()
+    }
+    
+    fileprivate func showOrHideEmptyLabel() {
+        if let fetchedObjects = fetchedResultsController.fetchedObjects {
+            emptyLabel.isHidden = fetchedObjects.count > 0
+        } else {
+            emptyLabel.isHidden = false
+        }
     }
 }
 
@@ -196,6 +208,7 @@ extension JokesMasterViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        showOrHideEmptyLabel()
         tableView.endUpdates()
     }
     
