@@ -13,6 +13,9 @@ from flask import render_template
 from flask import request
 from flask import send_from_directory
 
+import logging
+from logging.handlers import RotatingFileHandler
+
 import sqlite3 as sqlite
 import time
 
@@ -148,6 +151,7 @@ class QueryHelper(object):
 
     @classmethod
     def select(cls, query):
+        app.logging.info(query)  # will not print anything
         jokes = []
         for r in cls.cursor.execute(query):
             jokes.append(Joke(r))
@@ -165,4 +169,7 @@ class QueryHelper(object):
 
 
 if __name__ == '__main__':
+    handler = RotatingFileHandler('foo.log', maxBytes=10000, backupCount=1)
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
     app.run(host='0.0.0.0', port=80)
