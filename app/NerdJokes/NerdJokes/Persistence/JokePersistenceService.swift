@@ -9,9 +9,14 @@
 import Foundation
 import CoreData
 
+protocol JokePersistenceServiceDelegate {
+    func clientContextDidMerge()
+}
+
 class JokePersistenceService {
     var coreDataStack: CoreDataStack!
     var modificationState: ModificationState = .clean
+    var delegate: JokePersistenceServiceDelegate?
     
     init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
@@ -40,16 +45,14 @@ class JokePersistenceService {
         }
     }
     
-    func get(id: String, context: NSManagedObjectContext) -> Joke? {
+    func get(id: Int, context: NSManagedObjectContext) -> Joke? {
         guard let jokes = context.registeredObjects as? Set<Joke> else {
             return nil
         }
         
-        guard let joke = jokes.find(predicate: { joke in
-            !joke.isFault
-        }) else {
+        guard let joke = jokeExistsInContext(id: id, context: context) else {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Joke")
-            let predicate = NSPredicate(format: "remoteID = %@", id)
+            let predicate = NSPredicate(format: "serverID == %d", id)
             fetchRequest.returnsObjectsAsFaults = false
             fetchRequest.predicate = predicate
             do {
@@ -67,6 +70,20 @@ class JokePersistenceService {
         return joke
     }
     
+    func jokeExistsInContext(id: Int, context: NSManagedObjectContext) -> Joke? {
+        guard let jokes = context.registeredObjects as? Set<Joke> else {
+            return nil
+        }
+        
+        guard let joke = jokes.find(predicate: { joke in
+            !joke.isFault
+        }) else {
+            return nil
+        }
+        
+        return joke
+    }
+    
     func refreshClient() {
         do {
             try coreDataStack.clientContext.fetch(NSFetchRequest.init(entityName: "Joke"))
@@ -78,6 +95,7 @@ class JokePersistenceService {
     
     @objc func localContextDidSave(notification: Notification) {
         coreDataStack.syncContext.mergeChanges(fromContextDidSave: notification)
+        delegate?.clientContextDidMerge()
     }
     
     @objc func syncContextDidSave(notification: Notification) {

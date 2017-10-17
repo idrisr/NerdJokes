@@ -6,18 +6,17 @@
         <attribute name="votes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Trackable" representedClassName=".Trackable" isAbstract="YES" syncable="YES">
-        <attribute name="clientID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="createdUser" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="deletedFlag" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="deletedTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="deletedUser" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="remoteID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="updatedTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="updatedUser" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Joke" positionX="-63" positionY="-18" width="128" height="90"/>
-        <element name="Trackable" positionX="-54" positionY="18" width="128" height="180"/>
+        <element name="Trackable" positionX="-54" positionY="18" width="128" height="165"/>
     </elements>
 </model>

@@ -15,13 +15,23 @@ class JokeService {
     required init(persistence: JokePersistenceService, network: JokeNetworkService) {
         self.persistence = persistence
         self.network = network
+        self.persistence.delegate = self
     }
     
-    func serverSync() {
+    func sync(completion: @escaping ()->()) {
+        serverSync { [weak self] in
+            self?.localSync {
+                completion()
+            }
+        }
+    }
+    
+    func serverSync(completion: @escaping ()->()) {
         getChangesFromNetwork { [weak self] jokesToChange in
             guard
                 let this = self,
                 jokesToChange.count > 0 else {
+                    completion()
                     return
             }
             for joke in jokesToChange {
@@ -32,14 +42,75 @@ class JokeService {
             
             do {
                 try this.persistence.coreDataStack.syncContext.save()
+                completion()
             } catch {
                 print("\(error)")
+                completion()
             }
         }
     }
     
+    func localSync(completion: ()->()) {
+        guard let items = persistence.coreDataStack.clientContext.registeredObjects as? Set<Joke> else {
+            return
+        }
+        let jokes: [Joke] = Array(items)
+        
+        let lastSyncedDate = Date(timeIntervalSince1970: LastSyncedSetting.value) as NSDate
+        let predicate = NSPredicate(format: "createdTime > %@ OR updatedTime > %@ OR deletedTime > %@", lastSyncedDate)
+     
+        let newJokeChangesFilterResults = (jokes as NSArray).filtered(using: predicate)
+        for change in newJokeChangesFilterResults {
+            guard let joke = change as? Joke else {
+                return
+            }
+            processLocalChange(joke: joke)
+        }
+        completion()
+        LastSyncedSetting.value = Date().timeIntervalSince1970
+    }
+    
+    
+    
     func addJoke(joke: Joke) {
         persistence.coreDataStack.clientContext.insert(joke)
+    }
+    
+    private func processLocalChange(joke: Joke) {
+        guard let apiItem = Joke.apiItem(joke: joke) else {
+            return
+        }
+        switch getMostRecentModificationType(joke: apiItem) {
+        case .created:
+            network.add(joke: apiItem, completion: { [weak self] serverID in
+                guard
+                    let this = self,
+                    let serverID = serverID else {
+                    print("can't parse server id")
+                    return
+                }
+                joke.serverID = NSNumber(value: serverID.value)
+                do {
+                    try this.persistence.coreDataStack.save(childContext: this.persistence.coreDataStack.clientContext)
+                } catch {
+                    print("Cannot set new id \(error)")
+                }
+            })
+            break
+        case .updated:
+            network.update(joke: apiItem, completion: { success in
+                print("updated = \(success)")
+            })
+            break
+        case .deleted:
+            guard let id = apiItem.serverID else {
+                return
+            }
+            network.delete(id: id, completion: { success in
+                print("deleted = \(success)")
+            })
+            break
+        }
     }
     
     private func processChange(joke: JokeAPIItem) {
@@ -48,7 +119,7 @@ class JokeService {
             Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.syncContext)
             break
         case .updated:
-            guard let clientID = joke.clientID else {
+            guard let clientID = joke.serverID else {
                 return
             }
             guard let jokeToUpdate = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
@@ -60,17 +131,17 @@ class JokeService {
             jokeToUpdate.updatedTime = Date()
             break
         case .deleted:
-            guard let clientID = joke.clientID else {
+            guard let serverID = joke.serverID else {
                 return
             }
-            guard let jokeToDelete = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
+            guard let jokeToDelete = persistence.get(id: serverID.value, context: persistence.coreDataStack.syncContext) else {
                 return
             }
             persistence.delete(joke: jokeToDelete, context: persistence.coreDataStack.syncContext)
             break
         }
     }
-
+    
     private func getMostRecentModificationType(joke: JokeAPIItem) -> ModificationType {
         if isUpdatedMostRecent(joke: joke) {
             return .updated
@@ -84,7 +155,8 @@ class JokeService {
     }
     
     func isUpdatedMostRecent(joke: JokeAPIItem) -> Bool {
-        guard let updatedTime = joke.updatedTime else {
+        
+        guard let updatedTime = joke.updatedTime, persistence.jokeExistsInContext(id: joke.serverID!.value, context: persistence.coreDataStack.clientContext) != nil else {
             return false
         }
         
@@ -168,5 +240,11 @@ class JokeService {
         } catch {
             print("Cannot delete joke")
         }
+    }
+}
+
+extension JokeService: JokePersistenceServiceDelegate {
+    func clientContextDidMerge() {
+        localSync(completion:{})
     }
 }

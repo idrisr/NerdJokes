@@ -14,6 +14,7 @@ class JokesMasterViewController: UIViewController {
     var jokeService: JokeService!
     var context: NSManagedObjectContext!
     @objc var fetchedResultsController: NSFetchedResultsController<Joke>!
+    var refreshControl: UIRefreshControl?
     
     var allJokes: [Joke] {
         guard let jokes = fetchedResultsController.fetchedObjects else {
@@ -22,10 +23,12 @@ class JokesMasterViewController: UIViewController {
         return jokes
     }
     
-    
     // MARK: - outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var emptyLabel: UILabel!
+    @IBOutlet weak var themeButton: UIBarButtonItem!
     
     // MARK: - actions
     @IBAction func didTapAddButton(_ sender: Any) {
@@ -33,7 +36,7 @@ class JokesMasterViewController: UIViewController {
     }
     
     @IBAction func didTapEditButton(_ sender: Any) {
-        tableView.isEditing = !tableView.isEditing
+        tableView.setEditing(!tableView.isEditing, animated: true)
         
         if tableView.isEditing {
             editButton.title = NSLocalizedString("Done", comment: "")
@@ -42,10 +45,74 @@ class JokesMasterViewController: UIViewController {
         }
     }
     
+    @IBAction func didTapThemeButton(_ sender: Any) {
+        let currentTheme = AppearanceManager.Theme(rawValue: CurrentTheme.value)!
+        let newTheme: AppearanceManager.Theme = currentTheme == .dark ? .light : .dark
+        CurrentTheme.value = newTheme.rawValue
+        AppearanceManager.setupTheme(theme: newTheme)
+        
+        applyTheme()
+    }
+    
+    private func applyTheme() {
+        let windows = UIApplication.shared.windows
+        for window in windows {
+            for view in window.subviews {
+                view.removeFromSuperview()
+                window.addSubview(view)
+            }
+        }
+    }
+    
+    
     // MARK: - lifecycle
     override func viewDidLoad() {
-        setupFetchResults()
-        setupTableView()
+        tableView.separatorStyle = .none
+        loadingIndicator.isHidden = false
+        emptyLabel.isHidden = true
+        setThemeName()
+        setupPullToRefresh()
+        jokeService.sync { [weak self] in
+            self?.setupFetchResults()
+            self?.setupTableView()
+            self?.loadingIndicator.isHidden = true
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func setThemeName() {
+        if let currentTheme = AppearanceManager.Theme(rawValue: CurrentTheme.value) {
+            themeButton.title = currentTheme.name
+        } else {
+            themeButton.title = "Unknown"
+        }
+    }
+    
+    private func setupPullToRefresh() {
+        refreshControl = UIRefreshControl()
+        guard let refreshControl = refreshControl else {
+            return
+        }
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(pullToRefreshAction), for: .valueChanged)
+        
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc private func pullToRefreshAction() {
+         jokeService.sync { [weak self] in
+            guard let this = self else {
+                return
+            }
+            
+            do {
+                try this.fetchedResultsController.performFetch()
+            } catch {
+                print("cannot fetch items")
+            }
+            this.refreshControl?.endRefreshing()
+        }
     }
     
     private func registerCell(name: String) {
@@ -58,15 +125,14 @@ class JokesMasterViewController: UIViewController {
         let fetchRequest: NSFetchRequest<Joke> = Joke.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "deletedFlag == NO")
         let sortByDate = NSSortDescriptor(key: "createdTime", ascending: false)
-        
         fetchRequest.sortDescriptors = [sortByDate]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: "joke")
         fetchedResultsController.delegate = self
 
-
         do {
             try fetchedResultsController.performFetch()
+            print(fetchedResultsController.fetchedObjects?.count)
         } catch {
             print("cannot fetch objects")
         }
@@ -78,6 +144,15 @@ class JokesMasterViewController: UIViewController {
         }
         tableView.dataSource = self
         tableView.delegate = self
+        showOrHideEmptyLabel()
+    }
+    
+    fileprivate func showOrHideEmptyLabel() {
+        if let fetchedObjects = fetchedResultsController.fetchedObjects {
+            emptyLabel.isHidden = fetchedObjects.count > 0
+        } else {
+            emptyLabel.isHidden = false
+        }
     }
 }
 
@@ -108,6 +183,7 @@ extension JokesMasterViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(joke: joke(at: indexPath))
+            cell.delegate = self
             return cell
         }
     }
@@ -132,7 +208,7 @@ extension JokesMasterViewController: UITableViewDataSource {
     }
     
     private func joke(at indexPath: IndexPath) -> Joke {
-        return fetchedResultsController.object(at: indexPath)
+        return fetchedResultsController.fetchedObjects![indexPath.row]
     }
 }
 
@@ -162,6 +238,7 @@ extension JokesMasterViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        showOrHideEmptyLabel()
         tableView.endUpdates()
     }
     
@@ -242,6 +319,18 @@ fileprivate extension JokesMasterViewController {
             } catch {
                 print("Can't add or modify record \(error.localizedDescription)")
             }
+        }
+    }
+}
+
+extension JokesMasterViewController: JokeTableViewCellDelegate {
+    func vote(joke: Joke, delta: Int) {
+        let votes = joke.votes.intValue + delta
+        jokeService.updateIntoLocal(jokeToUpdate: joke, setup: joke.setup, punchline: joke.punchline, votes: votes)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Can't add or modify record \(error.localizedDescription)")
         }
     }
 }
