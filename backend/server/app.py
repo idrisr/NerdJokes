@@ -46,6 +46,13 @@ def put_joke(id):
         return jsonify(vars(joke))
 
 
+@app.route("/jokes/", methods=['GET'])
+def jokes():
+    """create joke """
+    jokes = Joke.get_all()
+    return jsonify({"jokes": [vars(joke) for joke in jokes]})
+
+
 @app.route("/jokes/", methods=['POST'])
 def create_joke():
     """create joke """
