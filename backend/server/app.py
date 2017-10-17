@@ -37,7 +37,7 @@ def get_joke(id):
 def put_joke(id):
     """update joke by id """
     data = request.get_json()
-    print(data)
+    app.logger.info(data)
     joke = Joke.put(data)
 
     if joke is None:
@@ -100,38 +100,46 @@ class Joke(object):
         self.uuid = result[7]
         self.table = Joke.table
 
+    def update(self, data):
+        for k, v in data.items():
+            if hasattr(self, k):
+                setattr(self, k, v)
+
+    def __repr__(self):
+        d = vars(self)
+        return ", ".join("%s: %s" % (k, v, ) for k, v in d.items())
+
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM {}"
+        query = "SELECT * FROM {};"
         query = query.format(cls.table)
         return QueryHelper.select(query)
 
     @classmethod
     def get(cls, id):
-        query = "SELECT * FROM {} where ID = {}"
+        query = "SELECT * FROM {} where ID = {};"
         query = query.format(cls.table, id)
         return QueryHelper.select(query)
 
     @classmethod
     def put(cls, data):
         id = data["id"]
-        query = "SELECT * FROM {} where ID = {}"
-        query = query.format(cls.table, id)
-        joke = QueryHelper.select(query)
-        update = vars(joke).update((k, v, ) for k, v in
-                                   data.items() if v is not None)
-        joke = Joke(update)
+        joke = cls.get(id)
+        app.logger.info(joke)
+        app.logger.info(data)
+
+        joke.update(data)
         joke.updated_time = int(time.time())
 
         query = '''UPDATE jokes SET
-                    setup = {setup},
-                    punchline = {punchline},
-                    votes = {votes}
-                    update_time = {updated_time}
-                    WHERE id = {id}
+                    setup = "{setup}",
+                    punchline = "{punchline}",
+                    votes = "{votes}",
+                    updated_time = "{updated_time}"
+                    WHERE id = {id};
                     '''
 
-        query = query.format(**dir(joke))
+        query = query.format(**vars(joke))
         return QueryHelper.update(query, id)
 
 
@@ -142,8 +150,8 @@ class QueryHelper(object):
 
     @classmethod
     def update(cls, query, id):
+        app.logger.info(query)
         cls.cursor.execute(query)
-        cls.cursor.commit()
 
     @classmethod
     def delete(cls, query):
@@ -151,7 +159,7 @@ class QueryHelper(object):
 
     @classmethod
     def select(cls, query):
-        app.logging.info(query)  # will not print anything
+        app.logger.info(query)
         jokes = []
         for r in cls.cursor.execute(query):
             jokes.append(Joke(r))
