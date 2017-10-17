@@ -98,15 +98,10 @@ class Joke(object):
     table = "jokes"
 
     def __init__(self, result):
-        self.id = result[0]
-        self.setup = result[1]
-        self.punchline = result[2]
-        self.votes = result[3]
-        self.created_time = result[4]
-        self.updated_time = result[5]
-        self.deleted_time = result[6]
-        self.uuid = result[7]
-        self.table = Joke.table
+        i_vars = ["id", "setup", "punchline", "votes", "created_time",
+                  "updated_time", "deleted_time", "uuid", "deleted_flag"]
+
+        [setattr(self, i_var, result[i]) for i, i_var in enumerate(i_vars)]
 
     def update(self, data):
         for k, v in data.items():
