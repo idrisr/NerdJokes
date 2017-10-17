@@ -28,7 +28,7 @@ class JokesMasterViewController: UIViewController {
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyLabel: UILabel!
-    
+    @IBOutlet weak var themeButton: UIBarButtonItem!
     
     // MARK: - actions
     @IBAction func didTapAddButton(_ sender: Any) {
@@ -44,6 +44,25 @@ class JokesMasterViewController: UIViewController {
             editButton.title = NSLocalizedString("Edit", comment: "")
         }
     }
+    
+    @IBAction func didTapThemeButton(_ sender: Any) {
+        let currentTheme = AppearanceManager.Theme(rawValue: CurrentTheme.value)!
+        let newTheme: AppearanceManager.Theme = currentTheme == .dark ? .light : .dark
+        CurrentTheme.value = newTheme.rawValue
+        AppearanceManager.setupTheme(theme: newTheme)
+        applyTheme()
+    }
+    
+    private func applyTheme() {
+        let windows = UIApplication.shared.windows
+        for window in windows {
+            for view in window.subviews {
+                view.removeFromSuperview()
+                window.addSubview(view)
+            }
+        }
+    }
+    
     
     // MARK: - lifecycle
     override func viewDidLoad() {

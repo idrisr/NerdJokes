@@ -16,7 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        if UserDefaults.standard.object(forKey: AppConstants.Keys.kTheme) == nil {
+            CurrentTheme.value = AppearanceManager.Theme.light.rawValue
+        }
         
+        AppearanceManager.setupTheme(theme: AppearanceManager.Theme(rawValue: CurrentTheme.value)!)
+
         guard
             let navigationViewController = window?.rootViewController as? UINavigationController,
             let jokesMasterViewController = navigationViewController.topViewController as? JokesMasterViewController else {
@@ -24,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         jokesMasterViewController.jokeService = JokeService(persistence: JokePersistenceService(coreDataStack: CoreDataStack()), network: JokeNetworkService())
+        
+        
         
         return true
     }

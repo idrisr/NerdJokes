@@ -26,7 +26,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jBy-Qc-yHG">
-                                <rect key="frame" x="177.5" y="323" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No jokes here! Why not create one?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7p4-oR-Fwa">
                                 <rect key="frame" x="51.5" y="323" width="271.5" height="21"/>
@@ -34,12 +34,26 @@
                                 <color key="textColor" red="0.39285516972574358" green="0.37211216489217491" blue="0.67319772743808171" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2cB-yV-jTD">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="aus-PT-qTZ"/>
+                                    <barButtonItem title="Light" id="C4D-7Y-TSV">
+                                        <connections>
+                                            <action selector="didTapThemeButton:" destination="BYZ-38-t0r" id="AF8-xB-Z2g"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0u2-pl-u6x" secondAttribute="bottom" id="26V-Ne-fv3"/>
+                            <constraint firstItem="2cB-yV-jTD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="2Vr-dQ-pqf"/>
                             <constraint firstItem="jBy-Qc-yHG" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2ds-Rh-pM8"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2cB-yV-jTD" secondAttribute="bottom" id="6hZ-OC-2eW"/>
                             <constraint firstItem="7p4-oR-Fwa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="DAI-u7-mtC"/>
+                            <constraint firstAttribute="trailing" secondItem="2cB-yV-jTD" secondAttribute="trailing" id="G69-lE-rzj"/>
                             <constraint firstItem="jBy-Qc-yHG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RfZ-vY-gec"/>
                             <constraint firstAttribute="trailing" secondItem="0u2-pl-u6x" secondAttribute="trailing" id="WbU-ST-KGW"/>
                             <constraint firstItem="0u2-pl-u6x" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="e6L-Sc-qmM"/>
@@ -64,6 +78,7 @@
                         <outlet property="emptyLabel" destination="7p4-oR-Fwa" id="S0a-02-fl9"/>
                         <outlet property="loadingIndicator" destination="jBy-Qc-yHG" id="e8B-u8-aWd"/>
                         <outlet property="tableView" destination="0u2-pl-u6x" id="a2Z-TM-IJR"/>
+                        <outlet property="themeButton" destination="C4D-7Y-TSV" id="6PX-3O-SKg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -37,6 +37,7 @@ struct AppConstants {
     
     struct Keys {
         static let kLastSyncSecondsSince1970 = "lastSyncSecondsSince1970"
+        static let kTheme = "theme"
     }
     
     static var uuidString: String {
@@ -51,6 +52,17 @@ struct LastSyncedSetting {
         }
         set(newValue) {
             UserDefaults.standard.set(Date(), forKey: AppConstants.Keys.kLastSyncSecondsSince1970)
+        }
+    }
+}
+
+struct CurrentTheme {
+    static var value: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: AppConstants.Keys.kTheme)
+        }
+        set(newValue) {
+            UserDefaults.standard.set(newValue, forKey: AppConstants.Keys.kTheme)
         }
     }
 }
