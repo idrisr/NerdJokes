@@ -62,10 +62,11 @@ def create_joke():
 
 @app.route("/jokes/<int:id>", methods=['DELETE'])
 def delete_joke(id):
+    # todo test for successful delete and not already deleted
     joke = Joke.get(id)
     joke.delete()
     """delete joke by id"""
-    pass
+    return ('', 204)
 
 
 @app.route('/fonts/<path:path>')
@@ -107,13 +108,18 @@ class Joke(object):
 
     def delete(self):
         query = '''UPDATE {table} SET
-                    deleted_time = {updated_time},
+                    deleted_time = {deleted_time},
                     deleted_flag = {deleted_flag}
                     WHERE id = {id};
                     '''
 
-        query = query.format({"deleted_time": int(time.time()),
-                             "deleted_flag": 1, "table": Joke.table})
+        # pylint: disable=no-member
+        d = {"deleted_time": int(time.time()),
+             "deleted_flag": 1,
+             "id": self.id,
+             "table": self.__class__.table}
+
+        query = query.format(**d)
         return QueryHelper.update(query, id, False)
 
     def update(self, data):
@@ -127,13 +133,20 @@ class Joke(object):
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM {};"
+        query = '''SELECT *
+                   FROM {}
+                   WHERE deleted_flag = 0
+                '''
         query = query.format(cls.table)
         return QueryHelper.select(query)
 
     @classmethod
     def get(cls, id):
-        query = "SELECT * FROM {} where ID = {};"
+        query = '''SELECT *
+                   FROM {}
+                   WHERE id = {}
+                   AND deleted_flag = 0;
+                 '''
         query = query.format(cls.table, id)
         return QueryHelper.select(query)
 
