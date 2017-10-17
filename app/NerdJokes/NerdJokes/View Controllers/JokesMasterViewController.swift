@@ -14,6 +14,7 @@ class JokesMasterViewController: UIViewController {
     var jokeService: JokeService!
     var context: NSManagedObjectContext!
     @objc var fetchedResultsController: NSFetchedResultsController<Joke>!
+    var refreshControl: UIRefreshControl?
     
     var allJokes: [Joke] {
         guard let jokes = fetchedResultsController.fetchedObjects else {
@@ -46,10 +47,38 @@ class JokesMasterViewController: UIViewController {
     override func viewDidLoad() {
         tableView.separatorStyle = .none
         loadingIndicator.isHidden = false
+        setupPullToRefresh()
         jokeService.sync { [weak self] in
             self?.setupFetchResults()
             self?.setupTableView()
             self?.loadingIndicator.isHidden = true
+        }
+    }
+    
+    private func setupPullToRefresh() {
+        refreshControl = UIRefreshControl()
+        guard let refreshControl = refreshControl else {
+            return
+        }
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(pullToRefreshAction), for: .valueChanged)
+        
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc private func pullToRefreshAction() {
+         jokeService.sync { [weak self] in
+            guard let this = self else {
+                return
+            }
+            
+            do {
+                try this.fetchedResultsController.performFetch()
+            } catch {
+                print("cannot fetch items")
+            }
+            this.refreshControl?.endRefreshing()
         }
     }
     
@@ -167,9 +196,7 @@ extension JokesMasterViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        jokeService.serverSync { [weak self] in
-            self?.tableView.endUpdates()
-        }
+        tableView.endUpdates()
     }
     
     fileprivate func configure(cell: UITableViewCell, for indexPath: IndexPath?) {
