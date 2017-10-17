@@ -54,10 +54,17 @@ def jokes():
     return jsonify([vars(joke) for joke in jokes])
 
 
+@app.route("/jokes", methods=['POST'])
 @app.route("/jokes/", methods=['POST'])
 def create_joke():
     """create joke """
-    pass
+    data = request.get_json()
+    app.logger.info(data)
+    if data.contains("setup") and data.contains("punchline"):
+        # create it
+        pass
+    else:
+        return ('', 404)
 
 
 @app.route("/jokes/<int:id>", methods=['DELETE'])
@@ -99,6 +106,7 @@ def root():
 
 class Joke(object):
     table = "jokes"
+    required_keys = ["setup", "punchline"]
 
     def __init__(self, result):
         i_vars = ["id", "setup", "punchline", "votes", "created_time",
@@ -203,6 +211,21 @@ class QueryHelper(object):
     def insert(cls, query):
         app.logger.info(query)
         pass
+
+class InvalidUsage(Exception):
+    status_code = 400
+
+    def __init__(self, message, status_code=None, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        if status_code is not None:
+            self.status_code = status_code
+        self.payload = payload
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        return rv
 
 
 if __name__ == '__main__':
