@@ -32,7 +32,7 @@ enum NJHTTPMethod: String {
 }
 
 struct AppConstants {
-    static let kBaseURL = "http://localhost:8080"
+    static let kBaseURL = "http://localhost"
     static let kTimeoutInterval = 1.0
     
     struct Keys {
