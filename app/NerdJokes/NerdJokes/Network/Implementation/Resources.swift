@@ -17,7 +17,7 @@ enum ResourceType {
 }
 
 struct GetAllJokesResource: ApiResource {
-    var methodPath: String = "/"
+    var methodPath: String = "/jokes"
     var resourceType: ResourceType = .getAll
     var httpMethod: NJHTTPMethod = .get
     func makeModel(data: Data) -> [JokeAPIItem] {

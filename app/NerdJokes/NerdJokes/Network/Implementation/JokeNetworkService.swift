@@ -56,7 +56,7 @@ class JokeNetworkService: URLRequestComposable {
         })
     }
     
-    func add(joke: JokeAPIItem, completion: ((Bool)->())? = nil) {
+    func add(joke: JokeAPIItem, completion: ((ID?)->())? = nil) {
         print("Add request made")
         let resource = AddJokeResource()
         let urlRequest = makeURLRequest(resource: resource, joke: joke)
@@ -64,22 +64,22 @@ class JokeNetworkService: URLRequestComposable {
         JokeNetworkRequest(resource: resource).makeRequest(urlRequest: urlRequest, completion: { result, error in
             guard
                 error == nil,
-                let _ = result else {
+                let result = result else {
                     print("ERROR adding joke \(String(describing: error?.localizedDescription))")
-                    completion?(false)
+                    completion?(nil)
                     return
             }
-            completion?(true)
+            completion?(result?.serverID)
         })
     }
     
     func update(joke: JokeAPIItem, completion: ((Bool)->())? = nil) {
         print("update request made")
-        guard let clientID = joke.clientID else {
+        guard let serverID = joke.serverID else {
             completion?(false)
             return
         }
-        let resource = UpdateJokeResource(id: clientID)
+        let resource = UpdateJokeResource(id: serverID)
         let urlRequest = makeURLRequest(resource: resource, joke: joke)
         
         JokeNetworkRequest(resource: resource).makeRequest(urlRequest: urlRequest, completion: { results, error in

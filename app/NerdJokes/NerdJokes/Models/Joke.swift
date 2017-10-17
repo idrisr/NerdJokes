@@ -13,7 +13,7 @@ class Joke: Trackable {
     @NSManaged var setup: String
     @NSManaged var punchline: String
     @NSManaged var votes: NSNumber
-    @NSManaged var clientID: String?
+    @NSManaged var serverID: NSNumber?
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Joke> {
         return NSFetchRequest<Joke>(entityName: "Joke");
@@ -46,16 +46,8 @@ extension Joke {
         
         joke.deletedUser = item.deletedUser
         joke.deletedFlag = item.deletedFlag
-        joke.clientID = retrieveOrCreateClientID(jokeAPIItem: item)
        
         return joke
-    }
-    
-    private static func retrieveOrCreateClientID(jokeAPIItem item: JokeAPIItem) -> String {
-        guard let clientID = item.clientID else {
-            return AppConstants.uuidString
-        }
-        return clientID.value
     }
     
     @discardableResult
@@ -67,17 +59,12 @@ extension Joke {
         joke.votes = NSNumber(value: votes)
         joke.createdTime = Date()
         joke.createdUser = "phone"
-        joke.clientID = AppConstants.uuidString
         
         return joke
     }
     
     static func apiItem(joke: Joke) -> JokeAPIItem? {
-        guard let clientID = joke.clientID else {
-            print("Cannot convert Joke to api object.")
-            return nil
-        }
-        return JokeAPIItem(clientID: ID(value: clientID),
+        return JokeAPIItem(serverID: joke.serverID != nil ? ID(value: joke.serverID!.intValue) : nil,
                             setup: joke.setup,
                             punchline: joke.punchline,
                             votes: joke.votes.intValue,

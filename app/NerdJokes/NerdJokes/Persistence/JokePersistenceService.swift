@@ -45,7 +45,7 @@ class JokePersistenceService {
         }
     }
     
-    func get(id: String, context: NSManagedObjectContext) -> Joke? {
+    func get(id: Int, context: NSManagedObjectContext) -> Joke? {
         guard let jokes = context.registeredObjects as? Set<Joke> else {
             return nil
         }

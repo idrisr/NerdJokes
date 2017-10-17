@@ -84,8 +84,19 @@ class JokeService {
         }
         switch getMostRecentModificationType(joke: apiItem) {
         case .created:
-            network.add(joke: apiItem, completion: { success in
-                print("success = \(success)")
+            network.add(joke: apiItem, completion: { [weak self] serverID in
+                guard
+                    let this = self,
+                    let serverID = serverID else {
+                    print("can't parse server id")
+                    return
+                }
+                joke.serverID = NSNumber(value: serverID.value)
+                do {
+                    try this.persistence.coreDataStack.save(childContext: this.persistence.coreDataStack.clientContext)
+                } catch {
+                    print("Cannot set new id \(error)")
+                }
             })
             break
         case .updated:
@@ -94,7 +105,7 @@ class JokeService {
             })
             break
         case .deleted:
-            guard let id = apiItem.clientID else {
+            guard let id = apiItem.serverID else {
                 return
             }
             network.delete(id: id, completion: { success in
@@ -110,7 +121,7 @@ class JokeService {
             Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.syncContext)
             break
         case .updated:
-            guard let clientID = joke.clientID else {
+            guard let clientID = joke.serverID else {
                 return
             }
             guard let jokeToUpdate = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
@@ -122,10 +133,10 @@ class JokeService {
             jokeToUpdate.updatedTime = Date()
             break
         case .deleted:
-            guard let clientID = joke.clientID else {
+            guard let serverID = joke.serverID else {
                 return
             }
-            guard let jokeToDelete = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
+            guard let jokeToDelete = persistence.get(id: serverID.value, context: persistence.coreDataStack.syncContext) else {
                 return
             }
             persistence.delete(joke: jokeToDelete, context: persistence.coreDataStack.syncContext)
