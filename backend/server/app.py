@@ -155,6 +155,7 @@ class QueryHelper(object):
     def update(cls, query, id):
         app.logger.info(query)
         cls.cursor.execute(query)
+        return Joke.get(id)
 
     @classmethod
     def delete(cls, query):
