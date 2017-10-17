@@ -6,16 +6,15 @@ Author: idraja
 Description: flask rest api endpoint for admin page and mobile clients
 '''
 
-from flask import Flask
 from flask import abort
+from flask import Flask
 from flask import jsonify
 from flask import render_template
 from flask import request
 from flask import send_from_directory
 
-import os.path
 import sqlite3 as sqlite
-import sys
+import time
 
 app = Flask(__name__)
 
@@ -26,7 +25,6 @@ def get_joke(id):
     joke = Joke.get(id)
 
     if joke is None:
-        content = {'please move along': 'nothing to see here'}
         return abort(404)
     else:
         return jsonify(vars(joke))
@@ -35,16 +33,14 @@ def get_joke(id):
 @app.route("/jokes/<int:id>", methods=['PUT'])
 def put_joke(id):
     """update joke by id """
-    data = request.data
-    #  convert into joke object
-    #  update the appropriate fields
-    #  send it back
+    data = request.get_json()
+    print(data)
+    joke = Joke.put(data)
 
-
-
-
-
-    return ""
+    if joke is None:
+        return abort(404)
+    else:
+        return jsonify(vars(joke))
 
 
 @app.route("/jokes/", methods=['POST'])
@@ -101,7 +97,6 @@ class Joke(object):
         self.uuid = result[7]
         self.table = Joke.table
 
-
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM {}"
@@ -120,43 +115,36 @@ class Joke(object):
         query = "SELECT * FROM {} where ID = {}"
         query = query.format(cls.table, id)
         joke = QueryHelper.select(query)
-        update = vars(joke).update ( (k, v, ) for k, v in e.items() if v is not None)
+        update = vars(joke).update((k, v, ) for k, v in
+                                   data.items() if v is not None)
         joke = Joke(update)
+        joke.updated_time = int(time.time())
 
-        query = '''update jokes set 
+        query = '''UPDATE jokes SET
                     setup = {setup},
                     punchline = {punchline},
-                    votes = {votes} 
+                    votes = {votes}
+                    update_time = {updated_time}
+                    WHERE id = {id}
                     '''
 
-
-            }o}
-        {"id":1,"setup":"why did the chicken cross the road","punchline":"because he wanted to die","votes":1}
-        
-        kkk"
-
-        
-
-
-
-
+        query = query.format(**dir(joke))
+        return QueryHelper.update(query, id)
 
 
 class QueryHelper(object):
     database = "jokes.db"
-    connection = sqlite.connect(database, check_same_thread = False)
+    connection = sqlite.connect(database, check_same_thread=False)
     cursor = connection.cursor()
 
-
     @classmethod
-    def update(query):
-        pass
-
+    def update(cls, query, id):
+        cls.cursor.execute(query)
+        cls.cursor.commit()
 
     @classmethod
     def delete(cls, query):
         pass
-
 
     @classmethod
     def select(cls, query):
@@ -164,14 +152,12 @@ class QueryHelper(object):
         for r in cls.cursor.execute(query):
             jokes.append(Joke(r))
 
-
         if len(jokes) == 1:
             return jokes[0]
         elif len(jokes) == 0:
             return None
         else:
             return jokes
-
 
     @classmethod
     def insert(cls, query):
