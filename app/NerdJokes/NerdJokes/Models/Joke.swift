@@ -32,10 +32,13 @@ extension Joke {
         
         joke.createdTime = Date(timeIntervalSince1970: item.createdTime)
         joke.createdUser = item.createdUser ?? ""
-        
 
         if let updatedTime = item.updatedTime {
             joke.updatedTime = Date(timeIntervalSince1970: updatedTime)
+        }
+        
+        if let serverID = item.serverID {
+            joke.serverID = NSNumber(value: serverID.value)
         }
         
         joke.updatedUser = item.updatedUser
