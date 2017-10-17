@@ -62,6 +62,8 @@ def create_joke():
 
 @app.route("/jokes/<int:id>", methods=['DELETE'])
 def delete_joke(id):
+    joke = Joke.get(id)
+    joke.delete()
     """delete joke by id"""
     pass
 
@@ -103,6 +105,17 @@ class Joke(object):
 
         [setattr(self, i_var, result[i]) for i, i_var in enumerate(i_vars)]
 
+    def delete(self):
+        query = '''UPDATE {table} SET
+                    deleted_time = {updated_time},
+                    deleted_flag = {deleted_flag}
+                    WHERE id = {id};
+                    '''
+
+        query = query.format({"deleted_time": int(time.time()),
+                             "deleted_flag": 1, "table": Joke.table})
+        return QueryHelper.update(query, id, False)
+
     def update(self, data):
         for k, v in data.items():
             if hasattr(self, k):
@@ -137,8 +150,8 @@ class Joke(object):
         query = '''UPDATE jokes SET
                     setup = "{setup}",
                     punchline = "{punchline}",
-                    votes = "{votes}",
-                    updated_time = "{updated_time}"
+                    votes = {votes},
+                    updated_time = {updated_time}
                     WHERE id = {id};
                     '''
 
@@ -152,14 +165,12 @@ class QueryHelper(object):
     cursor = connection.cursor()
 
     @classmethod
-    def update(cls, query, id):
+    def update(cls, query, id, returnNewObject=True):
         app.logger.info(query)
         cls.cursor.execute(query)
-        return Joke.get(id)
 
-    @classmethod
-    def delete(cls, query):
-        pass
+        if returnNewObject:
+            return Joke.get(id)
 
     @classmethod
     def select(cls, query):
@@ -177,6 +188,7 @@ class QueryHelper(object):
 
     @classmethod
     def insert(cls, query):
+        app.logger.info(query)
         pass
 
 
