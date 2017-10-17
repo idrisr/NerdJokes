@@ -57,12 +57,9 @@ class JokeService {
         let jokes: [Joke] = Array(items)
         
         let lastSyncedDate = Date(timeIntervalSince1970: LastSyncedSetting.value) as NSDate
-        let createdPredicate = NSPredicate(format: "createdTime > %@", lastSyncedDate)
-        let updatedPredicate = NSPredicate(format: "updatedTime > %@", lastSyncedDate)
-        let deletedPredicate = NSPredicate(format: "deletedTime > %@", lastSyncedDate)
-        let compoundPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [createdPredicate, updatedPredicate, deletedPredicate])
+        let predicate = NSPredicate(format: "createdTime > %@ OR updatedTime > %@ OR deletedTime > %@", lastSyncedDate)
      
-        let newJokeChangesFilterResults = (jokes as NSArray).filtered(using: compoundPredicate)
+        let newJokeChangesFilterResults = (jokes as NSArray).filtered(using: predicate)
         for change in newJokeChangesFilterResults {
             guard let joke = change as? Joke else {
                 return
@@ -70,6 +67,7 @@ class JokeService {
             processLocalChange(joke: joke)
         }
         completion()
+        LastSyncedSetting.value = Date().timeIntervalSince1970
     }
     
     
@@ -157,7 +155,8 @@ class JokeService {
     }
     
     func isUpdatedMostRecent(joke: JokeAPIItem) -> Bool {
-        guard let updatedTime = joke.updatedTime else {
+        
+        guard let updatedTime = joke.updatedTime, persistence.jokeExistsInContext(id: joke.serverID!.value, context: persistence.coreDataStack.clientContext) != nil else {
             return false
         }
         

@@ -45,7 +45,7 @@ extension Joke {
         }
         
         joke.deletedUser = item.deletedUser
-        joke.deletedFlag = item.deletedFlag
+        joke.deletedFlag = NSNumber(value: item.deletedFlag).boolValue
        
         return joke
     }
@@ -74,6 +74,6 @@ extension Joke {
                             updatedUser: joke.updatedUser,
                             deletedTime: joke.deletedTime?.timeIntervalSince1970,
                             deletedUser: joke.deletedUser,
-                            deletedFlag: joke.deletedFlag)
+                            deletedFlag: joke.deletedFlag ? 1 : 0)
     }
 }

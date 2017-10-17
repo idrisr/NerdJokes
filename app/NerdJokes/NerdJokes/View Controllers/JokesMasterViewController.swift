@@ -50,6 +50,7 @@ class JokesMasterViewController: UIViewController {
         let newTheme: AppearanceManager.Theme = currentTheme == .dark ? .light : .dark
         CurrentTheme.value = newTheme.rawValue
         AppearanceManager.setupTheme(theme: newTheme)
+        
         applyTheme()
     }
     
@@ -69,11 +70,21 @@ class JokesMasterViewController: UIViewController {
         tableView.separatorStyle = .none
         loadingIndicator.isHidden = false
         emptyLabel.isHidden = true
+        setThemeName()
         setupPullToRefresh()
         jokeService.sync { [weak self] in
             self?.setupFetchResults()
             self?.setupTableView()
             self?.loadingIndicator.isHidden = true
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func setThemeName() {
+        if let currentTheme = AppearanceManager.Theme(rawValue: CurrentTheme.value) {
+            themeButton.title = currentTheme.name
+        } else {
+            themeButton.title = "Unknown"
         }
     }
     
@@ -121,6 +132,7 @@ class JokesMasterViewController: UIViewController {
 
         do {
             try fetchedResultsController.performFetch()
+            print(fetchedResultsController.fetchedObjects?.count)
         } catch {
             print("cannot fetch objects")
         }
@@ -132,7 +144,6 @@ class JokesMasterViewController: UIViewController {
         }
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.reloadData()
         showOrHideEmptyLabel()
     }
     
@@ -197,7 +208,7 @@ extension JokesMasterViewController: UITableViewDataSource {
     }
     
     private func joke(at indexPath: IndexPath) -> Joke {
-        return fetchedResultsController.object(at: indexPath)
+        return fetchedResultsController.fetchedObjects![indexPath.row]
     }
 }
 

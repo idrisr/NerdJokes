@@ -38,7 +38,7 @@ struct JokeAPIItem: Codable {
     var deletedTime: Double?
     var deletedUser: String?
     
-    var deletedFlag: Bool
+    var deletedFlag: Int //Bool
     
     enum CodingKeys: String, CodingKey {
         case serverID = "id"

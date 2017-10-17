@@ -53,6 +53,24 @@ class AppearanceManager {
                 return .white
             }
         }
+        
+        var name: String {
+            switch self {
+            case .dark:
+                return NSLocalizedString("Dark", comment: "")
+            case .light:
+                return NSLocalizedString("Light", comment: "")
+            }
+        }
+        
+        var statusBarStyle: UIStatusBarStyle {
+            switch self {
+            case .dark:
+                return .lightContent
+            case .light:
+                return .default
+            }
+        }
     }
 
     static func setupTheme(theme: Theme) {
@@ -66,8 +84,11 @@ class AppearanceManager {
         
         UIBarButtonItem.appearance().setTitleTextAttributes([.foregroundColor: theme.navigationBarTextColor], for: .normal)
         UIBarButtonItem.appearance().tintColor = theme.navigationBarTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [UIToolbar.self]).textColor = .white
         
         UINavigationBar.appearance().tintColor = theme.buttonColor
+        
+        UIApplication.shared.statusBarStyle = theme.statusBarStyle
     }
 }
 
