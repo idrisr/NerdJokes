@@ -110,12 +110,13 @@ class JokesMasterViewController: UIViewController {
             guard let this = self else {
                 return
             }
-            
+
             do {
                 try this.fetchedResultsController.performFetch()
             } catch {
                 print("cannot fetch items")
             }
+            
             this.refreshControl?.endRefreshing()
         }
     }
@@ -137,8 +138,6 @@ class JokesMasterViewController: UIViewController {
 
         do {
             try fetchedResultsController.performFetch()
-            print(fetchedResultsController.fetchedObjects?.count)
-            
         } catch {
             print("cannot fetch objects")
         }

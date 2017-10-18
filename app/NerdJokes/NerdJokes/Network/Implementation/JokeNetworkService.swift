@@ -29,7 +29,6 @@ extension URLRequestComposable {
 
 class JokeNetworkService: URLRequestComposable {
     func get(completion: @escaping ([JokeAPIItem], Error?)->()) {
-        print("get request made")
         let resource = GetAllJokesResource()
         let urlRequest = makeURLRequest(resource: resource)
         

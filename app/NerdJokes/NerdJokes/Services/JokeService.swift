@@ -47,24 +47,17 @@ class JokeService {
                     return
             }
             for joke in jokesToChange {
+                print(joke.setup)
                 this.processChange(joke: joke)
             }
             
             this.persistence.modificationState = .dirty
-            
-            do {
-                try this.persistence.coreDataStack.syncContext.save()
-                completion(nil)
-            } catch {
-                print("\(error)")
-                completion(nil)
-            }
+            completion(nil)
         }
     }
     
     func localSync(completion: @escaping (Error?)->()) {
         let jokes = persistence.getAll(context: persistence.coreDataStack.clientContext)
-        
         let lastSyncedDate = Date(timeIntervalSince1970: LastSyncedSetting.value) as NSDate
 
         let createdTimePredicate = NSPredicate(format: "(createdTime > %@)", lastSyncedDate)
@@ -117,10 +110,9 @@ class JokeService {
                 joke.serverID = NSNumber(value: serverID.value)
                
                 do {
-                    try this.persistence.coreDataStack.save(childContext: this.persistence.coreDataStack.clientContext)
-                } catch {
-                    print("Cannot set new id \(error)")
-                }
+                   try this.persistence.coreDataStack.save(childContext: this.persistence.coreDataStack.clientContext)
+                } catch {}
+                
             })
             break
         case .updated:
@@ -142,7 +134,7 @@ class JokeService {
     private func processChange(joke: JokeAPIItem) {
         switch getMostRecentModificationType(joke: joke) {
         case .created:
-            Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.syncContext)
+            insertIntoSync(joke: joke)
             break
         case .updated:
             guard let clientID = joke.serverID else {
@@ -151,7 +143,7 @@ class JokeService {
             guard let jokeToUpdate = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
                 return
             }
-            updateIntoLocal(jokeToUpdate: jokeToUpdate, setup: joke.setup, punchline: joke.punchline, votes: joke.votes)
+            updateIntoSync(jokeToUpdate: jokeToUpdate, setup: joke.setup, punchline: joke.punchline, votes: joke.votes)
             break
         case .deleted:
             guard let serverID = joke.serverID else {
@@ -170,7 +162,7 @@ class JokeService {
             return .deleted
         }
         
-        if persistence.jokeExistsInContext(id: joke.serverID!.value, context: persistence.coreDataStack.clientContext) != nil {
+        if persistence.get(id: joke.serverID!.value, context: persistence.coreDataStack.syncContext) != nil {
             return .updated
         }
         
@@ -218,23 +210,52 @@ class JokeService {
         }
     }
     
-    func insertIntoLocal(joke: JokeAPIItem) {
-        Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.clientContext)
+    func updateIntoSync(jokeToUpdate joke: Joke, setup: String, punchline: String, votes: Int? = nil) {
+        joke.setup = setup
+        joke.punchline = punchline
+        joke.updatedTime = Date()
+        joke.updatedUser = "phone"
+        
+        if let votes = votes {
+            joke.votes = NSNumber(value: votes)
+        }
         
         do {
+            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
+        } catch {}
+        
+    }
+    
+    func insertIntoLocal(joke: JokeAPIItem) {
+        Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.clientContext)
+        do {
             try persistence.coreDataStack.save(childContext: persistence.coreDataStack.clientContext)
-        } catch {
-            print("Cannot add joke")
-        }
+        } catch {}
+        
     }
     
     func insertIntoLocal(setup: String, punchline: String, votes: Int? = nil) {
         Joke.insert(setup: setup, punchline: punchline, votes: 0, context: persistence.coreDataStack.clientContext)
         do {
             try persistence.coreDataStack.save(childContext: persistence.coreDataStack.clientContext)
-        } catch {
-            print("Cannot delete joke")
-        }
+        } catch {}
+        
+    }
+    
+    func insertIntoSync(joke: JokeAPIItem) {
+        Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.syncContext)
+        do {
+            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
+        } catch {}
+        
+    }
+    
+    func insertIntoSync(setup: String, punchline: String, votes: Int? = nil) {
+        Joke.insert(setup: setup, punchline: punchline, votes: 0, context: persistence.coreDataStack.syncContext)
+        do {
+            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
+        } catch {}
+        
     }
     
     func deleteFromLocal(joke: Joke) {
@@ -242,9 +263,7 @@ class JokeService {
         joke.deletedTime = Date()
         do {
             try persistence.coreDataStack.save(childContext: persistence.coreDataStack.clientContext)
-        } catch {
-            print("Cannot delete joke")
-        }
+        } catch {}
     }
 }
 
