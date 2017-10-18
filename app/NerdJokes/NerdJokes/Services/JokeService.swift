@@ -74,11 +74,9 @@ class JokeService {
         let newJokeChangesFilterResults = (jokes as NSArray).filtered(using: NSCompoundPredicate(type: .or, subpredicates: [createdTimePredicate, updatedTimePredicate, deletedTimePredicate]))
         
         
-        let dispatchGroup = DispatchGroup()
         var hasError = false
 
         for change in newJokeChangesFilterResults {
-            dispatchGroup.enter()
             guard let joke = change as? Joke else {
                 return
             }
@@ -88,15 +86,9 @@ class JokeService {
                 guard error != nil else {
                     completion(error)
                     hasError = true
-                    dispatchGroup.leave()
                     return
                 }
-                dispatchGroup.leave()
             }
-        }
-        dispatchGroup.wait()
-        if !hasError {
-            LastSyncedSetting.value = Date().timeIntervalSince1970
         }
         completion(nil)
     }
@@ -123,6 +115,7 @@ class JokeService {
                     return
                 }
                 joke.serverID = NSNumber(value: serverID.value)
+               
                 do {
                     try this.persistence.coreDataStack.save(childContext: this.persistence.coreDataStack.clientContext)
                 } catch {
@@ -158,10 +151,7 @@ class JokeService {
             guard let jokeToUpdate = persistence.get(id: clientID.value, context: persistence.coreDataStack.syncContext) else {
                 return
             }
-            jokeToUpdate.setup = joke.setup
-            jokeToUpdate.punchline = joke.punchline
-            jokeToUpdate.votes = NSNumber(value: joke.votes)
-            jokeToUpdate.updatedTime = Date()
+            updateIntoLocal(jokeToUpdate: jokeToUpdate, setup: joke.setup, punchline: joke.punchline, votes: joke.votes)
             break
         case .deleted:
             guard let serverID = joke.serverID else {

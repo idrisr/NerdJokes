@@ -105,10 +105,9 @@ class JokesMasterViewController: UIViewController {
         tableView.addSubview(refreshControl)
     }
     
-    @objc private func pullToRefreshAction(completion: @escaping ((Error?)->())) {
+    @objc private func pullToRefreshAction() {
          jokeService.sync { [weak self] error in
             guard let this = self else {
-                completion(error)
                 return
             }
             
@@ -118,7 +117,6 @@ class JokesMasterViewController: UIViewController {
                 print("cannot fetch items")
             }
             this.refreshControl?.endRefreshing()
-            completion(nil)
         }
     }
     
@@ -140,6 +138,7 @@ class JokesMasterViewController: UIViewController {
         do {
             try fetchedResultsController.performFetch()
             print(fetchedResultsController.fetchedObjects?.count)
+            
         } catch {
             print("cannot fetch objects")
         }
