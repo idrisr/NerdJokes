@@ -21,7 +21,7 @@ class JokePersistenceService {
     init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
         NotificationCenter.default.addObserver(self, selector: #selector(localContextDidSave), name: Notification.Name.NSManagedObjectContextDidSave, object: coreDataStack.clientContext)
-        NotificationCenter.default.addObserver(self, selector: #selector(syncContextDidSave), name: Notification.Name.NSManagedObjectContextObjectsDidChange, object:
+        NotificationCenter.default.addObserver(self, selector: #selector(syncContextDidSave), name: Notification.Name.NSManagedObjectContextDidSave, object:
             coreDataStack.syncContext)
     }
     
@@ -100,6 +100,7 @@ class JokePersistenceService {
     }
         
     @objc func syncContextDidSave(notification: Notification) {
+        coreDataStack.clientContext.mergeChanges(fromContextDidSave: notification)
         LastSyncedSetting.value = Date().timeIntervalSince1970
     }
 }

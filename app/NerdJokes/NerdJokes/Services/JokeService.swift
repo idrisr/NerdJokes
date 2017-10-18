@@ -50,8 +50,11 @@ class JokeService {
                 print(joke.setup)
                 this.processChange(joke: joke)
             }
-            
-            this.persistence.modificationState = .dirty
+            do {
+                try this.persistence.coreDataStack.save(childContext: this.persistence.coreDataStack.syncContext)
+            } catch {
+                
+            }
             completion(nil)
         }
     }
@@ -219,11 +222,6 @@ class JokeService {
         if let votes = votes {
             joke.votes = NSNumber(value: votes)
         }
-        
-        do {
-            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
-        } catch {}
-        
     }
     
     func insertIntoLocal(joke: JokeAPIItem) {
@@ -244,18 +242,10 @@ class JokeService {
     
     func insertIntoSync(joke: JokeAPIItem) {
         Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.syncContext)
-        do {
-            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
-        } catch {}
-        
     }
     
     func insertIntoSync(setup: String, punchline: String, votes: Int? = nil) {
         Joke.insert(setup: setup, punchline: punchline, votes: 0, context: persistence.coreDataStack.syncContext)
-        do {
-            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
-        } catch {}
-        
     }
     
     func deleteFromLocal(joke: Joke) {
