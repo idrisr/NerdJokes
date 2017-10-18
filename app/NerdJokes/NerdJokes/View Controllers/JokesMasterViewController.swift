@@ -183,7 +183,16 @@ extension JokesMasterViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(joke: joke(at: indexPath))
-            cell.delegate = self
+            cell.voteBlock = { [weak self] delta in
+                guard let this = self else {
+                    return
+                }
+                let modifiedJoke = this.joke(at: indexPath)
+                let votes: Int = modifiedJoke.votes.intValue + delta
+                self?.jokeService.updateIntoLocal(jokeToUpdate: modifiedJoke, setup: modifiedJoke.setup, punchline: modifiedJoke.punchline, votes: votes)
+                cell.configure(joke: modifiedJoke)
+            }
+            //cell.delegate = self
             return cell
         }
     }
@@ -319,18 +328,6 @@ fileprivate extension JokesMasterViewController {
             } catch {
                 print("Can't add or modify record \(error.localizedDescription)")
             }
-        }
-    }
-}
-
-extension JokesMasterViewController: JokeTableViewCellDelegate {
-    func vote(joke: Joke, delta: Int) {
-        let votes = joke.votes.intValue + delta
-        jokeService.updateIntoLocal(jokeToUpdate: joke, setup: joke.setup, punchline: joke.punchline, votes: votes)
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print("Can't add or modify record \(error.localizedDescription)")
         }
     }
 }
