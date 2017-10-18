@@ -21,7 +21,6 @@ import time
 
 app = Flask(__name__)
 
-
 @app.route("/jokes/<int:id>", methods=['GET'])
 def get_joke(id):
     """get joke by id """
@@ -55,16 +54,18 @@ def jokes():
 
 
 @app.route("/jokes", methods=['POST'])
-@app.route("/jokes/", methods=['POST'])
 def create_joke():
     """create joke """
     data = request.get_json()
     app.logger.info(data)
-    if data.contains("setup") and data.contains("punchline"):
-        # create it
-        pass
+
+    if Joke.required_keys.issubset(data):
+        joke = Joke(data)
+
     else:
-        return ('', 404)
+        error = {"message": "creating a new jokes requires a punchline and\
+                setup"}
+        return (jsonify(error), 404)
 
 
 @app.route("/jokes/<int:id>", methods=['DELETE'])
@@ -106,13 +107,50 @@ def root():
 
 class Joke(object):
     table = "jokes"
-    required_keys = ["setup", "punchline"]
+    required_keys = {"setup", "punchline"}
 
     def __init__(self, result):
-        i_vars = ["id", "setup", "punchline", "votes", "created_time",
-                  "updated_time", "deleted_time", "uuid", "deleted_flag"]
+        app.logger.info(result)
 
-        [setattr(self, i_var, result[i]) for i, i_var in enumerate(i_vars)]
+        needed_keys = {'setup', 'punchline'}
+
+        if needed_keys.issubset(result):
+            self.setup = result["setup"]
+            self.punchline = result["punchline"]
+            self.create_new()
+
+        else:
+            i_vars = ["id", "setup", "punchline", "votes", "created_time",
+                    "updated_time", "deleted_time", "uuid", "deleted_flag"]
+
+            #  todo: catch what happens when result doesnt have what is expected
+            [setattr(self, i_var, result[i]) for i, i_var in enumerate(i_vars)]
+
+
+    def create_new(self):
+        #  insert a new object into the database
+        #  INSERT INTO table1 ( column1, column2 ,..)
+        #  VALUES ( value1, value2 ,...);
+
+        d = {"table": self.__class__.table, 
+            "setup": self.setup,
+            "punchline": self.punchline,
+            "votes": 0,
+            "created_time": int(time.time()),
+            "updated_time": int(time.time()),
+            "deleted_time": int(time.time()),
+            "uuid": "kill me",
+            "deleted_flag": 0}
+
+        query = '''INSERT INTO {table} 
+        (setup, punchline, votes, created_time, updated_time, deleted_time, uuid, deleted_flag)
+        VALUES
+        ("{setup}", "{punchline}", {votes}, {created_time}, {updated_time}, {deleted_time}, "{uuid}", {deleted_flag})
+        '''
+
+        query = query.format(**d)
+        return QueryHelper.insert(query)
+
 
     def delete(self):
         query = '''UPDATE {table} SET
@@ -138,6 +176,7 @@ class Joke(object):
     def __repr__(self):
         d = vars(self)
         return ", ".join("%s: %s" % (k, v, ) for k, v in d.items())
+
 
     @classmethod
     def get_all(cls):
@@ -210,22 +249,8 @@ class QueryHelper(object):
     @classmethod
     def insert(cls, query):
         app.logger.info(query)
-        pass
-
-class InvalidUsage(Exception):
-    status_code = 400
-
-    def __init__(self, message, status_code=None, payload=None):
-        Exception.__init__(self)
-        self.message = message
-        if status_code is not None:
-            self.status_code = status_code
-        self.payload = payload
-
-    def to_dict(self):
-        rv = dict(self.payload or ())
-        rv['message'] = self.message
-        return rv
+        cls.cursor.execute(query)
+        return Joke.get(cls.cursor.lastrowid)
 
 
 if __name__ == '__main__':
