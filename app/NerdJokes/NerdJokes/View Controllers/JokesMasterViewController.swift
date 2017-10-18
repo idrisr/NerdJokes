@@ -72,7 +72,12 @@ class JokesMasterViewController: UIViewController {
         emptyLabel.isHidden = true
         setThemeName()
         setupPullToRefresh()
-        jokeService.sync { [weak self] in
+        jokeService.sync { [weak self] error in
+            if let error = error {
+                let alert = UIAlertController(title: "Error loading data from server", message: "\(error). Please try again later.", preferredStyle: .alert)
+                self?.present(alert, animated: true)
+            }
+            
             self?.setupFetchResults()
             self?.setupTableView()
             self?.loadingIndicator.isHidden = true
@@ -100,9 +105,10 @@ class JokesMasterViewController: UIViewController {
         tableView.addSubview(refreshControl)
     }
     
-    @objc private func pullToRefreshAction() {
-         jokeService.sync { [weak self] in
+    @objc private func pullToRefreshAction(completion: @escaping ((Error?)->())) {
+         jokeService.sync { [weak self] error in
             guard let this = self else {
+                completion(error)
                 return
             }
             
@@ -112,6 +118,7 @@ class JokesMasterViewController: UIViewController {
                 print("cannot fetch items")
             }
             this.refreshControl?.endRefreshing()
+            completion(nil)
         }
     }
     

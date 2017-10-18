@@ -28,7 +28,7 @@ extension URLRequestComposable {
 }
 
 class JokeNetworkService: URLRequestComposable {
-    func get(completion: @escaping ([JokeAPIItem])->()) {
+    func get(completion: @escaping ([JokeAPIItem], Error?)->()) {
         print("get request made")
         let resource = GetAllJokesResource()
         let urlRequest = makeURLRequest(resource: resource)
@@ -36,9 +36,10 @@ class JokeNetworkService: URLRequestComposable {
         JokeNetworkRequest(resource: resource).makeRequest(urlRequest: urlRequest, completion: { items, error in
             if let error = error {
                 print(error)
+                completion([], error)
             }
             
-            completion(items ?? [])
+            completion(items ?? [], nil)
         })
     }
     
@@ -56,7 +57,7 @@ class JokeNetworkService: URLRequestComposable {
         })
     }
     
-    func add(joke: JokeAPIItem, completion: ((ID?)->())? = nil) {
+    func add(joke: JokeAPIItem, completion: ((ID?, Error?)->())? = nil) {
         print("Add request made")
         let resource = AddJokeResource()
         let urlRequest = makeURLRequest(resource: resource, joke: joke)
@@ -66,17 +67,17 @@ class JokeNetworkService: URLRequestComposable {
                 error == nil,
                 let result = result else {
                     print("ERROR adding joke \(String(describing: error?.localizedDescription))")
-                    completion?(nil)
+                    completion?(nil, error)
                     return
             }
-            completion?(result?.serverID)
+            completion?(result?.serverID, nil)
         })
     }
     
-    func update(joke: JokeAPIItem, completion: ((Bool)->())? = nil) {
+    func update(joke: JokeAPIItem, completion: ((Error?)->())? = nil) {
         print("update request made")
         guard let serverID = joke.serverID else {
-            completion?(false)
+            completion?(NSError())
             return
         }
         let resource = UpdateJokeResource(id: serverID)
@@ -87,10 +88,10 @@ class JokeNetworkService: URLRequestComposable {
                 error == nil,
                 let _ = results else {
                     print("ERROR updating joke \(String(describing: error?.localizedDescription))")
-                    completion?(false)
+                    completion?(error)
                     return
             }
-            completion?(true)
+            completion?(nil)
         })
     }
     

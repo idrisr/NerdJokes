@@ -18,20 +18,32 @@ class JokeService {
         self.persistence.delegate = self
     }
     
-    func sync(completion: @escaping ()->()) {
-        serverSync { [weak self] in
-            self?.localSync {
-                completion()
+    func sync(completion: @escaping (Error?)->()) {
+        serverSync { [weak self] error in
+            guard error != nil else {
+                completion(error)
+                return
+            }
+            self?.localSync { localError in
+                guard localError != nil else {
+                    completion(localError)
+                    return
+                }
+                completion(nil)
             }
         }
     }
     
-    func serverSync(completion: @escaping ()->()) {
-        getChangesFromNetwork { [weak self] jokesToChange in
+    func serverSync(completion: @escaping (Error?)->()) {
+        getChangesFromNetwork { [weak self] jokesToChange, error in
+            if let error = error {
+                completion(error)
+            }
+            
             guard
                 let this = self,
                 jokesToChange.count > 0 else {
-                    completion()
+                    completion(nil)
                     return
             }
             for joke in jokesToChange {
@@ -42,15 +54,15 @@ class JokeService {
             
             do {
                 try this.persistence.coreDataStack.syncContext.save()
-                completion()
+                completion(nil)
             } catch {
                 print("\(error)")
-                completion()
+                completion(nil)
             }
         }
     }
     
-    func localSync(completion: ()->()) {
+    func localSync(completion: @escaping (Error?)->()) {
         let jokes = persistence.getAll(context: persistence.coreDataStack.clientContext)
         
         let lastSyncedDate = Date(timeIntervalSince1970: LastSyncedSetting.value) as NSDate
@@ -60,15 +72,33 @@ class JokeService {
         let deletedTimePredicate = NSPredicate(format: "(deletedTime > %@)", lastSyncedDate)
      
         let newJokeChangesFilterResults = (jokes as NSArray).filtered(using: NSCompoundPredicate(type: .or, subpredicates: [createdTimePredicate, updatedTimePredicate, deletedTimePredicate]))
+        
+        
+        let dispatchGroup = DispatchGroup()
+        var hasError = false
+
         for change in newJokeChangesFilterResults {
+            dispatchGroup.enter()
             guard let joke = change as? Joke else {
                 return
             }
-            processLocalChange(joke: joke)
+            
+            
+            processLocalChange(joke: joke) { error in
+                guard error != nil else {
+                    completion(error)
+                    hasError = true
+                    dispatchGroup.leave()
+                    return
+                }
+                dispatchGroup.leave()
+            }
         }
-        LastSyncedSetting.value = Date().timeIntervalSince1970
-
-        completion()
+        dispatchGroup.wait()
+        if !hasError {
+            LastSyncedSetting.value = Date().timeIntervalSince1970
+        }
+        completion(nil)
     }
     
     
@@ -77,17 +107,19 @@ class JokeService {
         persistence.coreDataStack.clientContext.insert(joke)
     }
     
-    private func processLocalChange(joke: Joke) {
+    private func processLocalChange(joke: Joke, completion: @escaping ((Error?)->())) {
         guard let apiItem = Joke.apiItem(joke: joke) else {
             return
         }
         switch getMostRecentModificationType(joke: apiItem) {
         case .created:
-            network.add(joke: apiItem, completion: { [weak self] serverID in
+            network.add(joke: apiItem, completion: { [weak self] serverID, error in
                 guard
                     let this = self,
-                    let serverID = serverID else {
-                    print("can't parse server id")
+                    let serverID = serverID,
+                    error != nil else {
+                        print("can't parse server id")
+                        completion(error)
                     return
                 }
                 joke.serverID = NSNumber(value: serverID.value)
@@ -159,12 +191,16 @@ class JokeService {
         return joke.deletedTime ?? 0 > joke.createdTime && joke.deletedTime ?? 0 > joke.updatedTime ?? 0
     }
     
-    private func getChangesFromNetwork(completion: @escaping ([JokeAPIItem])->()) {
-        network.get { jokes in
+    private func getChangesFromNetwork(completion: @escaping ([JokeAPIItem], Error?)->()) {
+        network.get { jokes, error in
+            if let error = error {
+                completion([], error)
+            }
+            
             let jokesToChange = jokes.filter({ joke in
                 return self.isNewChange(joke: joke)
             })
-            completion(jokesToChange)
+            completion(jokesToChange, nil)
         }
     }
     
@@ -224,6 +260,6 @@ class JokeService {
 
 extension JokeService: JokePersistenceServiceDelegate {
     func clientContextDidMerge() {
-        localSync(completion:{})
+        localSync(completion:{_ in})
     }
 }
