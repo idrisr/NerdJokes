@@ -51,23 +51,24 @@ class JokeService {
     }
     
     func localSync(completion: ()->()) {
-        guard let items = persistence.coreDataStack.clientContext.registeredObjects as? Set<Joke> else {
-            return
-        }
-        let jokes: [Joke] = Array(items)
+        let jokes = persistence.getAll(context: persistence.coreDataStack.clientContext)
         
         let lastSyncedDate = Date(timeIntervalSince1970: LastSyncedSetting.value) as NSDate
-        let predicate = NSPredicate(format: "createdTime > %@ OR updatedTime > %@ OR deletedTime > %@", lastSyncedDate)
+
+        let createdTimePredicate = NSPredicate(format: "(createdTime > %@)", lastSyncedDate)
+        let updatedTimePredicate = NSPredicate(format:  "(updatedTime > %@)", lastSyncedDate)
+        let deletedTimePredicate = NSPredicate(format: "(deletedTime > %@)", lastSyncedDate)
      
-        let newJokeChangesFilterResults = (jokes as NSArray).filtered(using: predicate)
+        let newJokeChangesFilterResults = (jokes as NSArray).filtered(using: NSCompoundPredicate(type: .or, subpredicates: [createdTimePredicate, updatedTimePredicate, deletedTimePredicate]))
         for change in newJokeChangesFilterResults {
             guard let joke = change as? Joke else {
                 return
             }
             processLocalChange(joke: joke)
         }
-        completion()
         LastSyncedSetting.value = Date().timeIntervalSince1970
+
+        completion()
     }
     
     
@@ -143,44 +144,19 @@ class JokeService {
     }
     
     private func getMostRecentModificationType(joke: JokeAPIItem) -> ModificationType {
-        if isUpdatedMostRecent(joke: joke) {
+        if isDeletedMostRecent(joke: joke) {
+            return .deleted
+        }
+        
+        if persistence.jokeExistsInContext(id: joke.serverID!.value, context: persistence.coreDataStack.clientContext) != nil {
             return .updated
         }
         
-        if isCreatedMostRecent(joke: joke) {
-            return .created
-        }
-        
-        return .deleted
+        return .created
     }
     
-    func isUpdatedMostRecent(joke: JokeAPIItem) -> Bool {
-        
-        guard let updatedTime = joke.updatedTime, persistence.jokeExistsInContext(id: joke.serverID!.value, context: persistence.coreDataStack.clientContext) != nil else {
-            return false
-        }
-        
-        if joke.createdTime > updatedTime {
-            return false
-        }
-        
-        if let deletedTime = joke.deletedTime, deletedTime > updatedTime {
-            return false
-        }
-        
-        return true
-    }
-    
-    func isCreatedMostRecent(joke: JokeAPIItem) -> Bool {
-        if let updatedTime = joke.updatedTime, updatedTime > joke.createdTime {
-            return false
-        }
-        
-        if let deletedTime = joke.deletedTime, deletedTime > joke.createdTime {
-            return false
-        }
-        
-        return true
+    func isDeletedMostRecent(joke: JokeAPIItem) -> Bool {
+        return joke.deletedTime ?? 0 > joke.createdTime && joke.deletedTime ?? 0 > joke.updatedTime ?? 0
     }
     
     private func getChangesFromNetwork(completion: @escaping ([JokeAPIItem])->()) {
@@ -202,6 +178,8 @@ class JokeService {
     func updateIntoLocal(jokeToUpdate joke: Joke, setup: String, punchline: String, votes: Int? = nil) {
         joke.setup = setup
         joke.punchline = punchline
+        joke.updatedTime = Date()
+        joke.updatedUser = "phone"
         
         if let votes = votes {
             joke.votes = NSNumber(value: votes)
@@ -235,6 +213,7 @@ class JokeService {
     
     func deleteFromLocal(joke: Joke) {
         joke.deletedFlag = true
+        joke.deletedTime = Date()
         do {
             try persistence.coreDataStack.save(childContext: persistence.coreDataStack.clientContext)
         } catch {

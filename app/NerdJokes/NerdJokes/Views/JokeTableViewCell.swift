@@ -8,14 +8,11 @@
 
 import UIKit
 
-protocol JokeTableViewCellDelegate {
-    func vote(joke: Joke, delta: Int)
-}
-
 class JokeTableViewCell: UITableViewCell {
     // MARK: - instance vars
-    var delegate: JokeTableViewCellDelegate?
     private var joke: Joke?
+    
+    var voteBlock: ((_ delta: Int) -> Void)?
     
     // MARK: - outlet
     @IBOutlet weak var setupLabel: UILabel!
@@ -32,16 +29,10 @@ class JokeTableViewCell: UITableViewCell {
     
     // MARK: Actions
     @IBAction func upVote(_ sender: Any) {
-        guard let joke = joke else {
-            return
-        }
-        delegate?.vote(joke: joke, delta: 1)
+        voteBlock?(1)
     }
     
     @IBAction func downVote(_ sender: Any) {
-        guard let joke = joke else {
-            return
-        }
-        delegate?.vote(joke: joke, delta: -1)
+        voteBlock?(-1)
     }
 }

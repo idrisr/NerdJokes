@@ -12,7 +12,7 @@ import XCTest
 class NetworkTests: XCTestCase {
     
     func testGetOne() {
-        let resource = GetSingleJokeResource(id: ID(value: "12345"))
+        let resource = GetSingleJokeResource(id: ID(value: 12345))
         var urlRequest = URLRequest(url: resource.url)
         var jokeResult: JokeAPIItem?
         urlRequest.httpMethod = resource.httpMethod.rawValue
