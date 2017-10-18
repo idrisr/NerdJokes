@@ -61,6 +61,11 @@ def create_joke():
 
     if Joke.required_keys.issubset(data):
         joke = Joke(data)
+        joke = joke.create_new()
+        # pylint: disable=no-member
+        response = jsonify({"Location": "/jokes/{id}".format(joke.id)})
+        response.status_code = 201
+        return response
 
     else:
         error = {"message": "creating a new jokes requires a punchline and\
@@ -110,14 +115,11 @@ class Joke(object):
     required_keys = {"setup", "punchline"}
 
     def __init__(self, result):
-        app.logger.info(result)
-
         needed_keys = {'setup', 'punchline'}
 
         if needed_keys.issubset(result):
             self.setup = result["setup"]
             self.punchline = result["punchline"]
-            self.create_new()
 
         else:
             i_vars = ["id", "setup", "punchline", "votes", "created_time",
