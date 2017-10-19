@@ -64,7 +64,7 @@ def create_joke():
         joke = Joke(data)
         joke = joke.create_new()
         # pylint: disable=no-member
-        response = jsonify({"Location": "/jokes/{}".format(joke.id)})
+        response = jsonify({"id": "{}".format(joke.id)})
         response.status_code = 201
         return response
 
