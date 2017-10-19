@@ -187,6 +187,7 @@ class Joke(object):
         query = '''SELECT *
                    FROM {}
                    WHERE deleted_flag = 0
+                   ORDER BY updated_time DESC;
                 '''
         query = query.format(cls.table)
         return QueryHelper.select(query)
