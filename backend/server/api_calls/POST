@@ -1,0 +1,4 @@
+#!/bin/bash
+
+curl -v -H "Content-Type: application/json" -X POST -d\
+'{"punchline":"YO","setup":"WHAT?"}' http://localhost:5000/jokes
