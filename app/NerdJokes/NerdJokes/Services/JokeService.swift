@@ -30,14 +30,16 @@ class JokeService {
                     return
                 }
                 completion(nil)
+                
             }
         }
     }
     
     func serverSync(completion: @escaping (Error?)->()) {
         getChangesFromNetwork { [weak self] jokesToChange, error in
-            if let error = error {
+            guard error == nil else {
                 completion(error)
+                return
             }
             
             guard
@@ -50,8 +52,12 @@ class JokeService {
                 print(joke.setup)
                 this.processChange(joke: joke)
             }
-            
-            this.persistence.modificationState = .dirty
+            do {
+                try this.persistence.coreDataStack.save(childContext: this.persistence.coreDataStack.syncContext)
+            } catch {
+                completion(nil)
+                return
+            }
             completion(nil)
         }
     }
@@ -66,19 +72,14 @@ class JokeService {
      
         let newJokeChangesFilterResults = (jokes as NSArray).filtered(using: NSCompoundPredicate(type: .or, subpredicates: [createdTimePredicate, updatedTimePredicate, deletedTimePredicate]))
         
-        
-        var hasError = false
-
         for change in newJokeChangesFilterResults {
             guard let joke = change as? Joke else {
                 return
             }
             
-            
             processLocalChange(joke: joke) { error in
                 guard error != nil else {
                     completion(error)
-                    hasError = true
                     return
                 }
             }
@@ -117,7 +118,7 @@ class JokeService {
             break
         case .updated:
             network.update(joke: apiItem, completion: { success in
-                print("updated = \(success)")
+                print("updated = \(String(describing: success))")
             })
             break
         case .deleted:
@@ -162,7 +163,11 @@ class JokeService {
             return .deleted
         }
         
-        if persistence.get(id: joke.serverID!.value, context: persistence.coreDataStack.syncContext) != nil {
+        guard let serverID = joke.serverID else {
+            return .created
+        }
+        
+        if persistence.get(id: serverID.value, context: persistence.coreDataStack.syncContext) != nil {
             return .updated
         }
         
@@ -219,11 +224,6 @@ class JokeService {
         if let votes = votes {
             joke.votes = NSNumber(value: votes)
         }
-        
-        do {
-            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
-        } catch {}
-        
     }
     
     func insertIntoLocal(joke: JokeAPIItem) {
@@ -244,18 +244,10 @@ class JokeService {
     
     func insertIntoSync(joke: JokeAPIItem) {
         Joke.from(jokeAPIItem: joke, context: persistence.coreDataStack.syncContext)
-        do {
-            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
-        } catch {}
-        
     }
     
     func insertIntoSync(setup: String, punchline: String, votes: Int? = nil) {
         Joke.insert(setup: setup, punchline: punchline, votes: 0, context: persistence.coreDataStack.syncContext)
-        do {
-            try persistence.coreDataStack.save(childContext: persistence.coreDataStack.syncContext)
-        } catch {}
-        
     }
     
     func deleteFromLocal(joke: Joke) {

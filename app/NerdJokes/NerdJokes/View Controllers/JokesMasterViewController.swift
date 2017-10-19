@@ -50,7 +50,7 @@ class JokesMasterViewController: UIViewController {
         let newTheme: AppearanceManager.Theme = currentTheme == .dark ? .light : .dark
         CurrentTheme.value = newTheme.rawValue
         AppearanceManager.setupTheme(theme: newTheme)
-        
+        setThemeName()
         applyTheme()
     }
     

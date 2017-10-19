@@ -62,14 +62,20 @@ class JokeNetworkService: URLRequestComposable {
         let urlRequest = makeURLRequest(resource: resource, joke: joke)
         
         JokeNetworkRequest(resource: resource).makeRequest(urlRequest: urlRequest, completion: { result, error in
+            guard error == nil else {
+                print("ERROR adding joke \(String(describing: error?.localizedDescription))")
+                completion?(nil, error)
+                return
+            }
+            
             guard
-                error == nil,
-                let result = result else {
-                    print("ERROR adding joke \(String(describing: error?.localizedDescription))")
-                    completion?(nil, error)
+                let result = result,
+                let id = result?.serverID else {
+                    completion?(nil, nil)
                     return
             }
-            completion?(result?.serverID, nil)
+            
+            completion?(id, nil) // fix api to return a number for id!
         })
     }
     

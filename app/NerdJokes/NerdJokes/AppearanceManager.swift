@@ -87,6 +87,7 @@ class AppearanceManager {
         UILabel.appearance(whenContainedInInstancesOf: [UIToolbar.self]).textColor = .white
         
         UINavigationBar.appearance().tintColor = theme.buttonColor
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: theme.navigationBarTextColor]
         
         UIApplication.shared.statusBarStyle = theme.statusBarStyle
     }

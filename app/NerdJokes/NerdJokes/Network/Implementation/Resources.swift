@@ -68,13 +68,13 @@ struct DeleteSingleJokeResource: ApiResourceWithID {
     }
 }
 
-struct AddJokeResource: ApiResource {
+struct AddJokeResource: ApiResource {    
     var methodPath: String = "/"
     var resourceType: ResourceType = .add
     var httpMethod: NJHTTPMethod = .post
     
-    func makeModel(data: Data) -> JokeAPIItem? {
-        guard let model = try? JSONDecoder().decode(JokeAPIItem.self, from: data) else {
+    func makeModel(data: Data) -> PostAPIItem? {
+        guard let model = try? JSONDecoder().decode(PostAPIItem.self, from: data) else {
             return nil
         }
         return model
