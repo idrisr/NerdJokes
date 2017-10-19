@@ -47,10 +47,6 @@ class JokePersistenceService {
     }
     
     func get(id: Int, context: NSManagedObjectContext) -> Joke? {
-        guard let jokes = context.registeredObjects as? Set<Joke> else {
-            return nil
-        }
-        
         guard let joke = jokeExistsInContext(id: id, context: context) else {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Joke")
             let predicate = NSPredicate(format: "serverID == %d", id)
@@ -77,7 +73,10 @@ class JokePersistenceService {
         }
         
         guard let joke = jokes.find(predicate: { joke in
-            !joke.isFault
+            guard let serverID = joke.serverID else {
+                return false
+            }
+             return serverID.intValue == id && !joke.isFault
         }) else {
             return nil
         }
