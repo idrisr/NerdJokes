@@ -165,7 +165,7 @@ class JokeService {
             return .deleted
         }
         
-        if persistence.get(id: joke.serverID!.value, context: persistence.coreDataStack.syncContext) != nil {
+        if persistence.get(id: joke.serverID!.value, context: persistence.coreDataStack.parentContext) != nil {
             return .updated
         }
         
