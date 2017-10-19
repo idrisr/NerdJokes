@@ -21,6 +21,7 @@ import time
 
 app = Flask(__name__)
 
+
 @app.route("/jokes/<int:id>", methods=['GET'])
 def get_joke(id):
     """get joke by id """
@@ -63,7 +64,7 @@ def create_joke():
         joke = Joke(data)
         joke = joke.create_new()
         # pylint: disable=no-member
-        response = jsonify({"Location": "/jokes/{id}".format(joke.id)})
+        response = jsonify({"Location": "/jokes/{}".format(joke.id)})
         response.status_code = 201
         return response
 
@@ -123,36 +124,36 @@ class Joke(object):
 
         else:
             i_vars = ["id", "setup", "punchline", "votes", "created_time",
-                    "updated_time", "deleted_time", "uuid", "deleted_flag"]
+                      "updated_time", "deleted_time", "uuid", "deleted_flag"]
 
-            #  todo: catch what happens when result doesnt have what is expected
+            # todo: catch what happens when result doesnt have what is expected
             [setattr(self, i_var, result[i]) for i, i_var in enumerate(i_vars)]
-
 
     def create_new(self):
         #  insert a new object into the database
         #  INSERT INTO table1 ( column1, column2 ,..)
         #  VALUES ( value1, value2 ,...);
 
-        d = {"table": self.__class__.table, 
-            "setup": self.setup,
-            "punchline": self.punchline,
-            "votes": 0,
-            "created_time": int(time.time()),
-            "updated_time": int(time.time()),
-            "deleted_time": int(time.time()),
-            "uuid": "kill me",
-            "deleted_flag": 0}
+        d = {"table": self.__class__.table,
+             "setup": self.setup,
+             "punchline": self.punchline,
+             "votes": 0,
+             "created_time": int(time.time()),
+             "updated_time": int(time.time()),
+             "deleted_time": int(time.time()),
+             "uuid": "kill me",
+             "deleted_flag": 0}
 
-        query = '''INSERT INTO {table} 
-        (setup, punchline, votes, created_time, updated_time, deleted_time, uuid, deleted_flag)
+        query = '''INSERT INTO {table}
+        (setup, punchline, votes, created_time, updated_time, deleted_time,
+        uuid, deleted_flag)
         VALUES
-        ("{setup}", "{punchline}", {votes}, {created_time}, {updated_time}, {deleted_time}, "{uuid}", {deleted_flag})
+        ("{setup}", "{punchline}", {votes}, {created_time}, {updated_time},
+        {deleted_time}, "{uuid}", {deleted_flag})
         '''
 
         query = query.format(**d)
         return QueryHelper.insert(query)
-
 
     def delete(self):
         query = '''UPDATE {table} SET
@@ -160,7 +161,6 @@ class Joke(object):
                     deleted_flag = {deleted_flag}
                     WHERE id = {id};
                     '''
-
         # pylint: disable=no-member
         d = {"deleted_time": int(time.time()),
              "deleted_flag": 1,
@@ -178,7 +178,6 @@ class Joke(object):
     def __repr__(self):
         d = vars(self)
         return ", ".join("%s: %s" % (k, v, ) for k, v in d.items())
-
 
     @classmethod
     def get_all(cls):
