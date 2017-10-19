@@ -9,4 +9,6 @@ sqlite3
 RUN sqlite3 jokes.db < db/create_db.sql
 EXPOSE 80
 ENV FLASK_DEBUG=1
-CMD ["python", "server/app.py"]
+ENV FLASK_APP=server/app.py
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
+
