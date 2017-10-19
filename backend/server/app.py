@@ -76,11 +76,14 @@ def create_joke():
 
 @app.route("/jokes/<int:id>", methods=['DELETE'])
 def delete_joke(id):
-    # todo test for successful delete and not already deleted
-    joke = Joke.get(id)
-    joke.delete()
     """delete joke by id"""
-    return ('', 204)
+    joke = Joke.get(id)
+    if joke is not None:
+        joke.delete()
+        return ('', 204)
+    else:
+        message = {"message": "joke not found", "id": id}
+        return jsonify(message, 400)
 
 
 @app.route('/fonts/<path:path>')
