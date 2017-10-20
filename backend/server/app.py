@@ -238,6 +238,8 @@ class QueryHelper(object):
     def select(cls, query):
         app.logger.info(query)
         jokes = []
+
+        #  todo - how does this work without a fetch?
         for r in cls.cursor.execute(query):
             jokes.append(Joke(r))
 
