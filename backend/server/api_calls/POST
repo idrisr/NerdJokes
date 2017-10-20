@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# todo - pass in port and domain through options
+curl -v -H "Content-Type: application/json" -X POST -d\
+'{"punchline":"YO","setup":"WHAT?"}' http://localhost:80/jokes
