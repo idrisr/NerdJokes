@@ -130,8 +130,8 @@ class Joke(object):
             i_vars = ["id", "setup", "punchline", "votes", "created_time",
                       "updated_time", "deleted_time", "uuid", "deleted_flag"]
 
-            # todo: catch what happens when result doesnt have what is expected
-            [setattr(self, i_var, result[i]) for i, i_var in enumerate(i_vars)]
+            #  todo: catch what happens when result doesnt have what is expected
+            [setattr(self, i_var, result[i_var]) for i_var in i_vars]
 
     def create_new(self):
         #  insert a new object into the database
@@ -228,6 +228,7 @@ class Joke(object):
 class QueryHelper(object):
     database = "jokes.db"
     connection = sqlite.connect(database, check_same_thread=False)
+    connection.row_factory = sqlite.Row
     cursor = connection.cursor()
 
     @classmethod
