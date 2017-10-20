@@ -27,6 +27,7 @@
             </div>
             <hr />
         {% for joke in jokes %}
+        <div id="joke_{{joke.id}}">
             <div class="row">
                 <div class="two columns">&nbsp;</div>
                 <div class="eight columns">
@@ -47,7 +48,7 @@
                         <a class="button button-icon" onclick="voteDown({{joke.id}})"><i class="fa fa-thumbs-down"></i></a>
                 </div>
                 <div class="eight columns">
-                    <h2 id="setup_text_{{id}}">{{joke.setup}}</h2>
+                    <h2 id="setup_text_{{joke.id}}">{{joke.setup}}</h2>
                     <h3 id="punchline_text_{{joke.id}}">{{joke.punchline}}</h3>
                     <input type="text" name="id" value="{{id}}" hidden />
                     <input type="text" id="votes_{{joke.id}}" name="votes" value="{{joke.votes}}" hidden />
@@ -65,6 +66,7 @@
                 </div>
             </div>
             <hr />
+        </div>
             {% endfor %}
         </div>
     </body>
