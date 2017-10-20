@@ -108,5 +108,9 @@ function getCreateJSONData(id) {
 }
 
 function transferComplete(evt) {
+    // 1. grab the old joke, document element by id
+    // 2. do the handlebars stuff combine json from server with template for a joke div
+    // 3. replace the old html with the results from 2
+
     location.reload();
 }
