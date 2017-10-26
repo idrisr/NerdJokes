@@ -9,13 +9,13 @@
 import Foundation
 import Alamofire
 
-enum Router: URLRequestConvertible {
+enum JokeRouter: URLRequestConvertible {
     static let baseURLString = "http://localhost/"
 
     case get(Int)
     case getAll
-    case create([String: AnyObject])
-    case update([String: AnyObject])
+    case create([String: Any])
+    case update([String: Any])
     case delete(Int)
 
     func asURLRequest() throws -> URLRequest {
@@ -51,7 +51,7 @@ enum Router: URLRequestConvertible {
                 relativePath = "jokes/\(id)"
             }
 
-            guard var url = URL(string: Router.baseURLString) else {
+            guard var url = URL(string: JokeRouter.baseURLString) else {
                 fatalError("issues with your URL dude")
             }
 
