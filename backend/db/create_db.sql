@@ -7,16 +7,15 @@ IF NOT EXISTS jokes (
     created_time integer,
     updated_time integer,
     deleted_time integer,
-    uuid string NOT NULL,  -- this scripts doesnt really  make uuids, but close enough
     deleted_flag bool integer -- sqlite has no bool, so int it is
 );
 
-INSERT INTO jokes (setup, punchline, votes, created_time, updated_time, deleted_time, uuid, deleted_flag)
+INSERT INTO jokes (setup, punchline, votes, created_time, updated_time, deleted_time, deleted_flag)
 VALUES
-("why did the chicken cross the road" , "because he wanted to die"               , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') , hex(randomblob(16)), 0) ,
-("why did the chicken cross the road" , "because he wanted to live"              , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') , hex(randomblob(16)), 0) ,
-("why did the chicken cross the road" , "because his uber was on the wrong side" , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') , hex(randomblob(16)), 0) ,
-("why did the turkey cross the road"  , "because god told him to"                , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') , hex(randomblob(16)), 0) ,
-("why did the chicken cross the road" , "the world has no answers"               , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') , hex(randomblob(16)), 0) ,
-("why did the chicken cross the road" , "there are no answers here. move on."    , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') , hex(randomblob(16)), 0)
+("why did the chicken cross the road" , "because he wanted to die"               , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') ,  0) ,
+("why did the chicken cross the road" , "because he wanted to live"              , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') ,  0) ,
+("why did the chicken cross the road" , "because his uber was on the wrong side" , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') ,  0) ,
+("why did the turkey cross the road"  , "because god told him to"                , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') ,  0) ,
+("why did the chicken cross the road" , "the world has no answers"               , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') ,  0) ,
+("why did the chicken cross the road" , "there are no answers here. move on."    , 0 , strftime('%s' , 'now') , strftime('%s' , 'now') , strftime('%s' , 'now') ,  0)
 ;

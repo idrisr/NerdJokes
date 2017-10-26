@@ -128,7 +128,7 @@ class Joke(object):
 
         else:
             i_vars = ["id", "setup", "punchline", "votes", "created_time",
-                      "updated_time", "deleted_time", "uuid", "deleted_flag"]
+                      "updated_time", "deleted_time", "deleted_flag"]
 
             #  todo: catch what happens when result doesnt have what is expected
             [setattr(self, i_var, result[i_var]) for i_var in i_vars]
@@ -145,15 +145,14 @@ class Joke(object):
              "created_time": int(time.time()),
              "updated_time": int(time.time()),
              "deleted_time": int(time.time()),
-             "uuid": "kill me",
              "deleted_flag": 0}
 
         query = '''INSERT INTO {table}
         (setup, punchline, votes, created_time, updated_time, deleted_time,
-        uuid, deleted_flag)
+        deleted_flag)
         VALUES
         ("{setup}", "{punchline}", {votes}, {created_time}, {updated_time},
-        {deleted_time}, "{uuid}", {deleted_flag})
+        {deleted_time}, {deleted_flag})
         '''
 
         query = query.format(**d)
