@@ -15,6 +15,7 @@
 		AE3210961F8532E800893D28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3210941F8532E800893D28 /* LaunchScreen.storyboard */; };
 		AEA4485C1FA265FF00F35C08 /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4485B1FA265FF00F35C08 /* Joke.swift */; };
 		AEA4485E1FA281C200F35C08 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4485D1FA281C200F35C08 /* Error.swift */; };
+		AEA448601FA2851D00F35C08 /* JokeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4485F1FA2851D00F35C08 /* JokeAPIManager.swift */; };
 		AEECC0651FA2491E00FB0885 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEECC0641FA2491E00FB0885 /* ViewController.swift */; };
 		AEECC0671FA24C3E00FB0885 /* JokeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEECC0661FA24C3E00FB0885 /* JokeRouter.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		AE3210971F8532E800893D28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEA4485B1FA265FF00F35C08 /* Joke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
 		AEA4485D1FA281C200F35C08 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		AEA4485F1FA2851D00F35C08 /* JokeAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeAPIManager.swift; sourceTree = "<group>"; };
 		AEECC0641FA2491E00FB0885 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AEECC0661FA24C3E00FB0885 /* JokeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeRouter.swift; sourceTree = "<group>"; };
 		CE4853833A26D92F4C554260 /* Pods_NerdJokesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NerdJokesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +94,7 @@
 		AE32107F1F8532E800893D28 = {
 			isa = PBXGroup;
 			children = (
+				AEA4485F1FA2851D00F35C08 /* JokeAPIManager.swift */,
 				694DDD66B110E439B0A74A77 /* Frameworks */,
 				AE32108A1F8532E800893D28 /* NerdJokes */,
 				10EDAD41C75CB5DA0939ECE2 /* Pods */,
@@ -336,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEECC0651FA2491E00FB0885 /* ViewController.swift in Sources */,
+				AEA448601FA2851D00F35C08 /* JokeAPIManager.swift in Sources */,
 				AE32108C1F8532E800893D28 /* AppDelegate.swift in Sources */,
 				AEA4485C1FA265FF00F35C08 /* Joke.swift in Sources */,
 				AEA4485E1FA281C200F35C08 /* Error.swift in Sources */,

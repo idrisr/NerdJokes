@@ -13,6 +13,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // TEST
+        JokeAPIManager.sharedInstance.printPublicJokes()
+        // END TEST
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Joke.jokeById(id: 2) { result in

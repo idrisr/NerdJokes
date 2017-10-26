@@ -13,7 +13,7 @@ enum JokeRouter: URLRequestConvertible {
     static let baseURLString = "http://localhost/"
 
     case get(Int)
-    case getAll
+    case getAll()
     case create([String: Any])
     case update([String: Any])
     case delete(Int)
