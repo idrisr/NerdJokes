@@ -14,6 +14,7 @@
 		AE3210931F8532E800893D28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE3210921F8532E800893D28 /* Assets.xcassets */; };
 		AE3210961F8532E800893D28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3210941F8532E800893D28 /* LaunchScreen.storyboard */; };
 		AEECC0651FA2491E00FB0885 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEECC0641FA2491E00FB0885 /* ViewController.swift */; };
+		AEECC0671FA24C3E00FB0885 /* JokeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEECC0661FA24C3E00FB0885 /* JokeRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,8 @@
 		AE3210921F8532E800893D28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE3210951F8532E800893D28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE3210971F8532E800893D28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AEECC0641FA2491E00FB0885 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "View Controllers/ViewController.swift"; sourceTree = "<group>"; };
+		AEECC0641FA2491E00FB0885 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AEECC0661FA24C3E00FB0885 /* JokeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeRouter.swift; sourceTree = "<group>"; };
 		CE4853833A26D92F4C554260 /* Pods_NerdJokesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NerdJokesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3A1636027E2C48D89851B6 /* Pods-NerdJokesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NerdJokesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NerdJokesTests/Pods-NerdJokesTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,10 +88,10 @@
 		AE32107F1F8532E800893D28 = {
 			isa = PBXGroup;
 			children = (
-				AE32108A1F8532E800893D28 /* NerdJokes */,
-				AE3210891F8532E800893D28 /* Products */,
-				10EDAD41C75CB5DA0939ECE2 /* Pods */,
 				694DDD66B110E439B0A74A77 /* Frameworks */,
+				AE32108A1F8532E800893D28 /* NerdJokes */,
+				10EDAD41C75CB5DA0939ECE2 /* Pods */,
+				AE3210891F8532E800893D28 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,11 +108,12 @@
 			isa = PBXGroup;
 			children = (
 				AE32108B1F8532E800893D28 /* AppDelegate.swift */,
-				AEECC0641FA2491E00FB0885 /* ViewController.swift */,
-				AE32108F1F8532E800893D28 /* Main.storyboard */,
 				AE3210921F8532E800893D28 /* Assets.xcassets */,
-				AE3210941F8532E800893D28 /* LaunchScreen.storyboard */,
 				AE3210971F8532E800893D28 /* Info.plist */,
+				AEECC0661FA24C3E00FB0885 /* JokeRouter.swift */,
+				AE3210941F8532E800893D28 /* LaunchScreen.storyboard */,
+				AE32108F1F8532E800893D28 /* Main.storyboard */,
+				AEECC0641FA2491E00FB0885 /* ViewController.swift */,
 			);
 			path = NerdJokes;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			files = (
 				AEECC0651FA2491E00FB0885 /* ViewController.swift in Sources */,
 				AE32108C1F8532E800893D28 /* AppDelegate.swift in Sources */,
+				AEECC0671FA24C3E00FB0885 /* JokeRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +352,7 @@
 				AE3210901F8532E800893D28 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		AE3210941F8532E800893D28 /* LaunchScreen.storyboard */ = {
@@ -356,6 +361,7 @@
 				AE3210951F8532E800893D28 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
