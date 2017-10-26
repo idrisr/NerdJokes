@@ -35,3 +35,5 @@ DerivedData/
 *.pins
 *.resolved
 *txt
+*db-journal
+__pycache__/
