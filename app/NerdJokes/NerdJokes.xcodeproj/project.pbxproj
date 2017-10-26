@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B5B2885838965F346886DFD /* Pods_NerdJokes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9F2246462A80989BAC29A60 /* Pods_NerdJokes.framework */; };
 		AE32108C1F8532E800893D28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE32108B1F8532E800893D28 /* AppDelegate.swift */; };
 		AE32108E1F8532E800893D28 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE32108D1F8532E800893D28 /* ViewController.swift */; };
 		AE3210911F8532E800893D28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE32108F1F8532E800893D28 /* Main.storyboard */; };
@@ -15,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A5751A74645AF8EBBC40FB1 /* Pods-NerdJokes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NerdJokes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NerdJokes/Pods-NerdJokes.debug.xcconfig"; sourceTree = "<group>"; };
+		9B5051B0EB1B0DF98B997FDF /* Pods-NerdJokes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NerdJokes.release.xcconfig"; path = "Pods/Target Support Files/Pods-NerdJokes/Pods-NerdJokes.release.xcconfig"; sourceTree = "<group>"; };
+		A9F2246462A80989BAC29A60 /* Pods_NerdJokes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NerdJokes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE3210881F8532E800893D28 /* NerdJokes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NerdJokes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE32108B1F8532E800893D28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AE32108D1F8532E800893D28 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B5B2885838965F346886DFD /* Pods_NerdJokes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7559EC4F8262A59EF82BF3E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9F2246462A80989BAC29A60 /* Pods_NerdJokes.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A1429122450772189CF519C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A5751A74645AF8EBBC40FB1 /* Pods-NerdJokes.debug.xcconfig */,
+				9B5051B0EB1B0DF98B997FDF /* Pods-NerdJokes.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		AE32107F1F8532E800893D28 = {
 			isa = PBXGroup;
 			children = (
 				AE32108A1F8532E800893D28 /* NerdJokes */,
 				AE3210891F8532E800893D28 /* Products */,
+				A1429122450772189CF519C4 /* Pods */,
+				7559EC4F8262A59EF82BF3E0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AE32109A1F8532E800893D28 /* Build configuration list for PBXNativeTarget "NerdJokes" */;
 			buildPhases = (
+				2FC9078F7666B7E04FA6DEBF /* [CP] Check Pods Manifest.lock */,
 				AE3210841F8532E800893D28 /* Sources */,
 				AE3210851F8532E800893D28 /* Frameworks */,
 				AE3210861F8532E800893D28 /* Resources */,
+				1B911B6DB2F6BA34651F11CA /* [CP] Embed Pods Frameworks */,
+				BD61033066A971C2CA481B2A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B911B6DB2F6BA34651F11CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NerdJokes/Pods-NerdJokes-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NerdJokes/Pods-NerdJokes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2FC9078F7666B7E04FA6DEBF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NerdJokes-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD61033066A971C2CA481B2A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NerdJokes/Pods-NerdJokes-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AE3210841F8532E800893D28 /* Sources */ = {
@@ -261,6 +342,7 @@
 		};
 		AE32109B1F8532E800893D28 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A5751A74645AF8EBBC40FB1 /* Pods-NerdJokes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 95TF88E9V3;
@@ -274,6 +356,7 @@
 		};
 		AE32109C1F8532E800893D28 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B5051B0EB1B0DF98B997FDF /* Pods-NerdJokes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 95TF88E9V3;
