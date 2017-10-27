@@ -15,13 +15,18 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        RandomCalls.oneJoke()
+    }
+}
+
+struct RandomCalls {
+    static func jokes() {
         // TEST
         JokeAPIManager.sharedInstance.printPublicJokes()
         // END TEST
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    static func oneJoke() {
         Joke.jokeById(id: 2) { result in
             if let error = result.error {
                 // got an error in getting the data, need to handle it

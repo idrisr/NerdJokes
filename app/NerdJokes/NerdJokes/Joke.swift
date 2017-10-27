@@ -81,18 +81,18 @@ extension Joke {
 
     class func jokeById(id: Int, completionHandler: @escaping (Result<Joke>) -> Void) {
         Alamofire.request(JokeRouter.get(id))
-            .responseJSON { response in
+            .responseJSON { (response: DataResponse<Any>) in
                 // check for errors from responseJSON
-                guard response.result.error == nil else {
+                guard response.error == nil else {
                     // got an error in getting the data, need to handle it
                     print("error calling GET on /jokes/\(id)")
-                    print(response.result.error!)
+                    print(response.error!)
                     completionHandler(.failure(response.result.error!))
                     return
                 }
 
                 // turn JSON in to Joke object
-                guard let json = response.result.value as? [String: Any] else {
+                guard let json = response.value as? [String: Any] else {
                     print("didn't get joke object as JSON from API")
                     completionHandler(.failure(BackendError.objectSerialization(reason: "Did not get a JSON dictionary in response")))
                     return
@@ -110,8 +110,7 @@ extension Joke {
     convenience init?(json: [String: Any]) {
         guard
             let setup = json["setup"] as? String,
-            let punchline = json["punchline"] as? String,
-            let votes = json["votes"] as? Int,
+            let punchline = json["punchline"] as? String, let votes = json["votes"] as? Int,
             let created_time = json["created_time"] as? Int,
             let updated_time = json["updated_time"] as? Int,
             let deleted_time = json["deleted_time"] as? Int,
@@ -137,7 +136,6 @@ extension Joke: CustomStringConvertible {
 
 extension Joke: CustomDebugStringConvertible {
     public var debugDescription: String {
-        // todo
-        return "do me"
+        return "id:\(id ?? -1) setup: \(setup)\n punchline: \(punchline)"
     }
 }

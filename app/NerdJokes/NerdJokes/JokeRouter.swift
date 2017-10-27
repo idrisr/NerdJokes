@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-enum JokeRouter: URLRequestConvertible {
+enum JokeRouter {
     static let baseURLString = "http://localhost/"
 
     case get(Int)
@@ -17,9 +17,10 @@ enum JokeRouter: URLRequestConvertible {
     case create([String: Any])
     case update([String: Any])
     case delete(Int)
+}
 
+extension JokeRouter: URLRequestConvertible {
     func asURLRequest() throws -> URLRequest {
-        // todo implement me
         var method: HTTPMethod {
             switch self {
             case .get:

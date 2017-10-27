@@ -94,7 +94,6 @@
 		AE32107F1F8532E800893D28 = {
 			isa = PBXGroup;
 			children = (
-				AEA4485F1FA2851D00F35C08 /* JokeAPIManager.swift */,
 				694DDD66B110E439B0A74A77 /* Frameworks */,
 				AE32108A1F8532E800893D28 /* NerdJokes */,
 				10EDAD41C75CB5DA0939ECE2 /* Pods */,
@@ -114,6 +113,7 @@
 		AE32108A1F8532E800893D28 /* NerdJokes */ = {
 			isa = PBXGroup;
 			children = (
+				AEA4485F1FA2851D00F35C08 /* JokeAPIManager.swift */,
 				AE32108B1F8532E800893D28 /* AppDelegate.swift */,
 				AE3210921F8532E800893D28 /* Assets.xcassets */,
 				AE3210971F8532E800893D28 /* Info.plist */,
