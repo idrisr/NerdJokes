@@ -10,17 +10,27 @@ import Foundation
 import CoreData
 
 final class CoreDataStack {
-    private let syncContext: NSManagedObjectContext
-    private let mainContext: NSManagedObjectContext
-    private let name: String
+    private let modelName: String
 
-    init(name: String) {
-        syncContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        self.name = name
+    init(modelName: String) {
+        self.modelName = modelName
     }
 
-    lazy var stack: NSPersistentContainer = {
-        return NSPersistentContainer(name: name, managedObjectModel: <#T##NSManagedObjectModel#>)
+    private lazy var syncContext: NSManagedObjectContext = {
+            return container.newBackgroundContext()
+    }()
+
+    var mainContext: NSManagedObjectContext {
+        return container.viewContext
+    }
+
+    lazy var container : NSPersistentContainer = {
+        let container = NSPersistentContainer(name: modelName)
+        container.loadPersistentStores { (storeDescription: NSPersistentStoreDescription, error: Error?) in
+            if let error = error {
+                fatalError("yo you got issues")
+            }
+        }
+        return container
     }()
 }
