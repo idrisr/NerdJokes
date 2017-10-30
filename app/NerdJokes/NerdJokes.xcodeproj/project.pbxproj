@@ -16,6 +16,8 @@
 		AEA4485C1FA265FF00F35C08 /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4485B1FA265FF00F35C08 /* Joke.swift */; };
 		AEA4485E1FA281C200F35C08 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4485D1FA281C200F35C08 /* Error.swift */; };
 		AEA448601FA2851D00F35C08 /* JokeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4485F1FA2851D00F35C08 /* JokeAPIManager.swift */; };
+		AEA448631FA7C61400F35C08 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA448621FA7C61400F35C08 /* CoreDataStack.swift */; };
+		AEA448661FA7C7C300F35C08 /* joke.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AEA448641FA7C7C300F35C08 /* joke.xcdatamodeld */; };
 		AEECC0651FA2491E00FB0885 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEECC0641FA2491E00FB0885 /* ViewController.swift */; };
 		AEECC0671FA24C3E00FB0885 /* JokeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEECC0661FA24C3E00FB0885 /* JokeRouter.swift */; };
 /* End PBXBuildFile section */
@@ -45,6 +47,8 @@
 		AEA4485B1FA265FF00F35C08 /* Joke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
 		AEA4485D1FA281C200F35C08 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		AEA4485F1FA2851D00F35C08 /* JokeAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeAPIManager.swift; sourceTree = "<group>"; };
+		AEA448621FA7C61400F35C08 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		AEA448651FA7C7C300F35C08 /* joke.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = joke.xcdatamodel; sourceTree = "<group>"; };
 		AEECC0641FA2491E00FB0885 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AEECC0661FA24C3E00FB0885 /* JokeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeRouter.swift; sourceTree = "<group>"; };
 		CE4853833A26D92F4C554260 /* Pods_NerdJokesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NerdJokesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +117,7 @@
 		AE32108A1F8532E800893D28 /* NerdJokes */ = {
 			isa = PBXGroup;
 			children = (
+				AEA448611FA7C5EF00F35C08 /* CoreDataStack */,
 				AEA4485F1FA2851D00F35C08 /* JokeAPIManager.swift */,
 				AE32108B1F8532E800893D28 /* AppDelegate.swift */,
 				AE3210921F8532E800893D28 /* Assets.xcassets */,
@@ -125,6 +130,15 @@
 				AEA4485D1FA281C200F35C08 /* Error.swift */,
 			);
 			path = NerdJokes;
+			sourceTree = "<group>";
+		};
+		AEA448611FA7C5EF00F35C08 /* CoreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				AEA448621FA7C61400F35C08 /* CoreDataStack.swift */,
+				AEA448641FA7C7C300F35C08 /* joke.xcdatamodeld */,
+			);
+			path = CoreDataStack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,7 +352,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEA448631FA7C61400F35C08 /* CoreDataStack.swift in Sources */,
 				AEECC0651FA2491E00FB0885 /* ViewController.swift in Sources */,
+				AEA448661FA7C7C300F35C08 /* joke.xcdatamodeld in Sources */,
 				AEA448601FA2851D00F35C08 /* JokeAPIManager.swift in Sources */,
 				AE32108C1F8532E800893D28 /* AppDelegate.swift in Sources */,
 				AEA4485C1FA265FF00F35C08 /* Joke.swift in Sources */,
@@ -587,6 +603,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AEA448641FA7C7C300F35C08 /* joke.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AEA448651FA7C7C300F35C08 /* joke.xcdatamodel */,
+			);
+			currentVersion = AEA448651FA7C7C300F35C08 /* joke.xcdatamodel */;
+			path = joke.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AE3210801F8532E800893D28 /* Project object */;
 }

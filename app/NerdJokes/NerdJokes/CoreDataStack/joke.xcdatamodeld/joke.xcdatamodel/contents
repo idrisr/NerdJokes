@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13241" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Joke" representedClassName="Joke" syncable="YES" codeGenerationType="class">
+        <attribute name="created_time" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="deleted_flag" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="deleted_time" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="punchline" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="setup" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updated_time" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="votes" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Joke" positionX="-63" positionY="-18" width="128" height="150"/>
+    </elements>
+</model>
